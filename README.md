@@ -1,6 +1,6 @@
 <h3> BetterSight-App </h3> 
 
-BetterSight Workout is vision training app that aims to increase your visual acuity.
+BetterSight Workout is vision training app that aims to increase visual acuity.
 
 
 Press the direction of Landolt C for correct answers. After each correct aswer, C letter will get smaller. Therefore challenge will increase.
