@@ -78,7 +78,6 @@ struct CViewInfoSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: Button("Done") { dismiss() } )
             .background(Color(white: 0.9))
-//            .opacity(0.3)
         }
     }
     

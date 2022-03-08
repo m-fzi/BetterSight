@@ -14,4 +14,4 @@ struct BetterSightApp: App {
             MainView()
         }
     }
-} 
+}
