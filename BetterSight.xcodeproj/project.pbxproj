@@ -12,11 +12,12 @@
 		0532C43127A7EAE000F081E2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532C43027A7EAE000F081E2 /* MainView.swift */; };
 		0532C43327A7EAE100F081E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0532C43227A7EAE100F081E2 /* Assets.xcassets */; };
 		0532C43627A7EAE100F081E2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0532C43527A7EAE100F081E2 /* Preview Assets.xcassets */; };
-		0532C43F27A7EB2800F081E2 /* CView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532C43E27A7EB2800F081E2 /* CView.swift */; };
-		0535417027AFDAB000263F15 /* LandoltC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0535416F27AFDAB000263F15 /* LandoltC.swift */; };
+		0532C43F27A7EB2800F081E2 /* CGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532C43E27A7EB2800F081E2 /* CGameView.swift */; };
+		0535417027AFDAB000263F15 /* Lib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0535416F27AFDAB000263F15 /* Lib.swift */; };
 		055F77F027AEF55A00CFA23E /* NavigationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055F77EF27AEF55A00CFA23E /* NavigationExtension.swift */; };
 		05B6D68527D7234A002C3258 /* CSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B6D68427D7234A002C3258 /* CSettingsView.swift */; };
 		05B6D68727D77D23002C3258 /* CGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B6D68627D77D23002C3258 /* CGame.swift */; };
+		05B6D68927D868CF002C3258 /* CGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B6D68827D868CF002C3258 /* CGameViewModel.swift */; };
 		05BAF4BB27C3ACCE00CA1416 /* CViewInfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAF4BA27C3ACCE00CA1416 /* CViewInfoSheet.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,12 +28,13 @@
 		0532C43027A7EAE000F081E2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0532C43227A7EAE100F081E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0532C43527A7EAE100F081E2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		0532C43E27A7EB2800F081E2 /* CView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CView.swift; sourceTree = "<group>"; };
+		0532C43E27A7EB2800F081E2 /* CGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGameView.swift; sourceTree = "<group>"; };
 		0532C44327A7EC7B00F081E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		0535416F27AFDAB000263F15 /* LandoltC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandoltC.swift; sourceTree = "<group>"; };
+		0535416F27AFDAB000263F15 /* Lib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lib.swift; sourceTree = "<group>"; };
 		055F77EF27AEF55A00CFA23E /* NavigationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationExtension.swift; sourceTree = "<group>"; };
 		05B6D68427D7234A002C3258 /* CSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSettingsView.swift; sourceTree = "<group>"; };
 		05B6D68627D77D23002C3258 /* CGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGame.swift; sourceTree = "<group>"; };
+		05B6D68827D868CF002C3258 /* CGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGameViewModel.swift; sourceTree = "<group>"; };
 		05BAF4BA27C3ACCE00CA1416 /* CViewInfoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CViewInfoSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,11 +79,12 @@
 				0532C44327A7EC7B00F081E2 /* Info.plist */,
 				0532C42E27A7EAE000F081E2 /* BetterSightApp.swift */,
 				0532C43027A7EAE000F081E2 /* MainView.swift */,
-				0532C43E27A7EB2800F081E2 /* CView.swift */,
-				05BAF4BA27C3ACCE00CA1416 /* CViewInfoSheet.swift */,
-				05B6D68427D7234A002C3258 /* CSettingsView.swift */,
+				0532C43E27A7EB2800F081E2 /* CGameView.swift */,
+				05B6D68827D868CF002C3258 /* CGameViewModel.swift */,
 				05B6D68627D77D23002C3258 /* CGame.swift */,
-				0535416F27AFDAB000263F15 /* LandoltC.swift */,
+				05B6D68427D7234A002C3258 /* CSettingsView.swift */,
+				05BAF4BA27C3ACCE00CA1416 /* CViewInfoSheet.swift */,
+				0535416F27AFDAB000263F15 /* Lib.swift */,
 				055F77EF27AEF55A00CFA23E /* NavigationExtension.swift */,
 				052367F527A946E500765B66 /* Fonts */,
 				0532C43227A7EAE100F081E2 /* Assets.xcassets */,
@@ -173,9 +176,10 @@
 				0532C43127A7EAE000F081E2 /* MainView.swift in Sources */,
 				055F77F027AEF55A00CFA23E /* NavigationExtension.swift in Sources */,
 				05B6D68727D77D23002C3258 /* CGame.swift in Sources */,
-				0532C43F27A7EB2800F081E2 /* CView.swift in Sources */,
+				0532C43F27A7EB2800F081E2 /* CGameView.swift in Sources */,
 				05BAF4BB27C3ACCE00CA1416 /* CViewInfoSheet.swift in Sources */,
-				0535417027AFDAB000263F15 /* LandoltC.swift in Sources */,
+				0535417027AFDAB000263F15 /* Lib.swift in Sources */,
+				05B6D68927D868CF002C3258 /* CGameViewModel.swift in Sources */,
 				0532C42F27A7EAE000F081E2 /* BetterSightApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
