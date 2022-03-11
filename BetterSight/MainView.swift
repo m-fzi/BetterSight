@@ -17,22 +17,22 @@ struct MainView: View {
             ZStack {
                 Color(white: 0.85)
                     .edgesIgnoringSafeArea(.all)
-                cWorkoutButton
+                cGameViewButton
                     .frame(width: geo.size.width / 1.1, height: 150)
                 cSettingsButton
                     .position(x: geo.size.width / 2, y: geo.size.height / 1.45)
                 
             }
-            .navigate(to: CGameView(game: game), tag: "CView", binding: $moveViewTo)
+            .navigate(to: CGameView(game: game), tag: "CGameView", binding: $moveViewTo)
             .sheet(isPresented: $showingCSettings) {
                 CSettingsView()
             }
         }
     }
     
-    var cWorkoutButton: some View {
+    var cGameViewButton: some View {
         Button {
-            moveViewTo = "CView"
+            moveViewTo = "CGameView"
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 25)

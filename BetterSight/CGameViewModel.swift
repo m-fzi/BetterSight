@@ -6,30 +6,30 @@
 //
 
 import Foundation
+import SwiftUI
 
 class CGameViewModel: ObservableObject {
     typealias CLetter = CGame.CLetter
     
-    private static func makeCGame() -> CGame {
-        CGame(cLetter: CGame.CLetter())
+    @Published private var model: CGame
+    
+    init() {
+        model = CGame(cLetter: CGame.CLetter())
     }
-    
-    @Published private var model = makeCGame()
-    
+
     var cLetter: CGame.CLetter {
         model.cLetter
     }
     
     
-    
     //MARK: - Indent(s)
     
-    func chooseDirection(_ key: CGame.Direction) {
-        model.chooseDirection(key)
+    func chooseDirection(direction: CGame.Direction, inGeometry: GeometryProxy) {
+        model.chooseDirection(direction, inGeometry)
     }
     
     func restart() {
-        model = CGameViewModel.makeCGame()
+        model = CGame(cLetter: CGame.CLetter())
     }
     
     func moveLetter() {

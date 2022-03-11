@@ -36,16 +36,16 @@ struct CGame {
     }
     
 
-    mutating func chooseDirection(_ direction: Direction) {
+    mutating func chooseDirection(_ direction: Direction, _ inGeometry: GeometryProxy) {
         if direction == cLetter.direction {
-            correctAnswer()
+            correctAnswer(inGeometry)
         } else {
             wrongAnswer()
         }
     }
     
     private let rotationDegrees: [Double] = [0, 90, 180, 270]
-    mutating private func correctAnswer() {
+    mutating private func correctAnswer(_ inGeometry: GeometryProxy) {
         cLetter.rotation = rotationDegrees.randomElement() ?? 0
         
         if !cLetter.isFrozen && cLetter.size >= 8 {
@@ -53,6 +53,10 @@ struct CGame {
             cLetter.level += 1
         } else if cLetter.size < 8 {
             roundUp()
+        }
+        
+        if cLetter.isMoving {
+            offsetCRandomly(inGeometry)
         }
     }
     
@@ -67,7 +71,18 @@ struct CGame {
     }
     
     mutating func toggleLetterMovement() {
+        if cLetter.isMoving {
+            cLetter.offsetXY.0 = 0
+            cLetter.offsetXY.1 = 0
+        }
         cLetter.isMoving.toggle()
+    }
+    
+    mutating private func offsetCRandomly(_ inGeometry: GeometryProxy) {
+        let width = inGeometry.size.width
+        let height = inGeometry.size.height
+        cLetter.offsetXY.0 = Double.random(in: -(width/2 - cLetter.size/4 - 3)...(width/2 - cLetter.size/4 - 3))
+        cLetter.offsetXY.1 = Double.random(in: -(height*0.3 - cLetter.size/4 - 3)...(height/4 - cLetter.size/4 - 3))
     }
     
     mutating func freezeLetter() {

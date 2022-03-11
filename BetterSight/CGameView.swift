@@ -29,12 +29,13 @@ struct CGameView: View {
                     Spacer()
                 }
                 .frame(height: geo.size.width > 500 ? 100 : 50)
-                    
+        //LandoltC start
                 ZStack {
                     Color.clear
                     LandoltC(landoltC: game.cLetter)
+                        .offset(x: game.cLetter.offsetXY.0, y: game.cLetter.offsetXY.0)
                 }
-                
+        //LandoltC end
                 VStack {
                     Spacer()
                     HStack {
@@ -48,10 +49,41 @@ struct CGameView: View {
                         }
                         .padding(.trailing, 3)
                     }
-                    controlGround
+        //Control Ground Start
+                    GeometryReader { geo2 in
+                        HStack {
+                            Button {
+                                game.chooseDirection(direction: .left, inGeometry: geo)
+                            } label: {
+                                ArrowKey(direction: .left)
+                            }
+                            VStack {
+                                Button {
+                                    game.chooseDirection(direction: .up, inGeometry: geo)
+                                } label: {
+                                    ArrowKey(direction: .up)
+                                }
+                                Button {
+                                    game.chooseDirection(direction: .down, inGeometry: geo)
+                                } label: {
+                                    ArrowKey(direction: .down)
+                                }
+                            }
+                            .frame(width: geo.size.width / 1.9)
+                            
+                            Button {
+                                game.chooseDirection(direction: .right, inGeometry: geo)
+                            } label: {
+                                ArrowKey(direction: .right)
+                            }
+                        
+                        }
+                    }
+                    
                         .foregroundColor(.gray)
                         .frame(width: geo.size.width, height: geo.size.height / 4)
                         .opacity(0.4)
+            //Control Ground End
                 }
             }
         }
@@ -133,37 +165,7 @@ struct CGameView: View {
         }
     }
     
-    var controlGround: some View {
-        GeometryReader { geo in
-            HStack {
-                Button {
-                    game.chooseDirection(.left)
-                } label: {
-                    ArrowKey(direction: .left)
-                }
-                VStack {
-                    Button {
-                        game.chooseDirection(.up)
-                    } label: {
-                        ArrowKey(direction: .up)
-                    }
-                    Button {
-                        game.chooseDirection(.down)
-                    } label: {
-                        ArrowKey(direction: .down)
-                    }
-                }
-                .frame(width: geo.size.width / 1.9)
-                
-                Button {
-                    game.chooseDirection(.right)
-                } label: {
-                    ArrowKey(direction: .right)
-                }
-            
-            }
-        }
-    }
+    
 }
 
 struct ArrowKey: View {
