@@ -9,20 +9,16 @@ import SwiftUI
 
 struct CSettingsView: View {
     @Environment(\.dismiss) var dismiss
+    @ObservedObject var settings = CSettings()
     
-    @State private var preferredCSizeOnStart = 3
-    @State private var preferredCSizeAfterRound = 3
-    let shrinkageRates = ["slow", "medium", "fast"]
-    @State private var shrinkageRate = "medium"
-    
-    
-    let cSizes = [1, 2, 3, 4, 5]
+    let cSizes: [Double] = [60, 100, 200, 300, 400]
+    let shrinkageRates: [Double] = [0.7, 0.8, 0.9]
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    Picker("CSizeOnStart", selection: $preferredCSizeOnStart) {
+                    Picker("CSizeOnStart", selection: $settings.settingComponents.cSizeAtStart) {
                         ForEach(cSizes, id: \.self) {
                             Text($0, format: .number)
                         }
@@ -32,7 +28,7 @@ struct CSettingsView: View {
                 }
                 
                 Section {
-                    Picker("CSizeAfterRound", selection: $preferredCSizeAfterRound) {
+                    Picker("CSizeAfterRound", selection: $settings.settingComponents.cSizeAfterEachRound) {
                         ForEach(cSizes, id: \.self) {
                             Text($0, format: .number)
                         }
@@ -40,22 +36,23 @@ struct CSettingsView: View {
                 } header: {
                     Text("C Size After Each Round")
                 }
-                
+
                 Section {
-                    Picker("Shrinkage Rate", selection: $shrinkageRate) {
+                    Picker("Shrinkage Rate", selection: $settings.settingComponents.shrinkageRate) {
                         ForEach(shrinkageRates, id: \.self) {
-                            Text($0)
+                            Text($0, format: .number)
                         }
                     }.pickerStyle(.segmented)
                 } header: {
                     Text("Shrinkage Rate")
                 }
             }
-                .navigationTitle("Settings")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(trailing: Button("Done") { dismiss() } )
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: Button("Save") {
+                dismiss() } )
+            .navigationBarItems(leading: Button("Reset") { settings.reset() })
         }
-        
     }
 }
 

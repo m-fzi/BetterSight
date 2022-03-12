@@ -16,8 +16,8 @@ struct CGame {
     }
     
     struct CLetter {
-        var size: Double = 400
-        var roundUpSize: Double = 60
+        var size: Double = CSettings().settingComponents.cSizeAtStart
+        var roundUpSize: Double = CSettings().settingComponents.cSizeAfterEachRound
         var rotation: Double = 0
         var direction: Direction {
             if rotation == 0 { return .right }
@@ -30,7 +30,7 @@ struct CGame {
         var isFrozen = false
         var isMoving = false
         var level = 0
-        var shrinkageRate: Double = 0.8
+        var shrinkageRate: Double = CSettings().settingComponents.shrinkageRate
         var wrongAnswerCount = 0
         var round = 0
     }

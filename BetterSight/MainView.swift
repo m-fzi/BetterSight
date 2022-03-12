@@ -12,6 +12,7 @@ struct MainView: View {
     @State private var showingCSettings = false
     
     var game = CGameViewModel()
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
