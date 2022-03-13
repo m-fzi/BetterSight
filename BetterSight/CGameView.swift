@@ -14,83 +14,38 @@ struct CGameView: View {
     @State private var showingInfoSheet = false
     
     var body: some View {
-        ZStack {
-            GeometryReader { geo in
+        GeometryReader { geo in
+            VStack {
+        //Header
                 HStack {
                     menuButton
                     Spacer()
-                    infoButton
+                    moveButton
                 }
                 .padding()
+                .frame(height: geo.size.height/10)
+                .background(.gray)
                 
-                HStack {
-                    Spacer()
-                    scoreView
-                    Spacer()
-                }
-                .frame(height: geo.size.width > 500 ? 100 : 50)
-        //LandoltC start
-                ZStack {
-                    Color.clear
-                    LandoltC(landoltC: game.cLetter)
-                        .offset(x: game.cLetter.offsetXY.0, y: game.cLetter.offsetXY.0)
-                }
-        //LandoltC end
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Group {
-                                restartButton
-                                moveButton
-                                freezeButton
-                            }
-                        }
-                        .padding(.trailing, 3)
-                    }
-        //Control Ground Start
-                    GeometryReader { geo2 in
-                        HStack {
-                            Button {
-                                game.chooseDirection(direction: .left, inGeometry: geo)
-                            } label: {
-                                ArrowKey(direction: .left)
-                            }
-                            VStack {
-                                Button {
-                                    game.chooseDirection(direction: .up, inGeometry: geo)
-                                } label: {
-                                    ArrowKey(direction: .up)
-                                }
-                                Button {
-                                    game.chooseDirection(direction: .down, inGeometry: geo)
-                                } label: {
-                                    ArrowKey(direction: .down)
-                                }
-                            }
-                            .frame(width: geo.size.width / 1.9)
-                            
-                            Button {
-                                game.chooseDirection(direction: .right, inGeometry: geo)
-                            } label: {
-                                ArrowKey(direction: .right)
-                            }
+        //LandoltC
+                GeometryReader { geometry in
+                    ZStack {
+                        Color.clear
+                        LandoltC(landoltC: game.cLetter)
+                            .onAppear { game.fetchGeometry(geometry) }
                         
-                        }
                     }
-                    
-                        .foregroundColor(.gray)
-                        .frame(width: geo.size.width, height: geo.size.height / 4)
-                        .opacity(0.4)
-            //Control Ground End
                 }
+        //ControlGround
+                controlGround
+                    .foregroundColor(.gray)
+                    .frame(width: geo.size.width, height: geo.size.height / 4)
+                    .opacity(0.4)
             }
         }
         .sheet(isPresented: $showingInfoSheet) {
             CViewInfoSheet()
         }
-        .navigate(to: MainView(), tag: "MainView", binding: $moveViewTo)
+        .navigate(to: MainView(game: game), tag: "MainView", binding: $moveViewTo)
     }
     
     var menuButton: some View {
@@ -165,7 +120,37 @@ struct CGameView: View {
         }
     }
     
-    
+    var controlGround: some View {
+        GeometryReader { geo in
+            HStack {
+                Button {
+                    game.chooseDirection(direction: .left)
+                } label: {
+                    ArrowKey(direction: .left)
+                }
+                VStack {
+                    Button {
+                        game.chooseDirection(direction: .up)
+                    } label: {
+                        ArrowKey(direction: .up)
+                    }
+                    Button {
+                        game.chooseDirection(direction: .down)
+                    } label: {
+                        ArrowKey(direction: .down)
+                    }
+                }
+                .frame(width: geo.size.width / 1.9)
+                
+                Button {
+                    game.chooseDirection(direction: .right)
+                } label: {
+                    ArrowKey(direction: .right)
+                }
+            
+            }
+        }
+    }
 }
 
 struct ArrowKey: View {
@@ -217,12 +202,13 @@ struct ArrowKey: View {
 }
 
 struct LandoltC: View {
-    var landoltC: CGameViewModel.CLetter
+    var landoltC: CGame.CLetter
     
     var body: some View {
         Text("C")
             .font(.custom("OpticianSans-Regular", size: landoltC.size))
             .rotationEffect(Angle(degrees: landoltC.rotation))
+            .offset(x: landoltC.offsetXY.0, y: landoltC.offsetXY.0)
     }
 
 }

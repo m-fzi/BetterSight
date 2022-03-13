@@ -49,8 +49,7 @@ struct CSettingsView: View {
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: Button("Save") {
-                dismiss() } )
+            .navigationBarItems(trailing: Button("Save") { dismiss() } )
             .navigationBarItems(leading: Button("Reset") { settings.reset() })
         }
     }

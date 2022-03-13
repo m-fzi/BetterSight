@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct BetterSightApp: App {
+    let game = CGameViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(game: game)
         }
     }
 }

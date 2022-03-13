@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CGame {
     var cLetter: CLetter
+    var fetchedGeometry: GeometryProxy?
     
     enum Direction: CaseIterable {
         case right, up, left, down
@@ -18,6 +19,7 @@ struct CGame {
     struct CLetter {
         var size: Double = CSettings().settingComponents.cSizeAtStart
         var roundUpSize: Double = CSettings().settingComponents.cSizeAfterEachRound
+        var shrinkageRate: Double = CSettings().settingComponents.shrinkageRate
         var rotation: Double = 0
         var direction: Direction {
             if rotation == 0 { return .right }
@@ -30,22 +32,21 @@ struct CGame {
         var isFrozen = false
         var isMoving = false
         var level = 0
-        var shrinkageRate: Double = CSettings().settingComponents.shrinkageRate
         var wrongAnswerCount = 0
         var round = 0
     }
     
 
-    mutating func chooseDirection(_ direction: Direction, _ inGeometry: GeometryProxy) {
+    mutating func chooseDirection(_ direction: Direction) {
         if direction == cLetter.direction {
-            correctAnswer(inGeometry)
+            correctAnswer()
         } else {
             wrongAnswer()
         }
     }
     
     private let rotationDegrees: [Double] = [0, 90, 180, 270]
-    mutating private func correctAnswer(_ inGeometry: GeometryProxy) {
+    mutating private func correctAnswer() {
         cLetter.rotation = rotationDegrees.randomElement() ?? 0
         
         if !cLetter.isFrozen && cLetter.size >= 8 {
@@ -56,7 +57,7 @@ struct CGame {
         }
         
         if cLetter.isMoving {
-            offsetCRandomly(inGeometry)
+            offsetCRandomly()
         }
     }
     
@@ -78,11 +79,11 @@ struct CGame {
         cLetter.isMoving.toggle()
     }
     
-    mutating private func offsetCRandomly(_ inGeometry: GeometryProxy) {
-        let width = inGeometry.size.width
-        let height = inGeometry.size.height
+    mutating private func offsetCRandomly() {
+        let width = fetchedGeometry!.size.width
+        let height = fetchedGeometry!.size.height
         cLetter.offsetXY.0 = Double.random(in: -(width/2 - cLetter.size/4 - 3)...(width/2 - cLetter.size/4 - 3))
-        cLetter.offsetXY.1 = Double.random(in: -(height*0.3 - cLetter.size/4 - 3)...(height/4 - cLetter.size/4 - 3))
+        cLetter.offsetXY.1 = Double.random(in: -(height/2 - cLetter.size/4 - 3)...(height/2 - cLetter.size/4 - 3))
     }
     
     mutating func freezeLetter() {

@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 class CGameViewModel: ObservableObject {
-    typealias CLetter = CGame.CLetter
     
     @Published private var model: CGame
     
@@ -24,8 +23,8 @@ class CGameViewModel: ObservableObject {
     
     //MARK: - Indent(s)
     
-    func chooseDirection(direction: CGame.Direction, inGeometry: GeometryProxy) {
-        model.chooseDirection(direction, inGeometry)
+    func chooseDirection(direction: CGame.Direction) {
+        model.chooseDirection(direction)
     }
     
     func restart() {
@@ -40,5 +39,7 @@ class CGameViewModel: ObservableObject {
         model.freezeLetter()
     }
     
-
+    func fetchGeometry(_ geometry: GeometryProxy) {
+        model.fetchedGeometry = geometry
+    }
 }

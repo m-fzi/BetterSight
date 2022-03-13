@@ -11,7 +11,7 @@ struct MainView: View {
     @State private var moveViewTo: String? = nil
     @State private var showingCSettings = false
     
-    var game = CGameViewModel()
+    let game: CGameViewModel
     
     var body: some View {
         GeometryReader { geo in
@@ -75,6 +75,6 @@ struct MainView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView(game: CGameViewModel())
     }
 }
