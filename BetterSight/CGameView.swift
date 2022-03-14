@@ -1,221 +1,136 @@
 //
-//  NewCView.swift
+//  CGameView.swift
 //  BetterSight
 //
-//  Created by f on 31.01.2022.
+//  Created by f on 13.03.2022.
 //
 
 import SwiftUI
 
 struct CGameView: View {
-    @ObservedObject var game: CGameViewModel
-    
     @State private var moveViewTo: String? = nil
-    @State private var showingInfoSheet = false
+    @State private var tabIndex = 0
+    
+    @ObservedObject var gameLeft: CGameViewModel
+    @ObservedObject var gameBoth: CGameViewModel
+    @ObservedObject var gameRight: CGameViewModel
     
     var body: some View {
         GeometryReader { geo in
             VStack {
-        //Header
-                HStack {
-                    menuButton
-                    Spacer()
-                    moveButton
+                VStack {
+                    ZStack {
+                        HStack {
+                            menuButton
+                            Spacer()
+                            restartButton
+                        }
+                        scoreView
+                    }
+                    
+                    CustomTopTabBar(tabIndex: $tabIndex)
                 }
                 .padding()
                 .frame(height: geo.size.height/10)
-                .background(.gray)
-                
-        //LandoltC
-                GeometryReader { geometry in
-                    ZStack {
-                        Color.clear
-                        LandoltC(landoltC: game.cLetter)
-                            .onAppear { game.fetchGeometry(geometry) }
-                        
-                    }
+                .background(Color(white: 0.8))
+                if tabIndex == 0 {
+                    CGameBody(game: gameLeft)
                 }
-        //ControlGround
-                controlGround
-                    .foregroundColor(.gray)
-                    .frame(width: geo.size.width, height: geo.size.height / 4)
-                    .opacity(0.4)
+                else if tabIndex ==  1 {
+                    CGameBody(game: gameBoth)
+                }
+                else {
+                    CGameBody(game: gameRight)
+                }
             }
         }
-        .sheet(isPresented: $showingInfoSheet) {
-            CViewInfoSheet()
-        }
-        .navigate(to: MainView(game: game), tag: "MainView", binding: $moveViewTo)
+        .navigate(to: MainView(gameLeft: gameLeft, gameBoth: gameBoth, gameRight: gameRight), tag: "MainView", binding: $moveViewTo)
     }
     
     var menuButton: some View {
         Button {
             moveViewTo = "MainView"
         } label: {
-            Image(systemName: "square.grid.3x3.fill")
+            Image(systemName: "square.grid.2x2.fill")
                 .resizable()
-                .foregroundColor(.black)
+                .foregroundColor(Color(white: 0.2))
         }
         .frame(width: 30, height: 30)
     }
     
-    var infoButton: some View {
+    var restartButton: some View {
         Button {
-            showingInfoSheet = true
+            gameLeft.restart()
+            gameBoth.restart()
+            gameRight.restart()
         } label: {
-            Image(systemName: "info.circle")
-                .resizable()
-                .foregroundColor(.gray)
-                .frame(width: 30, height: 30)
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .frame(width: 90, height: 30)
+                    .foregroundColor(Color(white: 0.4))
+                    .shadow(color: .black, radius: 2)
+                Text("Restart")
+                    .fontWeight(.heavy)
+                    .foregroundColor(.white)
+                
+            }
         }
     }
     
     var scoreView: some View {
-        HStack {
-            Text(String(game.cLetter.round) + " :")
-                .frame(width: 60)
-            Text(String(game.cLetter.level))
-                .frame(width: 60, alignment: .leading)
-            Text(String(game.cLetter.wrongAnswerCount))
-                .frame(width: 60, alignment: .leading)
-        }
-        .font(.title)
-    }
-    
-    var moveButton: some View {
-        Button {
-            game.moveLetter()
-//            if !game.landoltC.isMoving{ game.landoltC.offsetXY = (0, 0) }
-        } label: {
-            Image(systemName: "move.3d")
-                .frame(width: 35, height: 35)
-                .foregroundColor(game.cLetter.isMoving ? .black : .white)
-                .background(.gray)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+        switch tabIndex {
+        case 0:
+            return ScoreViewOfGame(ofWhichGamesCLetter: gameLeft.cLetter)
+        case 1:
+            return ScoreViewOfGame(ofWhichGamesCLetter: gameBoth.cLetter)
+        default:
+            return ScoreViewOfGame(ofWhichGamesCLetter: gameRight.cLetter)
         }
     }
-    
-    var freezeButton: some View {
-        Button {
-            game.freeze()
-        } label: {
-            Image(systemName: "snowflake")
-                .frame(width: 35, height: 35)
-                .foregroundColor(game.cLetter.isFrozen ? .black : .white)
-                .background(.gray)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+}
+
+struct CustomTopTabBar: View {
+    @Binding var tabIndex: Int
+    var body: some View {
+        HStack(spacing: 0) {
+            TabBarButton(text: "Left", isSelected: .constant(tabIndex == 0))
+                .onTapGesture { onButtonTapped(index: 0) }
+            TabBarButton(text: "Both", isSelected: .constant(tabIndex == 1))
+                .onTapGesture { onButtonTapped(index: 1) }
+            TabBarButton(text: "Right", isSelected: .constant(tabIndex == 2))
+                .onTapGesture { onButtonTapped(index: 2) }
         }
     }
     
-    var restartButton: some View {
-        Button {
-            game.restart()
-        } label: {
-            Image(systemName: "arrow.counterclockwise")
-                .frame(width: 35, height: 35)
-                .foregroundColor(.white)
-                .background(.gray)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+    private func onButtonTapped(index: Int) {
+        withAnimation { tabIndex = index }
+    }
+}
+
+struct TabBarButton: View {
+    let text: String
+    @Binding var isSelected: Bool
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .frame(width: 100, height: 30)
+                .foregroundColor(isSelected ? .gray : .white)
+            Text(text)
+                .fontWeight(.heavy)
+                .foregroundColor(isSelected ? .white : .black)
                 
         }
     }
-    
-    var controlGround: some View {
-        GeometryReader { geo in
-            HStack {
-                Button {
-                    game.chooseDirection(direction: .left)
-                } label: {
-                    ArrowKey(direction: .left)
-                }
-                VStack {
-                    Button {
-                        game.chooseDirection(direction: .up)
-                    } label: {
-                        ArrowKey(direction: .up)
-                    }
-                    Button {
-                        game.chooseDirection(direction: .down)
-                    } label: {
-                        ArrowKey(direction: .down)
-                    }
-                }
-                .frame(width: geo.size.width / 1.9)
-                
-                Button {
-                    game.chooseDirection(direction: .right)
-                } label: {
-                    ArrowKey(direction: .right)
-                }
-            
-            }
-        }
-    }
 }
 
-struct ArrowKey: View {
-    enum Direction {
-        case right, up, left, down
-    }
-    var direction: Direction
-    
-    var body: some View {
-        ZStack{
-            Rectangle()
-            if direction == .right {
-                arrowRight
-            } else if direction == .up {
-                arrowUp
-            } else if direction == .left {
-                arrowLeft
-            } else if direction == .down {
-                arrowDown
-            }
-            
-            
-        }
-    }
-    
-    var arrowRight: some View {
-        Image(systemName: "arrowtriangle.right")
-            .resizable()
-            .frame(width: 30, height: 30)
-    }
-    
-    var arrowUp: some View {
-        Image(systemName: "arrowtriangle.up")
-            .resizable()
-            .frame(width: 30, height: 30)
-    }
-    
-    var arrowLeft: some View {
-        Image(systemName: "arrowtriangle.left")
-            .resizable()
-            .frame(width: 30, height: 30)
-    }
-    
-    var arrowDown: some View {
-        Image(systemName: "arrowtriangle.down")
-            .resizable()
-            .frame(width: 30, height: 30)
-    }
-}
 
-struct LandoltC: View {
-    var landoltC: CGame.CLetter
-    
-    var body: some View {
-        Text("C")
-            .font(.custom("OpticianSans-Regular", size: landoltC.size))
-            .rotationEffect(Angle(degrees: landoltC.rotation))
-            .offset(x: landoltC.offsetXY.0, y: landoltC.offsetXY.0)
-    }
 
-}
 
-struct NewCView_Previews: PreviewProvider {
+
+
+
+struct CMainView_Previews: PreviewProvider {
     static var previews: some View {
-        let game = CGameViewModel()
-        CGameView(game: game)
+        CGameView(gameLeft: CGameViewModel(), gameBoth: CGameViewModel(), gameRight: CGameViewModel())
     }
 }

@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct BetterSightApp: App {
-    let game = CGameViewModel()
+    var gameLeft = CGameViewModel()
+    var gameBoth = CGameViewModel()
+    var gameRight = CGameViewModel()
     
     var body: some Scene {
         WindowGroup {
-            MainView(game: game)
+            MainView(gameLeft: gameLeft, gameBoth: gameBoth, gameRight: gameRight)
         }
     }
 }

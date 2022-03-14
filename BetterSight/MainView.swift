@@ -11,7 +11,9 @@ struct MainView: View {
     @State private var moveViewTo: String? = nil
     @State private var showingCSettings = false
     
-    let game: CGameViewModel
+    var gameLeft: CGameViewModel
+    var gameBoth: CGameViewModel
+    var gameRight: CGameViewModel
     
     var body: some View {
         GeometryReader { geo in
@@ -24,7 +26,7 @@ struct MainView: View {
                     .position(x: geo.size.width / 2, y: geo.size.height / 1.45)
                 
             }
-            .navigate(to: CGameView(game: game), tag: "CGameView", binding: $moveViewTo)
+            .navigate(to: CGameView(gameLeft: gameLeft, gameBoth: gameBoth, gameRight: gameRight), tag: "CGameView", binding: $moveViewTo)
             .sheet(isPresented: $showingCSettings) {
                 CSettingsView()
             }
@@ -75,6 +77,6 @@ struct MainView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(game: CGameViewModel())
+        MainView(gameLeft: CGameViewModel(), gameBoth: CGameViewModel(), gameRight: CGameViewModel())
     }
 }
