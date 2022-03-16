@@ -9,36 +9,54 @@ import SwiftUI
 
 struct CGameBody: View {
     @ObservedObject var game: CGameViewModel
+    @State private var showingInGameSettings = false
     
     var body: some View {
         GeometryReader { geo in
-            VStack {
-                GeometryReader { geometry in
-                    ZStack {
-                        Color.clear
-                        LandoltC(landoltC: game.cLetter)
-                            
-                            .onAppear { game.fetchGeometry(geometry) }
+            ZStack {
+        // Gear Button
+                VStack {
+                    HStack {
+                        Spacer()
+                        gearButton
                     }
+                    Spacer()
                 }
-                controlGround
-                    .foregroundColor(.gray)
-                    .frame(width: geo.size.width, height: geo.size.height / 6)
-                    .opacity(0.4)
+                .padding(.trailing)
+        // GameBody
+                VStack {
+                    GeometryReader { geometry in
+                        ZStack {
+                            Color.clear
+                            LandoltC(landoltC: game.cLetter)
+                                .onAppear { game.fetchGeometry(geometry) }
+                        }
+                    }
+                    controlGround
+                        .foregroundColor(.gray)
+                        .frame(width: geo.size.width, height: geo.size.height / 6)
+                        .opacity(0.4)
+                }
             }
+        }
+        .confirmationDialog("In Game Settings", isPresented: $showingInGameSettings) {
+            Button(game.cLetter.isMoving ? "Dectivate movement" : "Activate movement") { game.moveLetter() }
+            Button(game.cLetter.isFrozen ? "Unfreeze letter" : "Freeze letter") { game.freeze() }
+        } message: {
+            Text("In Game Settings")
         }
     }
     
-//    var infoButton: some View {
-//        Button {
-//            showingInfoSheet = true
-//        } label: {
-//            Image(systemName: "info.circle")
-//                .resizable()
-//                .foregroundColor(.gray)
-//                .frame(width: 30, height: 30)
-//        }
-//    }
+    var gearButton: some View {
+        Button {
+            showingInGameSettings = true
+        } label: {
+            Image(systemName: "gearshape.fill")
+                .resizable()
+                .foregroundColor(Color(white: 0.5))
+                .frame(width: 30, height: 30)
+        }
+    }
     
     var controlGround: some View {
         GeometryReader { geo in
@@ -156,3 +174,7 @@ struct NewCView_Previews: PreviewProvider {
         CGameBody(game: game)
     }
 }
+
+
+
+

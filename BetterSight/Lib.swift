@@ -24,6 +24,17 @@ struct Lib {
 }
 
 
+//    var infoButton: some View {
+//        Button {
+//            showingInfoSheet = true
+//        } label: {
+//            Image(systemName: "info.circle")
+//                .resizable()
+//                .foregroundColor(.gray)
+//                .frame(width: 30, height: 30)
+//        }
+//    }
+
 
 
 
