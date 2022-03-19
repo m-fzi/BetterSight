@@ -15,12 +15,18 @@
 		0532C43F27A7EB2800F081E2 /* CGameBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532C43E27A7EB2800F081E2 /* CGameBody.swift */; };
 		0535417027AFDAB000263F15 /* Lib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0535416F27AFDAB000263F15 /* Lib.swift */; };
 		055F77F027AEF55A00CFA23E /* NavigationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055F77EF27AEF55A00CFA23E /* NavigationExtension.swift */; };
+		0578165327E61E5300A3F7D5 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578165227E61E5200A3F7D5 /* FileManager-DocumentsDirectory.swift */; };
+		0578165527E6402800A3F7D5 /* CheckMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578165427E6402800A3F7D5 /* CheckMark.swift */; };
 		057B89EB27DE179100AF2A3D /* CGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B89EA27DE179100AF2A3D /* CGameView.swift */; };
 		057ED24827DB428C005EDBD4 /* CSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057ED24727DB428C005EDBD4 /* CSettings.swift */; };
 		05B6D68527D7234A002C3258 /* CSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B6D68427D7234A002C3258 /* CSettingsView.swift */; };
 		05B6D68727D77D23002C3258 /* CGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B6D68627D77D23002C3258 /* CGame.swift */; };
 		05B6D68927D868CF002C3258 /* CGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B6D68827D868CF002C3258 /* CGameViewModel.swift */; };
-		05BAF4BB27C3ACCE00CA1416 /* CViewInfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAF4BA27C3ACCE00CA1416 /* CViewInfoSheet.swift */; };
+		05BAF4BB27C3ACCE00CA1416 /* InfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAF4BA27C3ACCE00CA1416 /* InfoSheet.swift */; };
+		05D1EE2D27E1AD02001D67E9 /* ProgressTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE2C27E1AD02001D67E9 /* ProgressTrackerView.swift */; };
+		05D1EE3127E21AA2001D67E9 /* WorkoutProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */; };
+		05D1EE3527E21FB8001D67E9 /* ProgressTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */; };
+		05D1EE3727E22519001D67E9 /* TapBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3627E22519001D67E9 /* TapBars.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,12 +40,18 @@
 		0532C44327A7EC7B00F081E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0535416F27AFDAB000263F15 /* Lib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lib.swift; sourceTree = "<group>"; };
 		055F77EF27AEF55A00CFA23E /* NavigationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationExtension.swift; sourceTree = "<group>"; };
+		0578165227E61E5200A3F7D5 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
+		0578165427E6402800A3F7D5 /* CheckMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMark.swift; sourceTree = "<group>"; };
 		057B89EA27DE179100AF2A3D /* CGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGameView.swift; sourceTree = "<group>"; };
 		057ED24727DB428C005EDBD4 /* CSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSettings.swift; sourceTree = "<group>"; };
 		05B6D68427D7234A002C3258 /* CSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSettingsView.swift; sourceTree = "<group>"; };
 		05B6D68627D77D23002C3258 /* CGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGame.swift; sourceTree = "<group>"; };
 		05B6D68827D868CF002C3258 /* CGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGameViewModel.swift; sourceTree = "<group>"; };
-		05BAF4BA27C3ACCE00CA1416 /* CViewInfoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CViewInfoSheet.swift; sourceTree = "<group>"; };
+		05BAF4BA27C3ACCE00CA1416 /* InfoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSheet.swift; sourceTree = "<group>"; };
+		05D1EE2C27E1AD02001D67E9 /* ProgressTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTrackerView.swift; sourceTree = "<group>"; };
+		05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgress.swift; sourceTree = "<group>"; };
+		05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTracker.swift; sourceTree = "<group>"; };
+		05D1EE3627E22519001D67E9 /* TapBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBars.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,11 +99,17 @@
 				0532C43E27A7EB2800F081E2 /* CGameBody.swift */,
 				05B6D68827D868CF002C3258 /* CGameViewModel.swift */,
 				05B6D68627D77D23002C3258 /* CGame.swift */,
-				05B6D68427D7234A002C3258 /* CSettingsView.swift */,
+				05D1EE2C27E1AD02001D67E9 /* ProgressTrackerView.swift */,
+				05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */,
+				05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */,
 				057ED24727DB428C005EDBD4 /* CSettings.swift */,
-				05BAF4BA27C3ACCE00CA1416 /* CViewInfoSheet.swift */,
-				0535416F27AFDAB000263F15 /* Lib.swift */,
+				05B6D68427D7234A002C3258 /* CSettingsView.swift */,
+				05D1EE3627E22519001D67E9 /* TapBars.swift */,
+				05BAF4BA27C3ACCE00CA1416 /* InfoSheet.swift */,
 				055F77EF27AEF55A00CFA23E /* NavigationExtension.swift */,
+				0578165227E61E5200A3F7D5 /* FileManager-DocumentsDirectory.swift */,
+				0535416F27AFDAB000263F15 /* Lib.swift */,
+				0578165427E6402800A3F7D5 /* CheckMark.swift */,
 				052367F527A946E500765B66 /* Fonts */,
 				0532C43227A7EAE100F081E2 /* Assets.xcassets */,
 				0532C43427A7EAE100F081E2 /* Preview Content */,
@@ -178,14 +196,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0578165327E61E5300A3F7D5 /* FileManager-DocumentsDirectory.swift in Sources */,
+				05D1EE3127E21AA2001D67E9 /* WorkoutProgress.swift in Sources */,
+				0578165527E6402800A3F7D5 /* CheckMark.swift in Sources */,
 				05B6D68527D7234A002C3258 /* CSettingsView.swift in Sources */,
 				0532C43127A7EAE000F081E2 /* MainView.swift in Sources */,
 				057ED24827DB428C005EDBD4 /* CSettings.swift in Sources */,
+				05D1EE3727E22519001D67E9 /* TapBars.swift in Sources */,
 				055F77F027AEF55A00CFA23E /* NavigationExtension.swift in Sources */,
+				05D1EE3527E21FB8001D67E9 /* ProgressTracker.swift in Sources */,
 				05B6D68727D77D23002C3258 /* CGame.swift in Sources */,
 				0532C43F27A7EB2800F081E2 /* CGameBody.swift in Sources */,
-				05BAF4BB27C3ACCE00CA1416 /* CViewInfoSheet.swift in Sources */,
+				05BAF4BB27C3ACCE00CA1416 /* InfoSheet.swift in Sources */,
 				057B89EB27DE179100AF2A3D /* CGameView.swift in Sources */,
+				05D1EE2D27E1AD02001D67E9 /* ProgressTrackerView.swift in Sources */,
 				0535417027AFDAB000263F15 /* Lib.swift in Sources */,
 				05B6D68927D868CF002C3258 /* CGameViewModel.swift in Sources */,
 				0532C42F27A7EAE000F081E2 /* BetterSightApp.swift in Sources */,

@@ -12,21 +12,25 @@ struct MainView: View {
     @State private var showingCSettings = false
     
     var gameLeft: CGameViewModel
-    var gameBoth: CGameViewModel
     var gameRight: CGameViewModel
+    var gameBoth: CGameViewModel
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
                 Color(white: 0.85)
                     .edgesIgnoringSafeArea(.all)
-                cGameViewButton
-                    .frame(width: geo.size.width / 1.1, height: 150)
-                cSettingsButton
-                    .position(x: geo.size.width / 2, y: geo.size.height / 1.45)
+                VStack {
+                    cGameViewButton
+                        .frame(width: geo.size.width / 1.1, height: 100)
+                    progressTrackerButton
+                        .frame(width: geo.size.width / 1.1, height: 100)
+                    cSettingsButton
+                }
                 
             }
-            .navigate(to: CGameView(gameLeft: gameLeft, gameBoth: gameBoth, gameRight: gameRight), tag: "CGameView", binding: $moveViewTo)
+            .navigate(to: CGameView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth), tag: "CGameView", binding: $moveViewTo)
+            .navigate(to: ProgressTrackerView(gameLeft: gameLeft,  gameRight: gameRight, gameBoth: gameBoth), tag: "ProgressTrackerView", binding: $moveViewTo)
             .sheet(isPresented: $showingCSettings) {
                 CSettingsView()
             }
@@ -45,14 +49,32 @@ struct MainView: View {
                     Text("C")
                         .font(.custom("OpticianSans-Regular", size: 100))
                     Text("Workout")
-                        .font(.headline)
+                        .font(.title3)
+                        .fontWeight(.bold)
                 }
             }
-            .padding()
             .foregroundColor(.black)
         }
     }
     
+    var progressTrackerButton: some View {
+        Button {
+            moveViewTo = "ProgressTrackerView"
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 25)
+                    .strokeBorder(.gray, lineWidth: 4)
+                    .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+                HStack {
+                    Text("Progress Tracker")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                }
+            }
+            .foregroundColor(.black)
+        }
+    }
+
     var cSettingsButton: some View {
         Button {
             showingCSettings = true
@@ -69,6 +91,7 @@ struct MainView: View {
         }
         .frame(width: 100, height: 100)
     }
+       
 }
 
 
@@ -77,6 +100,6 @@ struct MainView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(gameLeft: CGameViewModel(), gameBoth: CGameViewModel(), gameRight: CGameViewModel())
+        MainView(gameLeft: CGameViewModel(), gameRight: CGameViewModel(), gameBoth: CGameViewModel())
     }
 }

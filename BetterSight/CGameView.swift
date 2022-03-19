@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct CGameView: View {
+    
     @State private var moveViewTo: String? = nil
     @State private var tabIndex = 0
     
     @ObservedObject var gameLeft: CGameViewModel
-    @ObservedObject var gameBoth: CGameViewModel
     @ObservedObject var gameRight: CGameViewModel
+    @ObservedObject var gameBoth: CGameViewModel
+    var progress = ProgressTracker()
     
     var body: some View {
         GeometryReader { geo in
@@ -28,7 +30,7 @@ struct CGameView: View {
                         scoreView
                     }
                     
-                    CustomTopTabBar(tabIndex: $tabIndex)
+                    CGameViewTapBar(tabIndex: $tabIndex)
                 }
                 .padding()
                 .frame(height: geo.size.height/10)
@@ -37,14 +39,14 @@ struct CGameView: View {
                     CGameBody(game: gameLeft)
                 }
                 else if tabIndex ==  1 {
-                    CGameBody(game: gameBoth)
+                    CGameBody(game: gameRight)
                 }
                 else {
-                    CGameBody(game: gameRight)
+                    CGameBody(game: gameBoth)
                 }
             }
         }
-        .navigate(to: MainView(gameLeft: gameLeft, gameBoth: gameBoth, gameRight: gameRight), tag: "MainView", binding: $moveViewTo)
+        .navigate(to: MainView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth), tag: "MainView", binding: $moveViewTo)
     }
     
     var menuButton: some View {
@@ -57,12 +59,16 @@ struct CGameView: View {
         }
         .frame(width: 30, height: 30)
     }
+    var letter: CGame.CLetter { gameBoth.cLetter }
+    var wrong: Int { letter.wrongAnswerCount }
+    
     
     var restartButton: some View {
         Button {
+            progress.addSession(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth)
             gameLeft.restart()
-            gameBoth.restart()
             gameRight.restart()
+            gameBoth.restart()
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
@@ -82,48 +88,32 @@ struct CGameView: View {
         case 0:
             return ScoreViewOfGame(ofWhichGamesCLetter: gameLeft.cLetter)
         case 1:
-            return ScoreViewOfGame(ofWhichGamesCLetter: gameBoth.cLetter)
-        default:
             return ScoreViewOfGame(ofWhichGamesCLetter: gameRight.cLetter)
+        default:
+            return ScoreViewOfGame(ofWhichGamesCLetter: gameBoth.cLetter)
         }
     }
 }
 
-struct CustomTopTabBar: View {
-    @Binding var tabIndex: Int
-    var body: some View {
-        HStack(spacing: 0) {
-            TabBarButton(text: "Left", isSelected: .constant(tabIndex == 0))
-                .onTapGesture { onButtonTapped(index: 0) }
-            TabBarButton(text: "Both", isSelected: .constant(tabIndex == 1))
-                .onTapGesture { onButtonTapped(index: 1) }
-            TabBarButton(text: "Right", isSelected: .constant(tabIndex == 2))
-                .onTapGesture { onButtonTapped(index: 2) }
-        }
-    }
-    
-    private func onButtonTapped(index: Int) {
-        withAnimation { tabIndex = index }
-    }
-}
 
-struct TabBarButton: View {
-    let text: String
-    @Binding var isSelected: Bool
+struct ScoreViewOfGame: View {
+    var ofWhichGamesCLetter: CGame.CLetter
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .frame(width: 100, height: 30)
-                .foregroundColor(isSelected ? .gray : .white)
-            Text(text)
+        HStack(alignment: .center) {
+            Text(String(ofWhichGamesCLetter.round) + " :")
                 .fontWeight(.heavy)
-                .foregroundColor(isSelected ? .white : .black)
+                .frame(width: 80, alignment: .trailing)
+            Text(String(ofWhichGamesCLetter.wrongAnswerCount))
+                .fontWeight(.heavy)
+                .frame(width: 80, alignment: .leading)
+                
                 
         }
+        .font(.title)
+        .padding(.leading)
+        .foregroundColor(Color(white: 0.4))
     }
 }
-
-
 
 
 
@@ -131,6 +121,6 @@ struct TabBarButton: View {
 
 struct CMainView_Previews: PreviewProvider {
     static var previews: some View {
-        CGameView(gameLeft: CGameViewModel(), gameBoth: CGameViewModel(), gameRight: CGameViewModel())
+        CGameView(gameLeft: CGameViewModel(), gameRight: CGameViewModel(), gameBoth: CGameViewModel() )
     }
 }

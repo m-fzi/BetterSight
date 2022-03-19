@@ -10,7 +10,7 @@ import SwiftUI
 
 class CGameViewModel: ObservableObject {
     
-    @Published private var model: CGame
+    @Published private(set) var model: CGame
     
     init() {
         model = CGame(cLetter: CGame.CLetter())
