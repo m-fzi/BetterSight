@@ -39,7 +39,7 @@ struct CGameBody: View {
                 }
             }
         }
-        .confirmationDialog("In Game Settings", isPresented: $showingInGameSettings) {
+        .confirmationDialog("InGame Settings", isPresented: $showingInGameSettings) {
             Button(game.cLetter.isMoving ? "Dectivate movement" : "Activate movement") { game.moveLetter() }
             Button(game.cLetter.isFrozen ? "Unfreeze letter" : "Freeze letter") { game.freeze() }
         } message: {
@@ -146,25 +146,6 @@ struct LandoltC: View {
             .rotationEffect(Angle(degrees: landoltC.rotation))
             .offset(x: landoltC.offsetXY.0, y: landoltC.offsetXY.1)
             
-    }
-}
-
-struct ScoreViewOfGame: View {
-    var ofWhichGamesCLetter: CGame.CLetter
-    var body: some View {
-        HStack(alignment: .center) {
-            Text(String(ofWhichGamesCLetter.round) + " :")
-                .fontWeight(.heavy)
-                .frame(width: 80, alignment: .trailing)
-            Text(String(ofWhichGamesCLetter.wrongAnswerCount))
-                .fontWeight(.heavy)
-                .frame(width: 80, alignment: .leading)
-                
-                
-        }
-        .font(.title)
-        .padding(.leading)
-        .foregroundColor(Color(white: 0.4))
     }
 }
 
