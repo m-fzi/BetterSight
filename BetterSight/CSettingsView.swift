@@ -17,34 +17,28 @@ struct CSettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section {
+                Section("C Size On Start") {
                     Picker("CSizeOnStart", selection: $settings.settingComponents.cSizeAtStart) {
                         ForEach(cSizes, id: \.self) {
                             Text($0, format: .number)
                         }
                     }.pickerStyle(.segmented)
-                } header: {
-                    Text("C Size On Start")
                 }
                 
-                Section {
+                Section("C Size After Each Round") {
                     Picker("CSizeAfterRound", selection: $settings.settingComponents.cSizeAfterEachRound) {
                         ForEach(cSizes, id: \.self) {
                             Text($0, format: .number)
                         }
                     }.pickerStyle(.segmented)
-                } header: {
-                    Text("C Size After Each Round")
                 }
 
-                Section {
+                Section("Shrinkage Rate") {
                     Picker("Shrinkage Rate", selection: $settings.settingComponents.shrinkageRate) {
                         ForEach(shrinkageRates, id: \.self) {
                             Text($0, format: .number)
                         }
                     }.pickerStyle(.segmented)
-                } header: {
-                    Text("Shrinkage Rate")
                 }
             }
             .navigationTitle("Settings")
