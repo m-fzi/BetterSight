@@ -37,6 +37,7 @@ struct CSettingComponents: Codable {
     var cSizeAtStart: Double = 300
     var cSizeAfterEachRound: Double = 60
     var shrinkageRate: Double = 0.8
+    var soundOn: Bool = true
 }
 
 

@@ -9,19 +9,7 @@ import SwiftUI
 
 struct CheckMark: View {
     var body: some View {
-        VStack {
-            Image(systemName: "checkmark.square")
-                .resizable()
-                .frame(width: 300, height: 300)
-                .foregroundColor(.green)
-            
-            Image(systemName: "xmark.square")
-                .resizable()
-                .frame(width: 300, height: 300)
-                .foregroundColor(.red)
-        }
-        
-        
+        Text("Hello")
     }
 }
 

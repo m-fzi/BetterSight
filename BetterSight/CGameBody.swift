@@ -5,12 +5,15 @@
 //  Created by f on 31.01.2022.
 //
 
+import AVFoundation
 import SwiftUI
 
 struct CGameBody: View {
     @ObservedObject var game: CGameViewModel
     @State private var showingInGameSettings = false
-    
+    @State private var checkMarkSize = 0.0
+    @State private var xMarkSize = 0.0
+    @State private var responseMarkOpacity = 1.0
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -30,6 +33,8 @@ struct CGameBody: View {
                             Color.clear
                             LandoltC(landoltC: game.cLetter)
                                 .onAppear { game.fetchGeometry(geometry) }
+                            checkMark
+                            xMark
                         }
                     }
                     controlGround
@@ -43,7 +48,7 @@ struct CGameBody: View {
             Button(game.cLetter.isMoving ? "Dectivate movement" : "Activate movement") { game.moveLetter() }
             Button(game.cLetter.isFrozen ? "Unfreeze letter" : "Freeze letter") { game.freeze() }
         } message: {
-            Text("In Game Settings")
+            Text("InGame Settings")
         }
     }
     
@@ -63,17 +68,20 @@ struct CGameBody: View {
             HStack {
                 Button {
                     game.chooseDirection(direction: .left)
+                    showResponse()
                 } label: {
                     ArrowKey(direction: .left)
                 }
                 VStack {
                     Button {
                         game.chooseDirection(direction: .up)
+                        showResponse()
                     } label: {
                         ArrowKey(direction: .up)
                     }
                     Button {
                         game.chooseDirection(direction: .down)
+                        showResponse()
                     } label: {
                         ArrowKey(direction: .down)
                     }
@@ -82,12 +90,63 @@ struct CGameBody: View {
                 
                 Button {
                     game.chooseDirection(direction: .right)
+                    showResponse()
                 } label: {
                     ArrowKey(direction: .right)
                 }
             
             }
         }
+    }
+    
+    var checkMark: some View {
+        Image(systemName: "checkmark.square.fill")
+            .resizable()
+            .frame(width: checkMarkSize, height: checkMarkSize)
+            .foregroundColor(.green)
+            .background(.white)
+            .opacity(responseMarkOpacity)
+    }
+    
+    var xMark: some View {
+        Image(systemName: "xmark.square.fill")
+            .resizable()
+            .frame(width: xMarkSize, height: xMarkSize)
+            .foregroundColor(.red)
+            .background(.white)
+            .opacity(responseMarkOpacity)
+    }
+    
+    func showResponse() {
+        resetMarks()
+        if game.checkMarkTrigger {
+            if CSettings().settingComponents.soundOn {
+                AudioServicesPlaySystemSound(1052)
+            }
+            withAnimation(Animation.linear(duration: 0.5)) {
+                checkMarkSize = 300
+            }
+            withAnimation(Animation.easeInOut(duration: 0.5).delay(0.7)) {
+                responseMarkOpacity = 0
+            }
+        } else if game.xMarkTrigger {
+            if CSettings().settingComponents.soundOn {
+                AudioServicesPlaySystemSound(1053)
+            }
+            withAnimation(Animation.linear(duration: 0.5)) {
+                xMarkSize = 300
+            }
+            withAnimation(Animation.easeInOut(duration: 0.5).delay(0.7)) {
+                responseMarkOpacity = 0
+            }
+        }
+        
+    }
+    
+    func resetMarks() {
+        checkMarkSize = 0
+        xMarkSize = 0
+        responseMarkOpacity = 1
     }
 }
 

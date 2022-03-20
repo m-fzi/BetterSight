@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @ObservedObject var settings = CSettings()
     @State private var moveViewTo: String? = nil
     @State private var showingCSettings = false
     
@@ -25,12 +26,16 @@ struct MainView: View {
                         .frame(width: geo.size.width / 1.1, height: 100)
                     progressTrackerButton
                         .frame(width: geo.size.width / 1.1, height: 100)
-                    cSettingsButton
+                    HStack {
+                        cSettingsButton
+                        speakerButton
+                    }
                 }
                 
             }
             .navigate(to: CGameView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth), tag: "CGameView", binding: $moveViewTo)
             .navigate(to: ProgressTrackerView(gameLeft: gameLeft,  gameRight: gameRight, gameBoth: gameBoth), tag: "ProgressTrackerView", binding: $moveViewTo)
+            .navigate(to: CheckMark(), tag: "CheckMark", binding: $moveViewTo)
             .sheet(isPresented: $showingCSettings) {
                 CSettingsView()
             }
@@ -91,6 +96,32 @@ struct MainView: View {
         }
         .frame(width: 100, height: 100)
     }
+    
+    var speakerButton: some View {
+        Button {
+            withAnimation {
+                settings.settingComponents.soundOn.toggle()
+            }
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 25)
+                    .strokeBorder(.gray, lineWidth: 4)
+                    .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+                if settings.settingComponents.soundOn {
+                    Image(systemName: "speaker.wave.2")
+                        .resizable()
+                        .foregroundColor(.black)
+                        .padding()
+                } else {
+                    Image(systemName: "speaker.slash")
+                        .resizable()
+                        .foregroundColor(.black)
+                        .padding()
+                }
+            }
+        }
+        .frame(width: 100, height: 100)
+    }
        
 }
 
@@ -98,8 +129,8 @@ struct MainView: View {
 
 
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView(gameLeft: CGameViewModel(), gameRight: CGameViewModel(), gameBoth: CGameViewModel())
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainView(gameLeft: CGameViewModel(), gameRight: CGameViewModel(), gameBoth: CGameViewModel())
+//    }
+//}

@@ -11,6 +11,9 @@ import SwiftUI
 struct CGame {
     var cLetter: CLetter
     var fetchedGeometry: GeometryProxy?
+    var checkMarkTrigger = false
+    var xMarkTrigger = false
+    
     
     enum Direction: CaseIterable {
         case right, up, left, down
@@ -38,6 +41,7 @@ struct CGame {
     
 
     mutating func chooseDirection(_ direction: Direction) {
+        resetTriggers()
         if direction == cLetter.direction {
             correctAnswer()
         } else {
@@ -59,10 +63,12 @@ struct CGame {
         if cLetter.isMoving {
             offsetCRandomly()
         }
+        checkMarkTrigger = true
     }
     
     mutating private func wrongAnswer() {
         cLetter.wrongAnswerCount += 1
+        xMarkTrigger = true
     }
     
     mutating private func roundUp() {
@@ -90,5 +96,9 @@ struct CGame {
         cLetter.isFrozen.toggle()
     }
     
+    mutating private func resetTriggers() {
+        checkMarkTrigger = false
+        xMarkTrigger = false
+    }
     
 }

@@ -20,6 +20,14 @@ class CGameViewModel: ObservableObject {
         model.cLetter
     }
     
+    var checkMarkTrigger: Bool {
+        model.checkMarkTrigger
+    }
+    
+    var xMarkTrigger: Bool {
+        model.xMarkTrigger
+    }
+    
     
     //MARK: - Indent(s)
     
