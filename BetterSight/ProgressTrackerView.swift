@@ -8,47 +8,38 @@
 import SwiftUI
 
 struct ProgressTrackerView: View {
-    
-    @State private var moveViewTo: String? = nil
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var tabIndex = 0
     @State private var showingClearHistoryAlert = false
-    
-    var gameLeft: CGameViewModel
-    var gameRight: CGameViewModel
-    var gameBoth: CGameViewModel
     @ObservedObject var progress = ProgressTracker()
     
     var body: some View {
-        NavigationView {
-            VStack {
-                ProgressTrackerViewTabBar(tabIndex: $tabIndex)
-                
-                switch tabIndex {
-                case 1: leftProgressView
-                case 2: rightProgressView
-                case 3: bothProgressView
-                default: allProgressView
-                }
+        VStack {
+            ProgressTrackerViewTabBar(tabIndex: $tabIndex)
             
-            }
-            .navigationTitle("Workout History")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(leading: backButton)
-            .navigationBarItems(trailing: clearButton)
-            .alert("Delete sessions", isPresented: $showingClearHistoryAlert) {
-                Button("Clear", role: .destructive, action: progress.clear)
-                Button("Cancel", role: .cancel) { }
-            } message: {
-                Text("Do you want to clear workout history?")
+            switch tabIndex {
+            case 1: leftProgressView
+            case 2: rightProgressView
+            case 3: bothProgressView
+            default: allProgressView
             }
         }
-        
-    .navigate(to: MainView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth), tag: "MainView", binding: $moveViewTo)
+        .navigationTitle("Workout History")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: backButton)
+        .navigationBarItems(trailing: clearButton)
+        .alert("Delete sessions", isPresented: $showingClearHistoryAlert) {
+            Button("Clear", role: .destructive, action: progress.clear)
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Do you want to clear workout history?")
+        }
     }
     
     var backButton: some View {
         Button {
-            moveViewTo = "MainView"
+            self.presentationMode.wrappedValue.dismiss()
         } label: {
             Image(systemName: "chevron.backward.square")
                 .resizable()
@@ -147,6 +138,6 @@ struct ProgressTrackerView: View {
 
 struct ProgressTrackerView_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressTrackerView(gameLeft: CGameViewModel(),  gameRight: CGameViewModel(), gameBoth: CGameViewModel())
+        ProgressTrackerView()
     }
 }

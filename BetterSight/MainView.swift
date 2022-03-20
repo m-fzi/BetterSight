@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var settings = CSettings()
-    @State private var moveViewTo: String? = nil
     @State private var showingCSettings = false
     
     var gameLeft: CGameViewModel
@@ -17,35 +16,34 @@ struct MainView: View {
     var gameBoth: CGameViewModel
     
     var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                Color(white: 0.85)
-                    .edgesIgnoringSafeArea(.all)
-                VStack {
-                    cGameViewButton
-                        .frame(width: geo.size.width / 1.1, height: 100)
-                    progressTrackerButton
-                        .frame(width: geo.size.width / 1.1, height: 100)
-                    HStack {
-                        cSettingsButton
-                        speakerButton
+        NavigationView {
+            GeometryReader { geo in
+                ZStack {
+                    Color(white: 0.85)
+                        .edgesIgnoringSafeArea(.all)
+                    VStack {
+                        cGameViewButton
+                            .frame(width: geo.size.width / 1.1, height: 100)
+                        progressTrackerButton
+                            .frame(width: geo.size.width / 1.1, height: 100)
+                        HStack {
+                            cSettingsButton
+                            speakerButton
+                        }
                     }
                 }
-                
-            }
-            .navigate(to: CGameView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth), tag: "CGameView", binding: $moveViewTo)
-            .navigate(to: ProgressTrackerView(gameLeft: gameLeft,  gameRight: gameRight, gameBoth: gameBoth), tag: "ProgressTrackerView", binding: $moveViewTo)
-            .navigate(to: CheckMark(), tag: "CheckMark", binding: $moveViewTo)
-            .sheet(isPresented: $showingCSettings) {
-                CSettingsView()
+                .navigationBarHidden(true)
+                .sheet(isPresented: $showingCSettings) {
+                    CSettingsView()
+                }
             }
         }
+        .navigationViewStyle(.stack)
+        .statusBar(hidden: false)
     }
     
     var cGameViewButton: some View {
-        Button {
-            moveViewTo = "CGameView"
-        } label: {
+        NavigationLink(destination: CGameView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth)) {
             ZStack {
                 RoundedRectangle(cornerRadius: 25)
                     .strokeBorder(.gray, lineWidth: 4)
@@ -63,9 +61,7 @@ struct MainView: View {
     }
     
     var progressTrackerButton: some View {
-        Button {
-            moveViewTo = "ProgressTrackerView"
-        } label: {
+        NavigationLink(destination: ProgressTrackerView()) {
             ZStack {
                 RoundedRectangle(cornerRadius: 25)
                     .strokeBorder(.gray, lineWidth: 4)

@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct CGameView: View {
-    
-    @State private var moveViewTo: String? = nil
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var tabIndex = 0
     
     @ObservedObject var gameLeft: CGameViewModel
@@ -46,12 +45,12 @@ struct CGameView: View {
                 }
             }
         }
-        .navigate(to: MainView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth), tag: "MainView", binding: $moveViewTo)
+        .navigationBarHidden(true)
     }
     
     var menuButton: some View {
         Button {
-            moveViewTo = "MainView"
+            self.presentationMode.wrappedValue.dismiss()
         } label: {
             Image(systemName: "square.grid.2x2.fill")
                 .resizable()
