@@ -9,11 +9,13 @@ import AVFoundation
 import SwiftUI
 
 struct CGameBody: View {
+    
     @ObservedObject var game: CGameViewModel
     @State private var showingInGameSettings = false
     @State private var checkMarkSize = 0.0
     @State private var xMarkSize = 0.0
     @State private var responseMarkOpacity = 1.0
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -118,36 +120,40 @@ struct CGameBody: View {
     }
     
     func showResponse() {
-        resetMarks()
+        responseMarkOpacity = 1
         if game.checkMarkTrigger {
             if CSettings().settingComponents.soundOn {
-                AudioServicesPlaySystemSound(1052)
+                playSound(sound: "beep1", type: "mp3")
             }
-            withAnimation(Animation.linear(duration: 0.5)) {
+            
+            withAnimation(Animation.linear(duration: 0)) {
                 checkMarkSize = 300
             }
-            withAnimation(Animation.easeInOut(duration: 0.5).delay(0.7)) {
+            withAnimation(Animation.linear(duration: 0.8).delay(0.8)) {
                 responseMarkOpacity = 0
+            }
+            withAnimation(Animation.linear(duration: 0.001).delay(1.6)) {
+                checkMarkSize = 0
             }
         } else if game.xMarkTrigger {
             if CSettings().settingComponents.soundOn {
-                AudioServicesPlaySystemSound(1053)
+                playSound(sound: "error1", type: "mp3")
             }
-            withAnimation(Animation.linear(duration: 0.5)) {
+            
+            withAnimation(Animation.linear(duration: 0)) {
                 xMarkSize = 300
             }
-            withAnimation(Animation.easeInOut(duration: 0.5).delay(0.7)) {
+            withAnimation(Animation.linear(duration: 0.8).delay(0.8)) {
                 responseMarkOpacity = 0
+            }
+            withAnimation(Animation.linear(duration: 0.001).delay(1.6)) {
+                xMarkSize = 0
             }
         }
         
     }
     
-    func resetMarks() {
-        checkMarkSize = 0
-        xMarkSize = 0
-        responseMarkOpacity = 1
-    }
+    
 }
 
 struct ArrowKey: View {
