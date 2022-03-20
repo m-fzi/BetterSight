@@ -11,8 +11,8 @@ struct CSettingsView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var settings = CSettings()
     
-    let cSizes: [Double] = [60, 100, 200, 300, 400]
-    let shrinkageRates: [Double] = [0.7, 0.8, 0.9]
+    let cSizes: [Double] = [1, 2, 3, 4, 5]
+    let shrinkageRates: [String] = ["Low", "Medium", "High"]
     
     var body: some View {
         NavigationView {
@@ -36,7 +36,7 @@ struct CSettingsView: View {
                 Section("Shrinkage Rate") {
                     Picker("Shrinkage Rate", selection: $settings.settingComponents.shrinkageRate) {
                         ForEach(shrinkageRates, id: \.self) {
-                            Text($0, format: .number)
+                            Text($0)
                         }
                     }.pickerStyle(.segmented)
                 }
