@@ -63,6 +63,8 @@ struct CSettingComponents: Codable {
         }
     }
     var soundOn: Bool = true
+    var showingCheckmark = true
+    var showingXmark = true
 }
 
 

@@ -20,12 +20,12 @@ class CGameViewModel: ObservableObject {
         model.cLetter
     }
     
-    var checkMarkTrigger: Bool {
-        model.checkMarkTrigger
+    var correctResponseTrigger : Bool {
+        model.correctResponseTrigger
     }
     
-    var xMarkTrigger: Bool {
-        model.xMarkTrigger
+    var wrongResponseTrigger: Bool {
+        model.wrongResponseTrigger
     }
     
     
