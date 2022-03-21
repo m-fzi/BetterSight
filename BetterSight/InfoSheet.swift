@@ -7,73 +7,44 @@
 
 import SwiftUI
 
-struct CViewInfoSheet: View {
+struct InfoSheet: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationView {
-            VStack {
-                Spacer()
-                
-                Text("Press the direction of C for correct answer.")
+            VStack(alignment: .leading, spacing: 20) {
+                Group {
+                    Text("Press the direction of C for correct answer.")
+                    Divider()
+                    Text("You can work on and keep track of your left side, right side and both in one workout session.")
+                    Divider()
+                    Text("You can see your current workout round and total wrong answer count for selected side on top of the screen.")
+                    Divider()
+                    Text("To save the workout to keep track of your progress, press Save|Redo button when you finish the session.")
+                    Divider()
+                    Text("To activate the letter movement or freeze the letter size, press gear shape in workout screen.")
+                }
                 
                 Spacer()
                 
                 VStack {
-                    ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 20)
-                            .strokeBorder()
-                            .frame(height: 80)
-                        HStack {
-                            Text("Tap")
-                            Image(systemName: "arrow.counterclockwise")
-                                .frame(width: 35, height: 35)
-                                .foregroundColor(.white)
-                                .background(.gray)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .scaleEffect(0.7)
-                            Text("to restart.")
+                    Button {
+                        
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20)
+                                .strokeBorder()
+                                .frame(height: 80)
+                            Text("Privacy Policy")
+                                .fontWeight(.heavy)
+                                .foregroundColor(.blue)
                         }
-                        .padding()
                     }
-                    ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 20)
-                            .strokeBorder()
-                            .frame(height: 80)
-                        HStack {
-                            Text("Activate")
-                            Image(systemName: "snowflake")
-                                .frame(width: 35, height: 35)
-                                .foregroundColor(.white)
-                                .background(.gray)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .scaleEffect(0.7)
-                            Text("to freeze C at current size.")
-                        }
-                        .padding()
-                    }
-                    ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 20)
-                            .strokeBorder()
-                            .frame(height: 80)
-                        HStack {
-                            Text("Activate")
-                            Image(systemName: "move.3d")
-                                .frame(width: 35, height: 35)
-                                .background(.gray)
-                                .foregroundColor(.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .scaleEffect(0.7)
-                            Text("to move C after every correct answer.")
-                        }
-                        .padding()
-                    }
-                    
-                   
-                }
-                .padding()
+                } .padding()
+                
                 Spacer()
             }
+            .padding()
             .navigationTitle("How to play")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: Button("Done") { dismiss() } )
@@ -83,8 +54,8 @@ struct CViewInfoSheet: View {
     
 }
 
-struct CViewInfoSheet_Previews: PreviewProvider {
+struct InfoSheet_Previews: PreviewProvider {
     static var previews: some View {
-        CViewInfoSheet()
+        InfoSheet()
     }
 }
