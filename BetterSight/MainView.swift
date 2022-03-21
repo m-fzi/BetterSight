@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject var settings = CSettings()
+    @EnvironmentObject var settings: CSettings
     @State private var showingCSettings = false
+    @State private var showingInfoSheet = false
     
     var gameLeft: CGameViewModel
     var gameRight: CGameViewModel
@@ -21,20 +22,24 @@ struct MainView: View {
                 ZStack {
                     Color(white: 0.85)
                         .edgesIgnoringSafeArea(.all)
-                    VStack {
+                    VStack(spacing: 20) {
                         cGameViewButton
                             .frame(width: geo.size.width / 1.1, height: 100)
                         progressTrackerButton
                             .frame(width: geo.size.width / 1.1, height: 100)
-                        HStack {
+                        HStack(spacing: 20) {
                             cSettingsButton
                             speakerButton
+                            questionMarkButton
                         }
                     }
                 }
                 .navigationBarHidden(true)
                 .sheet(isPresented: $showingCSettings) {
                     CSettingsView()
+                }
+                .sheet(isPresented: $showingInfoSheet) {
+                    InfoSheet()
                 }
             }
         }
@@ -89,8 +94,7 @@ struct MainView: View {
                     .foregroundColor(.black)
                     .padding()
             }
-        }
-        .frame(width: 100, height: 100)
+        }.frame(width: 100, height: 100)
     }
     
     var speakerButton: some View {
@@ -115,8 +119,23 @@ struct MainView: View {
                         .padding()
                 }
             }
-        }
-        .frame(width: 100, height: 100)
+        }.frame(width: 100, height: 100)
+    }
+    
+    var questionMarkButton: some View {
+        Button {
+            showingInfoSheet = true
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 25)
+                    .strokeBorder(.gray, lineWidth: 4)
+                    .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+                Image(systemName: "questionmark.app")
+                    .resizable()
+                    .foregroundColor(.black)
+                    .padding()
+            }
+        }.frame(width: 100, height: 100)
     }
        
 }

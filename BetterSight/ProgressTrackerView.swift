@@ -11,7 +11,7 @@ struct ProgressTrackerView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var tabIndex = 0
     @State private var showingClearHistoryAlert = false
-    @ObservedObject var progress = ProgressTracker()
+    @EnvironmentObject var progress: ProgressTracker
     
     var body: some View {
         VStack {

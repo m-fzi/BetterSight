@@ -13,7 +13,6 @@
 		0532C43327A7EAE100F081E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0532C43227A7EAE100F081E2 /* Assets.xcassets */; };
 		0532C43627A7EAE100F081E2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0532C43527A7EAE100F081E2 /* Preview Assets.xcassets */; };
 		0532C43F27A7EB2800F081E2 /* CGameBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532C43E27A7EB2800F081E2 /* CGameBody.swift */; };
-		0535417027AFDAB000263F15 /* Lib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0535416F27AFDAB000263F15 /* Lib.swift */; };
 		0578165327E61E5300A3F7D5 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578165227E61E5200A3F7D5 /* FileManager-DocumentsDirectory.swift */; };
 		0578165527E6402800A3F7D5 /* CheckMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578165427E6402800A3F7D5 /* CheckMark.swift */; };
 		057B89EB27DE179100AF2A3D /* CGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B89EA27DE179100AF2A3D /* CGameView.swift */; };
@@ -22,6 +21,8 @@
 		05B6D68727D77D23002C3258 /* CGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B6D68627D77D23002C3258 /* CGame.swift */; };
 		05B6D68927D868CF002C3258 /* CGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B6D68827D868CF002C3258 /* CGameViewModel.swift */; };
 		05BAF4BB27C3ACCE00CA1416 /* InfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAF4BA27C3ACCE00CA1416 /* InfoSheet.swift */; };
+		05BB131327E8E46D00159FB2 /* bling3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 05BB131127E8E46D00159FB2 /* bling3.mp3 */; };
+		05BB131427E8E46D00159FB2 /* bling2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 05BB131227E8E46D00159FB2 /* bling2.mp3 */; };
 		05D1EE2D27E1AD02001D67E9 /* ProgressTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE2C27E1AD02001D67E9 /* ProgressTrackerView.swift */; };
 		05D1EE3127E21AA2001D67E9 /* WorkoutProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */; };
 		05D1EE3527E21FB8001D67E9 /* ProgressTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */; };
@@ -40,7 +41,6 @@
 		0532C43527A7EAE100F081E2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0532C43E27A7EB2800F081E2 /* CGameBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGameBody.swift; sourceTree = "<group>"; };
 		0532C44327A7EC7B00F081E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		0535416F27AFDAB000263F15 /* Lib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lib.swift; sourceTree = "<group>"; };
 		0578165227E61E5200A3F7D5 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
 		0578165427E6402800A3F7D5 /* CheckMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMark.swift; sourceTree = "<group>"; };
 		057B89EA27DE179100AF2A3D /* CGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGameView.swift; sourceTree = "<group>"; };
@@ -49,6 +49,8 @@
 		05B6D68627D77D23002C3258 /* CGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGame.swift; sourceTree = "<group>"; };
 		05B6D68827D868CF002C3258 /* CGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGameViewModel.swift; sourceTree = "<group>"; };
 		05BAF4BA27C3ACCE00CA1416 /* InfoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSheet.swift; sourceTree = "<group>"; };
+		05BB131127E8E46D00159FB2 /* bling3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bling3.mp3; sourceTree = "<group>"; };
+		05BB131227E8E46D00159FB2 /* bling2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bling2.mp3; sourceTree = "<group>"; };
 		05D1EE2C27E1AD02001D67E9 /* ProgressTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTrackerView.swift; sourceTree = "<group>"; };
 		05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgress.swift; sourceTree = "<group>"; };
 		05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTracker.swift; sourceTree = "<group>"; };
@@ -108,10 +110,9 @@
 				05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */,
 				05B6D68427D7234A002C3258 /* CSettingsView.swift */,
 				057ED24727DB428C005EDBD4 /* CSettings.swift */,
-				05D1EE3627E22519001D67E9 /* TapBars.swift */,
 				05BAF4BA27C3ACCE00CA1416 /* InfoSheet.swift */,
+				05D1EE3627E22519001D67E9 /* TapBars.swift */,
 				0578165227E61E5200A3F7D5 /* FileManager-DocumentsDirectory.swift */,
-				0535416F27AFDAB000263F15 /* Lib.swift */,
 				05F10BFC27E7BF7500BA502D /* SoundPlayer.swift */,
 				0578165427E6402800A3F7D5 /* CheckMark.swift */,
 				05F10BFB27E7BA9400BA502D /* Sounds */,
@@ -134,6 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				05F10BF727E7BA8000BA502D /* beep1.mp3 */,
+				05BB131227E8E46D00159FB2 /* bling2.mp3 */,
+				05BB131127E8E46D00159FB2 /* bling3.mp3 */,
 				05F10BF827E7BA8000BA502D /* error1.mp3 */,
 			);
 			path = Sounds;
@@ -197,11 +200,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05BB131427E8E46D00159FB2 /* bling2.mp3 in Resources */,
 				05F10BFA27E7BA8000BA502D /* error1.mp3 in Resources */,
 				05F10BF927E7BA8000BA502D /* beep1.mp3 in Resources */,
 				052367F727A947B100765B66 /* OpticianSans-Regular.otf in Resources */,
 				0532C43627A7EAE100F081E2 /* Preview Assets.xcassets in Resources */,
 				0532C43327A7EAE100F081E2 /* Assets.xcassets in Resources */,
+				05BB131327E8E46D00159FB2 /* bling3.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +230,6 @@
 				05BAF4BB27C3ACCE00CA1416 /* InfoSheet.swift in Sources */,
 				057B89EB27DE179100AF2A3D /* CGameView.swift in Sources */,
 				05D1EE2D27E1AD02001D67E9 /* ProgressTrackerView.swift in Sources */,
-				0535417027AFDAB000263F15 /* Lib.swift in Sources */,
 				05B6D68927D868CF002C3258 /* CGameViewModel.swift in Sources */,
 				05F10BFD27E7BF7500BA502D /* SoundPlayer.swift in Sources */,
 				0532C42F27A7EAE000F081E2 /* BetterSightApp.swift in Sources */,

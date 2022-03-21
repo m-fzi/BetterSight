@@ -11,10 +11,15 @@ import SwiftUI
 struct CGameBody: View {
     
     @ObservedObject var game: CGameViewModel
+    @EnvironmentObject var settings: CSettings
+    
     @State private var showingInGameSettings = false
-    @State private var checkMarkSize = 0.0
-    @State private var xMarkSize = 0.0
-    @State private var responseMarkOpacity = 1.0
+    @State private var checkMarkSize = 300.0
+    @State private var xMarkSize = 300.0
+    @State private var checkMarkOpacity = 0.0
+    @State private var xMarkOpacity = 0.0
+    
+    
     
     var body: some View {
         GeometryReader { geo in
@@ -41,7 +46,7 @@ struct CGameBody: View {
                     }
                     controlGround
                         .foregroundColor(.gray)
-                        .frame(width: geo.size.width, height: geo.size.height / 6)
+                        .frame(width: geo.size.width, height: geo.size.height / 5)
                         .opacity(0.4)
                 }
             }
@@ -104,53 +109,51 @@ struct CGameBody: View {
     var checkMark: some View {
         Image(systemName: "checkmark.square.fill")
             .resizable()
+            .foregroundColor(Color(white: 0.8))
+            .background(.green)
+            .clipShape(RoundedRectangle(cornerRadius: 50))
             .frame(width: checkMarkSize, height: checkMarkSize)
-            .foregroundColor(.green)
-            .background(.white)
-            .opacity(responseMarkOpacity)
+            .opacity(checkMarkOpacity)
     }
     
     var xMark: some View {
         Image(systemName: "xmark.square.fill")
             .resizable()
+            .foregroundColor(Color(white: 0.8))
+            .background(.red)
+            .clipShape(RoundedRectangle(cornerRadius: 50))
             .frame(width: xMarkSize, height: xMarkSize)
-            .foregroundColor(.red)
-            .background(.white)
-            .opacity(responseMarkOpacity)
+            .opacity(xMarkOpacity)
     }
     
     func showResponse() {
-        responseMarkOpacity = 1
-        if game.checkMarkTrigger {
-            if CSettings().settingComponents.soundOn {
-                playSound(sound: "beep1", type: "mp3")
+        
+        if game.correctResponseTrigger  {
+            if settings.settingComponents.soundOn {
+                playSound(sound: "bling3", type: "mp3")
             }
             
-            withAnimation(Animation.linear(duration: 0)) {
-                checkMarkSize = 300
+            if settings.settingComponents.showingCheckmark {
+                withAnimation(Animation.linear(duration: 0)) {
+                    checkMarkOpacity = 1
+                }
+                withAnimation(Animation.linear(duration: 0.01).delay(1)) {
+                    checkMarkOpacity = 0
+                }
             }
-            withAnimation(Animation.linear(duration: 0.8).delay(0.8)) {
-                responseMarkOpacity = 0
-            }
-            withAnimation(Animation.linear(duration: 0.001).delay(1.6)) {
-                checkMarkSize = 0
-            }
-        } else if game.xMarkTrigger {
-            if CSettings().settingComponents.soundOn {
+        } else if game.wrongResponseTrigger {
+            if settings.settingComponents.soundOn {
                 playSound(sound: "error1", type: "mp3")
             }
-            
-            withAnimation(Animation.linear(duration: 0)) {
-                xMarkSize = 300
-            }
-            withAnimation(Animation.linear(duration: 0.8).delay(0.8)) {
-                responseMarkOpacity = 0
-            }
-            withAnimation(Animation.linear(duration: 0.001).delay(1.6)) {
-                xMarkSize = 0
+            if settings.settingComponents.showingXmark {
+                withAnimation(Animation.linear(duration: 0)) {
+                    xMarkOpacity = 1
+                }
+                withAnimation(Animation.linear(duration: 0.01).delay(1)) {
+                    xMarkOpacity = 0
+                }
             }
         }
-        
     }
     
     
