@@ -39,7 +39,7 @@ struct CGameBody: View {
                         ZStack {
                             Color.clear
                             LandoltC(landoltC: game.cLetter)
-                                .onAppear { game.fetchGeometry(geometry) }
+                                .onAppear { game.fetchedGeometry = geometry }
                             checkMark
                             xMark
                         }
@@ -52,7 +52,7 @@ struct CGameBody: View {
             }
         }
         .confirmationDialog("InGame Settings", isPresented: $showingInGameSettings) {
-            Button(game.cLetter.isMoving ? "Dectivate movement" : "Activate movement") { game.moveLetter() }
+            Button(game.cLetter.isMoving ? "Dectivate movement" : "Activate movement") { game.activateLetterMovement() }
             Button(game.cLetter.isFrozen ? "Unfreeze letter" : "Freeze letter") { game.freeze() }
         } message: {
             Text("InGame Settings")
