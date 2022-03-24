@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05114F4527E9EA8A00837F10 /* wrong4.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 05114F4427E9EA8A00837F10 /* wrong4.m4a */; };
+		05114F4727E9EACA00837F10 /* wrong3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 05114F4627E9EACA00837F10 /* wrong3.m4a */; };
+		05114F4927E9F50A00837F10 /* Bradley Hand Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05114F4827E9F50A00837F10 /* Bradley Hand Bold.ttf */; };
+		05114F4D27E9F6B400837F10 /* Chalkboard.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 05114F4C27E9F6B400837F10 /* Chalkboard.ttc */; };
+		05114F4F27E9F72F00837F10 /* ChalkboardSE.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 05114F4E27E9F72F00837F10 /* ChalkboardSE.ttc */; };
 		052367F727A947B100765B66 /* OpticianSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 052367F627A947B100765B66 /* OpticianSans-Regular.otf */; };
 		0532C42F27A7EAE000F081E2 /* BetterSightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532C42E27A7EAE000F081E2 /* BetterSightApp.swift */; };
 		0532C43127A7EAE000F081E2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532C43027A7EAE000F081E2 /* MainView.swift */; };
@@ -23,6 +28,8 @@
 		05BAF4BB27C3ACCE00CA1416 /* InfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAF4BA27C3ACCE00CA1416 /* InfoSheet.swift */; };
 		05BB131327E8E46D00159FB2 /* bling3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 05BB131127E8E46D00159FB2 /* bling3.mp3 */; };
 		05BB131427E8E46D00159FB2 /* bling2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 05BB131227E8E46D00159FB2 /* bling2.mp3 */; };
+		05BB131827E904BC00159FB2 /* wrong.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 05BB131727E904BC00159FB2 /* wrong.m4a */; };
+		05BB131A27E905F700159FB2 /* wrong2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 05BB131927E905F700159FB2 /* wrong2.m4a */; };
 		05D1EE2D27E1AD02001D67E9 /* ProgressTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE2C27E1AD02001D67E9 /* ProgressTrackerView.swift */; };
 		05D1EE3127E21AA2001D67E9 /* WorkoutProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */; };
 		05D1EE3527E21FB8001D67E9 /* ProgressTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */; };
@@ -33,6 +40,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05114F4427E9EA8A00837F10 /* wrong4.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrong4.m4a; sourceTree = "<group>"; };
+		05114F4627E9EACA00837F10 /* wrong3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrong3.m4a; sourceTree = "<group>"; };
+		05114F4827E9F50A00837F10 /* Bradley Hand Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bradley Hand Bold.ttf"; sourceTree = "<group>"; };
+		05114F4C27E9F6B400837F10 /* Chalkboard.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chalkboard.ttc; sourceTree = "<group>"; };
+		05114F4E27E9F72F00837F10 /* ChalkboardSE.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChalkboardSE.ttc; sourceTree = "<group>"; };
 		052367F627A947B100765B66 /* OpticianSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpticianSans-Regular.otf"; sourceTree = "<group>"; };
 		0532C42B27A7EAE000F081E2 /* BetterSight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterSight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0532C42E27A7EAE000F081E2 /* BetterSightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSightApp.swift; sourceTree = "<group>"; };
@@ -51,6 +63,8 @@
 		05BAF4BA27C3ACCE00CA1416 /* InfoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSheet.swift; sourceTree = "<group>"; };
 		05BB131127E8E46D00159FB2 /* bling3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bling3.mp3; sourceTree = "<group>"; };
 		05BB131227E8E46D00159FB2 /* bling2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bling2.mp3; sourceTree = "<group>"; };
+		05BB131727E904BC00159FB2 /* wrong.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrong.m4a; sourceTree = "<group>"; };
+		05BB131927E905F700159FB2 /* wrong2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrong2.m4a; sourceTree = "<group>"; };
 		05D1EE2C27E1AD02001D67E9 /* ProgressTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTrackerView.swift; sourceTree = "<group>"; };
 		05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgress.swift; sourceTree = "<group>"; };
 		05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTracker.swift; sourceTree = "<group>"; };
@@ -75,6 +89,9 @@
 			isa = PBXGroup;
 			children = (
 				052367F627A947B100765B66 /* OpticianSans-Regular.otf */,
+				05114F4E27E9F72F00837F10 /* ChalkboardSE.ttc */,
+				05114F4827E9F50A00837F10 /* Bradley Hand Bold.ttf */,
+				05114F4C27E9F6B400837F10 /* Chalkboard.ttc */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -136,6 +153,10 @@
 			children = (
 				05F10BF727E7BA8000BA502D /* beep1.mp3 */,
 				05BB131227E8E46D00159FB2 /* bling2.mp3 */,
+				05BB131727E904BC00159FB2 /* wrong.m4a */,
+				05BB131927E905F700159FB2 /* wrong2.m4a */,
+				05114F4627E9EACA00837F10 /* wrong3.m4a */,
+				05114F4427E9EA8A00837F10 /* wrong4.m4a */,
 				05BB131127E8E46D00159FB2 /* bling3.mp3 */,
 				05F10BF827E7BA8000BA502D /* error1.mp3 */,
 			);
@@ -200,9 +221,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05114F4927E9F50A00837F10 /* Bradley Hand Bold.ttf in Resources */,
+				05BB131A27E905F700159FB2 /* wrong2.m4a in Resources */,
 				05BB131427E8E46D00159FB2 /* bling2.mp3 in Resources */,
+				05114F4727E9EACA00837F10 /* wrong3.m4a in Resources */,
+				05114F4D27E9F6B400837F10 /* Chalkboard.ttc in Resources */,
+				05114F4F27E9F72F00837F10 /* ChalkboardSE.ttc in Resources */,
 				05F10BFA27E7BA8000BA502D /* error1.mp3 in Resources */,
 				05F10BF927E7BA8000BA502D /* beep1.mp3 in Resources */,
+				05BB131827E904BC00159FB2 /* wrong.m4a in Resources */,
+				05114F4527E9EA8A00837F10 /* wrong4.m4a in Resources */,
 				052367F727A947B100765B66 /* OpticianSans-Regular.otf in Resources */,
 				0532C43627A7EAE100F081E2 /* Preview Assets.xcassets in Resources */,
 				0532C43327A7EAE100F081E2 /* Assets.xcassets in Resources */,

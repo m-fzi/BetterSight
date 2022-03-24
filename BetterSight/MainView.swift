@@ -12,9 +12,9 @@ struct MainView: View {
     @State private var showingCSettings = false
     @State private var showingInfoSheet = false
     
-    var gameLeft: CGameViewModel
-    var gameRight: CGameViewModel
-    var gameBoth: CGameViewModel
+    @ObservedObject var gameLeft: CGameViewModel
+    @ObservedObject var gameRight: CGameViewModel
+    @ObservedObject var gameBoth: CGameViewModel
     
     var body: some View {
         NavigationView {
@@ -22,6 +22,17 @@ struct MainView: View {
                 ZStack {
                     Color(white: 0.85)
                         .edgesIgnoringSafeArea(.all)
+                    ZStack {
+                        Text("BetterSight .")
+                            .position(x: geo.size.width / 2, y: geo.size.height / 7)
+                            .font(.custom("Chalkboard SE Bold", size: 40))
+                            .foregroundColor(Color(white: 0.2))
+                        
+                        Text("Version 2.0")
+                            .position(x: geo.size.width / 2, y: geo.size.height - 20)
+                            .font(.custom("Chalkboard SE Bold", size: 15))
+                            .foregroundColor(Color(white: 0.5))
+                    }
                     VStack(spacing: 20) {
                         cGameViewButton
                             .frame(width: geo.size.width / 1.1, height: 100)

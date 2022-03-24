@@ -66,7 +66,9 @@ struct CSettingsView: View {
             ForEach(cSizes, id: \.self) {
                 Text($0, format: .number)
             }
-        }.pickerStyle(.segmented)
+        }
+        .pickerStyle(.segmented)
+        .colorMultiply(Color(white: 0.9))
     }
     
     var afterRoundPicker: some View {
@@ -74,7 +76,9 @@ struct CSettingsView: View {
             ForEach(cSizes, id: \.self) {
                 Text($0, format: .number)
             }
-        }.pickerStyle(.segmented)
+        }
+        .pickerStyle(.segmented)
+        .colorMultiply(Color(white: 0.9))
     }
     
     var shrinkagePicker: some View {
@@ -82,7 +86,9 @@ struct CSettingsView: View {
             ForEach(shrinkageRates, id: \.self) {
                 Text($0)
             }
-        }.pickerStyle(.segmented)
+        }
+        .pickerStyle(.segmented)
+        .colorMultiply(Color(white: 0.9))
     }
     
     var checkToggle: some View {
@@ -126,7 +132,7 @@ struct CSettingsView: View {
 extension Text {
     func bolderWithPadding() -> some View {
         self
-            .foregroundColor(Color(white: 0.5))
+            .foregroundColor(Color(white: 0.4))
             .fontWeight(.heavy)
             .padding(.horizontal)
     }

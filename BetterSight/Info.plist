@@ -5,6 +5,8 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpticianSans-Regular.otf</string>
+		<string>Bradley\ Hand\ Bold.ttf</string>
+		<string>ChalkboardSE.ttc</string>
 	</array>
 </dict>
 </plist>

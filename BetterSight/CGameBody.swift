@@ -109,7 +109,7 @@ struct CGameBody: View {
     var checkMark: some View {
         Image(systemName: "checkmark.square.fill")
             .resizable()
-            .foregroundColor(Color(white: 0.8))
+            .foregroundColor(Color(white: 0.9))
             .background(.green)
             .clipShape(RoundedRectangle(cornerRadius: 50))
             .frame(width: checkMarkSize, height: checkMarkSize)
@@ -119,7 +119,7 @@ struct CGameBody: View {
     var xMark: some View {
         Image(systemName: "xmark.square.fill")
             .resizable()
-            .foregroundColor(Color(white: 0.8))
+            .foregroundColor(Color(white: 0.9))
             .background(.red)
             .clipShape(RoundedRectangle(cornerRadius: 50))
             .frame(width: xMarkSize, height: xMarkSize)
@@ -134,21 +134,17 @@ struct CGameBody: View {
             }
             
             if settings.settingComponents.showingCheckmark {
-                withAnimation(Animation.linear(duration: 0)) {
-                    checkMarkOpacity = 1
-                }
+                checkMarkOpacity = 1
                 withAnimation(Animation.linear(duration: 0.01).delay(1)) {
                     checkMarkOpacity = 0
                 }
             }
         } else if game.wrongResponseTrigger {
             if settings.settingComponents.soundOn {
-                playSound(sound: "error1", type: "mp3")
+                playSound(sound: "wrong3", type: "m4a")
             }
             if settings.settingComponents.showingXmark {
-                withAnimation(Animation.linear(duration: 0)) {
-                    xMarkOpacity = 1
-                }
+                xMarkOpacity = 1
                 withAnimation(Animation.linear(duration: 0.01).delay(1)) {
                     xMarkOpacity = 0
                 }

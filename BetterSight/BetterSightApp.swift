@@ -9,11 +9,11 @@ import SwiftUI
 
 @main
 struct BetterSightApp: App {
-    var gameLeft = CGameViewModel()
-    var gameRight = CGameViewModel()
-    var gameBoth = CGameViewModel()
-    var settings = CSettings()
-    var progress = ProgressTracker()
+    @StateObject var gameLeft = CGameViewModel()
+    @StateObject var gameRight = CGameViewModel()
+    @StateObject var gameBoth = CGameViewModel()
+    @StateObject var settings = CSettings()
+    @StateObject var progress = ProgressTracker()
 
     
     var body: some Scene {

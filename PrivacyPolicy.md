@@ -1,6 +1,6 @@
 Privacy Policy
 
-M Feyzi AKARGUL built the BetterSight Workout app as a Free app. This SERVICE is provided by M Feyzi AKARGUL at no cost and is intended for use as is.
+BetterSight Workout app is a Free app. This SERVICE is provided by developer at no cost and is intended for use as is.
 
 This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
 
@@ -52,4 +52,4 @@ This policy is effective as of 2022-03-06
 
 Contact Us
 
-If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at mfzkgl@gmail.com.
+If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact at mfzkgl@gmail.com.

@@ -16,7 +16,7 @@ struct InfoSheet: View {
                 Group {
                     Text("Press the direction of C for correct answer.")
                     Divider()
-                    Text("You can work on and keep track of your left side, right side and both in one workout session.")
+                    Text("You can work on and keep track of your left, right and both sides in one workout session.")
                     Divider()
                     Text("You can see your current workout round and total wrong answer count for selected side on top of the screen.")
                     Divider()
@@ -28,9 +28,7 @@ struct InfoSheet: View {
                 Spacer()
                 
                 VStack {
-                    Button {
-                        
-                    } label: {
+                    Link(destination: URL(string: "https://github.com/m-fzi/BetterSight/blob/main/PrivacyPolicy.md")!) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 20)
                                 .strokeBorder()
