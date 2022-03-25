@@ -27,7 +27,7 @@ class CGameViewModel: ObservableObject {
     var wrongResponseTrigger: Bool {
         model.wrongResponseTrigger
     }
-    /// We store it in here so it won't be lost when the game restarts.
+    
     var fetchedGeometry: GeometryProxy?
     
     //MARK: - Indent(s)
@@ -42,11 +42,14 @@ class CGameViewModel: ObservableObject {
     
     func activateLetterMovement() {
         model.toggleLetterMovement()
-        if model.fetchedGeometry == nil {
-            if let geometryWasFetchedIndeed = fetchedGeometry {
-                model.fetchedGeometry = geometryWasFetchedIndeed
-            }
-        }
+    }
+    
+    func offsetCRandomly() {
+        let width = fetchedGeometry?.size.width ?? 800
+        let height = fetchedGeometry?.size.height ?? 800
+        let x: Double = Double.random(in: -(width/2 - cLetter.size/4 - 3)...(width/2 - cLetter.size/4 - 3))
+        let y :Double = Double.random(in: -(height/2 - cLetter.size/4 - 3)...(height/2 - cLetter.size/4 - 3))
+        model.offsetC(x: x, y: y)
     }
     
     func freeze() {

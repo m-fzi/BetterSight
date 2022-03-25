@@ -10,7 +10,6 @@ import SwiftUI
 
 struct CGame {
     var cLetter: CLetter
-    var fetchedGeometry: GeometryProxy?
     var correctResponseTrigger  = false
     var wrongResponseTrigger = false
     
@@ -58,10 +57,7 @@ struct CGame {
         } else if cLetter.size < 8 {
             roundUp()
         }
-        
-        if cLetter.isMoving {
-            offsetCRandomly()
-        }
+  
         correctResponseTrigger = true
     }
     
@@ -84,11 +80,10 @@ struct CGame {
         cLetter.isMoving.toggle()
     }
     
-    mutating private func offsetCRandomly() {
-        let width = fetchedGeometry?.size.width ?? 100
-        let height = fetchedGeometry?.size.height ?? 100
-        cLetter.offsetXY.0 = Double.random(in: -(width/2 - cLetter.size/4 - 3)...(width/2 - cLetter.size/4 - 3))
-        cLetter.offsetXY.1 = Double.random(in: -(height/2 - cLetter.size/4 - 3)...(height/2 - cLetter.size/4 - 3))
+    mutating func offsetC(x: Double, y: Double) {
+        
+        cLetter.offsetXY.0 = x
+        cLetter.offsetXY.1 = y
     }
     
     mutating func freezeLetter() {

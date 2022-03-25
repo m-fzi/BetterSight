@@ -40,6 +40,12 @@ struct CGameBody: View {
                             Color.clear
                             LandoltC(landoltC: game.cLetter)
                                 .onAppear { game.fetchedGeometry = geometry }
+                                .confirmationDialog("InGame Settings", isPresented: $showingInGameSettings) {
+                                    Button(game.cLetter.isMoving ? "Dectivate movement" : "Activate movement") { game.activateLetterMovement() }
+                                    Button(game.cLetter.isFrozen ? "Unfreeze letter" : "Freeze letter") { game.freeze() }
+                                } message: {
+                                    Text("InGame Settings")
+                                }
                             checkMark
                             xMark
                         }
@@ -48,14 +54,9 @@ struct CGameBody: View {
                         .foregroundColor(.gray)
                         .frame(width: geo.size.width, height: geo.size.height / 5)
                         .opacity(0.4)
+                        
                 }
             }
-        }
-        .confirmationDialog("InGame Settings", isPresented: $showingInGameSettings) {
-            Button(game.cLetter.isMoving ? "Dectivate movement" : "Activate movement") { game.activateLetterMovement() }
-            Button(game.cLetter.isFrozen ? "Unfreeze letter" : "Freeze letter") { game.freeze() }
-        } message: {
-            Text("InGame Settings")
         }
     }
     
@@ -139,6 +140,11 @@ struct CGameBody: View {
                     checkMarkOpacity = 0
                 }
             }
+            
+            if game.cLetter.isMoving {
+                game.offsetCRandomly()
+            }
+            
         } else if game.wrongResponseTrigger {
             if settings.settingComponents.soundOn {
                 playSound(sound: "wrong3", type: "m4a")
