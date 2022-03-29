@@ -48,9 +48,9 @@ struct CSettingComponents: Codable {
     var rawCSizeAfterEachRound: Double {
         get {
             if cSizeAfterEachRound == 1 { return 60 }
-            else if cSizeAtStart == 2 { return 100 }
-            else if cSizeAtStart == 3 { return 200 }
-            else if cSizeAtStart == 4 { return 300 }
+            else if cSizeAfterEachRound == 2 { return 100 }
+            else if cSizeAfterEachRound == 3 { return 200 }
+            else if cSizeAfterEachRound == 4 { return 300 }
             else { return 400 }
         }
     }
@@ -65,6 +65,7 @@ struct CSettingComponents: Codable {
     var soundOn: Bool = true
     var showingCheckmark = true
     var showingXmark = true
+    var activeGameTabIndex = 0
 }
 
 
