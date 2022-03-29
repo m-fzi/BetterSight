@@ -30,12 +30,12 @@ class ProgressTracker: ObservableObject {
     
     // MARK: - Intents:
     private var uniqueSessionID = 0
-    func addSession(gameLeft: CGameViewModel, gameRight: CGameViewModel, gameBoth: CGameViewModel) {
+    func addSession(gameLeft: CGame, gameRight: CGame, gameBoth: CGame) {
         if progressModel.sessions.count > 0 {
             uniqueSessionID = sessions[0].id
         }
         uniqueSessionID += 1
-        progressModel.addSession(bothRoundAmount: gameBoth.cLetter.round, bothWrongAnswerCount: gameBoth.cLetter.wrongAnswerCount, leftRoundAmount: gameLeft.cLetter.round, leftWrongAnswerCount: gameLeft.cLetter.wrongAnswerCount, rightRoundAmount: gameRight.cLetter.round, rightWrongAnswerCount: gameRight.cLetter.wrongAnswerCount, id: uniqueSessionID)
+        progressModel.addSession(bothRoundAmount: gameBoth.letter.round, bothWrongAnswerCount: gameBoth.letter.wrongAnswerCount, leftRoundAmount: gameLeft.letter.round, leftWrongAnswerCount: gameLeft.letter.wrongAnswerCount, rightRoundAmount: gameRight.letter.round, rightWrongAnswerCount: gameRight.letter.wrongAnswerCount, id: uniqueSessionID)
         
         save()
     }

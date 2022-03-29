@@ -12,9 +12,9 @@ struct MainView: View {
     @State private var showingCSettings = false
     @State private var showingInfoSheet = false
     
-    @ObservedObject var gameLeft: CGameViewModel
-    @ObservedObject var gameRight: CGameViewModel
-    @ObservedObject var gameBoth: CGameViewModel
+    @ObservedObject var gameLeft: CGame
+    @ObservedObject var gameRight: CGame
+    @ObservedObject var gameBoth: CGame
     
     var body: some View {
         NavigationView {
