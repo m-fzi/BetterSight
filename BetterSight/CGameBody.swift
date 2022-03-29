@@ -57,6 +57,10 @@ struct CGameBody: View {
         var offsetAmount = geometry.size.width
         if game.gameID == "left" {
             offsetAmount = -offsetAmount
+        } else if game.gameID == "right" {
+            if settings.settingComponents.oldTabIndex == 2 {
+                offsetAmount = -offsetAmount
+            }
         }
         return AnyTransition.asymmetric(
                 insertion: .offset(x: offsetAmount, y: 0),

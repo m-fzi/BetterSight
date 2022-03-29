@@ -65,7 +65,10 @@ struct CSettingComponents: Codable {
     var soundOn: Bool = true
     var showingCheckmark = true
     var showingXmark = true
-    var activeGameTabIndex = 0
+    var activeGameTabIndex = 0 {
+        didSet { oldTabIndex = oldValue}
+    }
+    var oldTabIndex = 0
 }
 
 
