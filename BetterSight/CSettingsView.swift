@@ -28,13 +28,13 @@ struct CSettingsView: View {
                    
                     Divider()
                     
-                    Text("C Size After Each Round:")
-                        .bolderWithPadding()
-                        .putOnLeading()
-                    afterRoundPicker
-                        .padding(.bottom)
-                  
-                    Divider()
+//                    Text("C Size After Each Round:")
+//                        .bolderWithPadding()
+//                        .putOnLeading()
+//                    afterRoundPicker
+//                        .padding(.bottom)
+//                  
+//                    Divider()
                     
                     Text("Shrinkage Rate:")
                         .bolderWithPadding()
@@ -71,15 +71,15 @@ struct CSettingsView: View {
         .colorMultiply(Color(white: 0.9))
     }
     
-    var afterRoundPicker: some View {
-        Picker("CSizeAfterRound", selection: $settings.settingComponents.cSizeAfterEachRound) {
-            ForEach(cSizes, id: \.self) {
-                Text($0, format: .number)
-            }
-        }
-        .pickerStyle(.segmented)
-        .colorMultiply(Color(white: 0.9))
-    }
+//    var afterRoundPicker: some View {
+//        Picker("CSizeAfterRound", selection: $settings.settingComponents.cSizeAfterEachRound) {
+//            ForEach(cSizes, id: \.self) {
+//                Text($0, format: .number)
+//            }
+//        }
+//        .pickerStyle(.segmented)
+//        .colorMultiply(Color(white: 0.9))
+//    }
     
     var shrinkagePicker: some View {
         Picker("Shrinkage Rate", selection: $settings.settingComponents.shrinkageRate) {

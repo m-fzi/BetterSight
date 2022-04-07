@@ -11,7 +11,6 @@ import SwiftUI
 struct CGameBody: View {
     
     @ObservedObject var game: CGame
-    
     @EnvironmentObject var settings: CSettings
     
     @State private var showingInGameSettings = false
@@ -25,8 +24,8 @@ struct CGameBody: View {
                 LandoltC(landoltC: game.letter)
                     .onAppear { game.fetchedGeometry = geo }
                     .confirmationDialog("InGame Settings", isPresented: $showingInGameSettings) {
-                        Button(game.letter.isMoving ? "Dectivate movement" : "Activate movement") { game.activateLetterMovement() }
-                        Button(game.letter.isFrozen ? "Unfreeze letter" : "Freeze letter") { game.freezeLetter() }
+                        Button(game.letter.isMoving ? "Stop movement" : "Activate movement") { game.activateLetterMovement() }
+                        Button(game.letter.isFrozen ? "Unfreeze letter size" : "Freeze letter size") { game.freezeLetter() }
                     } message: {
                         Text("InGame Settings")
                     }

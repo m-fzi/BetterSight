@@ -44,16 +44,16 @@ struct CSettingComponents: Codable {
             else { return 400 }
         }
     }
-    var cSizeAfterEachRound: Double = 2
-    var rawCSizeAfterEachRound: Double {
-        get {
-            if cSizeAfterEachRound == 1 { return 60 }
-            else if cSizeAfterEachRound == 2 { return 100 }
-            else if cSizeAfterEachRound == 3 { return 200 }
-            else if cSizeAfterEachRound == 4 { return 300 }
-            else { return 400 }
-        }
-    }
+//    var cSizeAfterEachRound: Double = 2
+//    var rawCSizeAfterEachRound: Double {
+//        get {
+//            if cSizeAfterEachRound == 1 { return 60 }
+//            else if cSizeAfterEachRound == 2 { return 100 }
+//            else if cSizeAfterEachRound == 3 { return 200 }
+//            else if cSizeAfterEachRound == 4 { return 300 }
+//            else { return 400 }
+//        }
+//    }
     var shrinkageRate: String = "Medium"
     var rawShrinkageRate: Double {
         get {
@@ -65,10 +65,12 @@ struct CSettingComponents: Codable {
     var soundOn: Bool = true
     var showingCheckmark = true
     var showingXmark = true
+    var oldTabIndex = 0
     var activeGameTabIndex = 0 {
         didSet { oldTabIndex = oldValue}
     }
-    var oldTabIndex = 0
+    var gameModeOnSpeech = false
+    
 }
 
 

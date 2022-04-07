@@ -13,7 +13,7 @@ struct CLetter: Codable {
     }
     
     var size: Double = CSettings().settingComponents.rawCSizeAtStart
-    var roundUpSize: Double = CSettings().settingComponents.rawCSizeAfterEachRound
+    var roundUpSize: Double = CSettings().settingComponents.rawCSizeAtStart
     var shrinkageRate: Double = CSettings().settingComponents.rawShrinkageRate
     var rotation: Double = 0
     var direction: Direction {
@@ -29,5 +29,4 @@ struct CLetter: Codable {
     var isMoving = false
     var wrongAnswerCount = 0
     var round = 0
-    var id = 0
 }
