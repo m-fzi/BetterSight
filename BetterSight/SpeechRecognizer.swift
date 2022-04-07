@@ -28,7 +28,7 @@ class SpeechRecognizer: ObservableObject {
         }
     }
     
-    var transcript: String = ""
+    @Published var transcript: String = ""
     
     private var audioEngine: AVAudioEngine?
     private var request: SFSpeechAudioBufferRecognitionRequest?
@@ -82,6 +82,8 @@ class SpeechRecognizer: ObservableObject {
                 self.request = request
                 self.task = recognizer.recognitionTask(with: request, resultHandler: self.recognitionHandler(result:error:))
             } catch {
+                print("Error on transcribe function.")
+                print("Error transcript: \(self.transcript)")
                 self.reset()
                 self.speakError(error)
             }
@@ -101,6 +103,13 @@ class SpeechRecognizer: ObservableObject {
         request = nil
         task = nil
     }
+    /// Want to use this function when game is roundup, but it doesn't let reset indexOfLastSpeechKeyWord.
+//    func resetResult() {
+//        indexOfLastSpeechKeyWord = -1
+//        reset()
+//        sleep(1)
+//        transcribe()
+//    }
     
     private static func prepareEngine() throws -> (AVAudioEngine, SFSpeechAudioBufferRecognitionRequest) {
         let audioEngine = AVAudioEngine()
@@ -109,7 +118,7 @@ class SpeechRecognizer: ObservableObject {
         request.shouldReportPartialResults = true
         
         let audioSession = AVAudioSession.sharedInstance()
-        try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
+        try audioSession.setCategory(.record, mode: .measurement, options: .mixWithOthers)
         try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         let inputNode = audioEngine.inputNode
         
@@ -136,9 +145,22 @@ class SpeechRecognizer: ObservableObject {
             speak(result.bestTranscription.formattedString)
         }
     }
+
+    var lastWord = ""
+    var listeningIsStopped = false
+    var resetResultTrigger = false
+    let speechKeyWords = ["RIGHT", "LEFT", "UP", "DOWN"]
     
+    // Reversed way to reduce looping. You can find the other option in below(commented out).
     private func speak(_ message: String) {
-        transcript = message
+        print(message)
+        
+        lastWord = String(message.split(separator: " ").reversed()[0]).uppercased()
+        if speechKeyWords.contains(lastWord) {
+            if !listeningIsStopped {
+                transcript = lastWord
+            }
+        }
     }
     
     private func speakError(_ error: Error) {
@@ -171,4 +193,43 @@ extension AVAudioSession {
         }
     }
 }
+
+
+
+//var wordIndex = 0
+//var temporaryWordIndex = 0
+//var indexOfLastSpeechKeyWord = -1
+//var oldTranscriptCount = 0
+//var transcriptCountDifference = 0
+
+//private func speak(_ message: String) {
+//    print(message)
+//    print(wordIndex, indexOfLastSpeechKeyWord)
+//    for word in message.uppercased().split(separator: " ") {
+//        if speechKeyWords.contains(String(word)) {
+//            if wordIndex > indexOfLastSpeechKeyWord {
+//                transcript = String(word)
+//                indexOfLastSpeechKeyWord = wordIndex
+//            }
+//        }
+//        wordIndex += 1
+//    }
+//    wordIndex = 0
+//}
+
+/// Reversed way to reduce looping. You can find the other option in below(commented out).
+//private func speak(_ message: String) {
+//    print(message)
+//    transcriptCountDifference = message.split(separator: " ").count - oldTranscriptCount
+//    print(transcriptCountDifference)
+//    for word in message.uppercased().split(separator: " ").reversed()[0..<transcriptCountDifference] {
+//        print(word)
+//        if speechKeyWords.contains(String(word)) {
+//            transcript = String(word)
+//            oldTranscriptCount = message.split(separator: " ").count
+//            return
+//        }
+//    }
+//    oldTranscriptCount = message.split(separator: " ").count
+//}
 

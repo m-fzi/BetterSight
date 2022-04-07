@@ -21,8 +21,7 @@ struct CGameView: View {
     @State private var checkMarkOpacity = 0.0
     @State private var xMarkOpacity = 0.0
     
-//    @StateObject var speechRecognizer = SpeechRecognizer()
-//    @State private var isRecording = false
+    @StateObject var speechRecognizer = SpeechRecognizer()
     
     private var tabIndex: Int { settings.settingComponents.activeGameTabIndex }
     private var game: CGame {
@@ -47,11 +46,17 @@ struct CGameView: View {
                     xMark
                     checkMark
                 }
-                
-                controlGround
-                    .foregroundColor(.gray)
-                    .frame(width: geo.size.width, height: geo.size.height / 5)
-                    .opacity(0.4)
+                if !settings.settingComponents.gameModeOnSpeech {
+                    controlGround
+                        .foregroundColor(.gray)
+                        .frame(width: geo.size.width, height: geo.size.height / 5)
+                        .opacity(0.4)
+                } else if settings.settingComponents.gameModeOnSpeech {
+//                    Divider()
+                    speechGround
+                        .frame(width: geo.size.width, height: geo.size.height / 6)
+                        .background(Color(white: 0.9))
+                }
             }
         }
         .navigationBarHidden(true)
@@ -74,6 +79,7 @@ struct CGameView: View {
     
     var menuButton: some View {
         Button {
+            if listeningIsActive { stopListening() }
             self.presentationMode.wrappedValue.dismiss()
         } label: {
             Image(systemName: "square.grid.2x2.fill")
@@ -92,6 +98,8 @@ struct CGameView: View {
             gameLeft.restart()
             gameRight.restart()
             gameBoth.restart()
+            if listeningIsActive { stopListening() }
+            
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
@@ -154,6 +162,87 @@ struct CGameView: View {
         }
     }
     
+    func stopListening() {
+        speechRecognizer.stopTranscribing()
+        listeningIsActive = false
+        speechRecognizer.listeningIsStopped = true
+    }
+    
+    func startListening() {
+        speechRecognizer.transcribe()
+        listeningIsActive = true
+        speechRecognizer.listeningIsStopped = false
+    }
+    @State private var listeningIsActive: Bool = false
+    var speechGround: some View {
+        VStack {
+            Button {
+                if !listeningIsActive {
+                    startListening()
+                } else {
+                    stopListening()
+                }
+            } label: {
+                if !listeningIsActive {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(Color(white: 0.6))
+                            .frame(height: 50)
+                        Text("Tap To Start!")
+                            .fontWeight(.heavy)
+                            .font(.headline)
+                            .foregroundColor(.white)
+                        }
+                        .padding(.horizontal)
+                        .padding(.top)
+                    
+                } else {
+                    HStack {
+                        Text("Your answer: ")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                            .frame(width: 150, alignment: .trailing)
+                        Text(" \(speechRecognizer.transcript) ")
+                            .fontWeight(.heavy)
+                            .font(.title)
+                            .foregroundColor(.black)
+                            .frame(width: 150, alignment: .leading)
+                    }
+                    .padding(.horizontal)
+                    .padding(.top)
+                }
+            }
+            .onReceive(speechRecognizer.$transcript) { transcript in
+                calculateSpeechAnswer(transcript: transcript)
+            }
+            
+            Spacer()
+            
+            Text("(Speak: Right, Left, Up or Down)")
+                .foregroundColor(.secondary)
+                .fontWeight(.heavy)
+                .padding(.bottom)
+        }
+       
+    }
+        
+    
+    func calculateSpeechAnswer(transcript: String) {
+        if transcript == "UP" {
+            game.chooseDirection(direction: .up)
+            showResponse()
+        } else if transcript == "DOWN" {
+            game.chooseDirection(direction: .down)
+            showResponse()
+        } else if transcript == "LEFT" {
+            game.chooseDirection(direction: .left)
+            showResponse()
+        } else if transcript == "RIGHT" {
+            game.chooseDirection(direction: .right)
+            showResponse()
+        } 
+    }
+
     var checkMark: some View {
         Image(systemName: "checkmark.square.fill")
             .resizable()
@@ -175,7 +264,6 @@ struct CGameView: View {
     }
     
     func showResponse() {
-        
         if game.correctResponseTrigger  {
             if settings.settingComponents.soundOn {
                 playSound(sound: "bling3", type: "mp3")
@@ -191,6 +279,10 @@ struct CGameView: View {
             if game.letter.isMoving {
                 game.offsetCRandomly()
             }
+            
+//            if settings.settingComponents.gameModeOnSpeech && game.roundUpTrigger {
+//                speechRecognizer.resetResult()
+//            }
             
         } else if game.wrongResponseTrigger {
             if settings.settingComponents.soundOn {
@@ -253,15 +345,7 @@ struct ArrowKey: View {
 }
 
 
-//                .onAppear {
-//                    speechRecognizer.reset()
-//                    speechRecognizer.transcribe()
-//                    isRecording = true
-//                }
-//                .onDisappear {
-//                    speechRecognizer.stopTranscribing()
-//                    isRecording = false
-//                }
+
 
 
 
@@ -270,3 +354,6 @@ struct ArrowKey: View {
 //        CGameView(gameLeft: CGameViewModel(), gameRight: CGameViewModel(), gameBoth: CGameViewModel() )
 //    }
 //}
+
+
+

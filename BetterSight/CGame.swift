@@ -48,6 +48,7 @@ class CGame: ObservableObject {
     var correctResponseTrigger = false
     var wrongResponseTrigger = false
     var fetchedGeometry: GeometryProxy?
+//    var roundUpTrigger = false
     
     //MARK: - Indent(s)
     
@@ -81,6 +82,7 @@ class CGame: ObservableObject {
     private func roundUp() {
         letter.round += 1
         letter.size = letter.roundUpSize
+//        roundUpTrigger = true
     }
     
     func activateLetterMovement() {
@@ -112,6 +114,7 @@ class CGame: ObservableObject {
     private func resetTriggers() {
         correctResponseTrigger = false
         wrongResponseTrigger = false
+//        roundUpTrigger = false
     }
     
 }

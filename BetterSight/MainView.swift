@@ -34,8 +34,12 @@ struct MainView: View {
                             .foregroundColor(Color(white: 0.5))
                     }
                     VStack(spacing: 20) {
-                        cGameViewButton
-                            .frame(width: geo.size.width / 1.1, height: 100)
+                        HStack {
+                            cGameViewButton
+//                                .frame(width: geo.size.width / 2, height: 100)
+                            gameModeButton
+                        }
+                        .frame(width: geo.size.width / 1.1, height: 100)
                         progressTrackerButton
                             .frame(width: geo.size.width / 1.1, height: 100)
                         HStack(spacing: 20) {
@@ -74,6 +78,68 @@ struct MainView: View {
             }
             .foregroundColor(.black)
         }
+    }
+    
+    var gameModeButton: some View {
+        Button {
+            withAnimation {
+                settings.settingComponents.gameModeOnSpeech.toggle()
+            }
+        } label: {
+            if settings.settingComponents.gameModeOnSpeech {
+                speechGameModeButton
+            } else {
+                manuelGameModeButton
+            }
+        }
+        .frame(width: 100, height: 100)
+        .clipped()
+        
+        
+    }
+    private var rollTransition: AnyTransition {
+        AnyTransition.asymmetric(
+            insertion: .offset(x: 0, y: 100),
+            removal: .offset(x: 0, y: -100)
+        )
+    }
+    
+    var manuelGameModeButton: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 25)
+                .strokeBorder(.gray, lineWidth: 4)
+                .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+            VStack {
+                Text("Manuel")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(.black)
+                Text("Mode")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(.black)
+            }
+        }
+        .transition(rollTransition)
+    }
+    
+    var speechGameModeButton: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 25)
+                .strokeBorder(.gray, lineWidth: 4)
+                .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+            VStack {
+                Text("Speech")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(.black)
+                Text("Mode")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(.black)
+            }
+        }
+        .transition(rollTransition)
     }
     
     var progressTrackerButton: some View {
