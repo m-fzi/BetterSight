@@ -29,6 +29,7 @@ class SpeechRecognizer: ObservableObject {
     }
     
     @Published var transcript: String = ""
+    var speakErrorTranscript: String = ""
     
     private var audioEngine: AVAudioEngine?
     private var request: SFSpeechAudioBufferRecognitionRequest?
@@ -103,13 +104,6 @@ class SpeechRecognizer: ObservableObject {
         request = nil
         task = nil
     }
-    /// Want to use this function when game is roundup, but it doesn't let reset indexOfLastSpeechKeyWord.
-//    func resetResult() {
-//        indexOfLastSpeechKeyWord = -1
-//        reset()
-//        sleep(1)
-//        transcribe()
-//    }
     
     private static func prepareEngine() throws -> (AVAudioEngine, SFSpeechAudioBufferRecognitionRequest) {
         let audioEngine = AVAudioEngine()
@@ -118,7 +112,7 @@ class SpeechRecognizer: ObservableObject {
         request.shouldReportPartialResults = true
         
         let audioSession = AVAudioSession.sharedInstance()
-        try audioSession.setCategory(.record, mode: .measurement, options: .mixWithOthers)
+        try audioSession.setCategory(.playAndRecord, mode: .measurement, options: [.mixWithOthers, .allowBluetooth, .defaultToSpeaker])
         try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         let inputNode = audioEngine.inputNode
         
@@ -151,7 +145,6 @@ class SpeechRecognizer: ObservableObject {
     var resetResultTrigger = false
     let speechKeyWords = ["RIGHT", "LEFT", "UP", "DOWN"]
     
-    // Reversed way to reduce looping. You can find the other option in below(commented out).
     private func speak(_ message: String) {
         print(message)
         
@@ -170,7 +163,8 @@ class SpeechRecognizer: ObservableObject {
         } else {
             errorMessage += error.localizedDescription
         }
-        transcript = "<< \(errorMessage) >>"
+        // Fix This
+        print("<< \(errorMessage) >>")
     }
 }
 
