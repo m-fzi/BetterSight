@@ -29,4 +29,5 @@ struct CLetter: Codable {
     var isMoving = false
     var wrongAnswerCount = 0
     var round = 0
+    var text = "K"
 }

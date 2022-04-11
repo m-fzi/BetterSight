@@ -23,31 +23,25 @@ struct MainView: View {
                     Color(white: 0.85)
                         .edgesIgnoringSafeArea(.all)
                     ZStack {
-                        Text("BetterSight .")
+                        betterSightScript
                             .position(x: geo.size.width / 2, y: geo.size.height / 7)
-                            .font(.custom("Chalkboard SE Bold", size: 40))
-                            .foregroundColor(Color(white: 0.2))
-                        
-                        Text("Version 2.0")
+                        versionScript
                             .position(x: geo.size.width / 2, y: geo.size.height - 20)
-                            .font(.custom("Chalkboard SE Bold", size: 15))
-                            .foregroundColor(Color(white: 0.5))
                     }
-                    VStack(spacing: 20) {
-                        HStack {
-                            cGameViewButton
-//                                .frame(width: geo.size.width / 2, height: 100)
-                            gameModeButton
-                        }
-                        .frame(width: geo.size.width / 1.1, height: 100)
-                        progressTrackerButton
-                            .frame(width: geo.size.width / 1.1, height: 100)
+                    VStack(spacing: 15) {
+                        cGameButton
+                            .frame(width: geo.size.width / 1.1, height: 90)
+                        snellenGameButton
+                            .frame(width: geo.size.width / 1.1, height: 90)
                         HStack(spacing: 20) {
                             cSettingsButton
                             speakerButton
                             questionMarkButton
                         }
+                       
                     }
+                    progressTrackerButton
+                        .position(x: geo.size.width / 2, y: geo.size.height / 1.2)
                 }
                 .navigationBarHidden(true)
                 .sheet(isPresented: $showingCSettings) {
@@ -62,23 +56,49 @@ struct MainView: View {
         .statusBar(hidden: false)
     }
     
-    var cGameViewButton: some View {
-        NavigationLink(destination: CGameView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth)) {
+    var betterSightScript: some View {
+        Text("BetterSight .")
+            .font(.custom("Chalkboard SE Bold", size: 40))
+            .foregroundColor(Color(white: 0.2))
+    }
+    
+    var versionScript: some View {
+        Text("Version 3.0")
+            .font(.custom("Chalkboard SE Bold", size: 15))
+            .foregroundColor(Color(white: 0.5))
+    }
+
+    var cGameButton: some View {
+        GeometryReader { geometry in
             ZStack {
                 RoundedRectangle(cornerRadius: 25)
                     .strokeBorder(.gray, lineWidth: 4)
                     .background(RoundedRectangle(cornerRadius: 25).fill(.white))
                 HStack {
-                    Text("C")
-                        .font(.custom("OpticianSans-Regular", size: 100))
-                    Text("Workout")
-                        .font(.title3)
-                        .fontWeight(.bold)
+                    ZStack {
+                        Color.clear
+                        NavigationLink(destination: CGameView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth)) {
+                            HStack {
+                                Text("C Workout")
+                                    .font(.custom("OpticianSans-Regular", size: 30))
+                                    .fontWeight(.bold)
+                            }
+                        }
+                    }
+                    Divider()
+                        .background(.gray)
+                    ZStack {
+                        Color.clear
+                        gameModeButton
+                            .padding(.trailing)
+                    } .frame(width: geometry.size.width/3)
+                        .clipped()
                 }
             }
             .foregroundColor(.black)
         }
     }
+    
     
     var gameModeButton: some View {
         Button {
@@ -87,16 +107,34 @@ struct MainView: View {
             }
         } label: {
             if settings.settingComponents.gameModeOnSpeech {
-                speechGameModeButton
+                VStack {
+                    Text("SPEECH")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                    Text("MODE")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                }
+                .transition(rollTransition)
             } else {
-                manuelGameModeButton
+                VStack {
+                    Text("MANUEL")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                    Text("MODE")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                }
+                .transition(rollTransition)
             }
         }
-        .frame(width: 100, height: 100)
         .clipped()
-        
-        
     }
+    
     private var rollTransition: AnyTransition {
         AnyTransition.asymmetric(
             insertion: .offset(x: 0, y: 100),
@@ -104,57 +142,38 @@ struct MainView: View {
         )
     }
     
-    var manuelGameModeButton: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 25)
-                .strokeBorder(.gray, lineWidth: 4)
-                .background(RoundedRectangle(cornerRadius: 25).fill(.white))
-            VStack {
-                Text("Manuel")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(.black)
-                Text("Mode")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(.black)
+    @State private var moveViewTo: String?
+    private var snellenGameButton: some View {
+        Button {
+            settings.settingComponents.gameIsSnellen = true
+            settings.settingComponents.gameModeOnSpeech = true
+            moveViewTo = "MoveItToGame"
+        } label: {
+            ZStack {
+                NavigationLink(destination: CGameView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth), tag: "MoveItToGame", selection: $moveViewTo){ EmptyView() }
+                RoundedRectangle(cornerRadius: 25)
+                    .strokeBorder(.gray, lineWidth: 4)
+                    .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+                HStack {
+                    Text("Snellen Workout")
+                        .font(.custom("OpticianSans-Regular", size: 30))
+                        .fontWeight(.bold)
+                }
             }
-        }
-        .transition(rollTransition)
-    }
-    
-    var speechGameModeButton: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 25)
-                .strokeBorder(.gray, lineWidth: 4)
-                .background(RoundedRectangle(cornerRadius: 25).fill(.white))
-            VStack {
-                Text("Speech")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(.black)
-                Text("Mode")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(.black)
+            .foregroundColor(.black)
             }
-        }
-        .transition(rollTransition)
     }
     
     var progressTrackerButton: some View {
         NavigationLink(destination: ProgressTrackerView()) {
             ZStack {
-                RoundedRectangle(cornerRadius: 25)
-                    .strokeBorder(.gray, lineWidth: 4)
-                    .background(RoundedRectangle(cornerRadius: 25).fill(.white))
-                HStack {
-                    Text("Progress Tracker")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                }
-            }
-            .foregroundColor(.black)
+                RoundedRectangle(cornerRadius: 15)
+                    .strokeBorder(Color(white: 0.4), lineWidth: 2)
+                    .foregroundColor(Color.clear)
+                Text("PROGRESS TRACKER")
+                    .fontWeight(.heavy)
+                    .foregroundColor(Color(white: 0.4))
+            } .frame(width: 230, height: 50)
         }
     }
 

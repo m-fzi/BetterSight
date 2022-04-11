@@ -29,6 +29,7 @@ class SpeechRecognizer: ObservableObject {
     }
     
     @Published var transcript: String = ""
+    @Published var letterTranscript: String = ""
     var speakErrorTranscript: String = ""
     
     private var audioEngine: AVAudioEngine?
@@ -68,7 +69,6 @@ class SpeechRecognizer: ObservableObject {
         Begin transcribing audio.
      
         Creates a `SFSpeechRecognitionTask` that transcribes speech to text until you call `stopTranscribing()`.
-        The resulting transcription is continuously written to the published `transcript` property.
      */
     func transcribe() {
         DispatchQueue(label: "Speech Recognizer Queue", qos: .background).async { [weak self] in
@@ -110,6 +110,7 @@ class SpeechRecognizer: ObservableObject {
         
         let request = SFSpeechAudioBufferRecognitionRequest()
         request.shouldReportPartialResults = true
+        request.taskHint = .confirmation
         
         let audioSession = AVAudioSession.sharedInstance()
         try audioSession.setCategory(.playAndRecord, mode: .measurement, options: [.mixWithOthers, .allowBluetooth, .defaultToSpeaker])
@@ -137,6 +138,7 @@ class SpeechRecognizer: ObservableObject {
         
         if let result = result {
             speak(result.bestTranscription.formattedString)
+            
         }
     }
 
@@ -154,6 +156,11 @@ class SpeechRecognizer: ObservableObject {
                 transcript = lastWord
             }
         }
+        if !listeningIsStopped {
+            letterTranscript = String(lastWord.first ?? "K")
+        }
+            
+        
     }
     
     private func speakError(_ error: Error) {
@@ -189,41 +196,4 @@ extension AVAudioSession {
 }
 
 
-
-//var wordIndex = 0
-//var temporaryWordIndex = 0
-//var indexOfLastSpeechKeyWord = -1
-//var oldTranscriptCount = 0
-//var transcriptCountDifference = 0
-
-//private func speak(_ message: String) {
-//    print(message)
-//    print(wordIndex, indexOfLastSpeechKeyWord)
-//    for word in message.uppercased().split(separator: " ") {
-//        if speechKeyWords.contains(String(word)) {
-//            if wordIndex > indexOfLastSpeechKeyWord {
-//                transcript = String(word)
-//                indexOfLastSpeechKeyWord = wordIndex
-//            }
-//        }
-//        wordIndex += 1
-//    }
-//    wordIndex = 0
-//}
-
-/// Reversed way to reduce looping. You can find the other option in below(commented out).
-//private func speak(_ message: String) {
-//    print(message)
-//    transcriptCountDifference = message.split(separator: " ").count - oldTranscriptCount
-//    print(transcriptCountDifference)
-//    for word in message.uppercased().split(separator: " ").reversed()[0..<transcriptCountDifference] {
-//        print(word)
-//        if speechKeyWords.contains(String(word)) {
-//            transcript = String(word)
-//            oldTranscriptCount = message.split(separator: " ").count
-//            return
-//        }
-//    }
-//    oldTranscriptCount = message.split(separator: " ").count
-//}
 

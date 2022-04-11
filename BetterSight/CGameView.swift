@@ -51,8 +51,7 @@ struct CGameView: View {
                         .foregroundColor(.gray)
                         .frame(width: geo.size.width, height: geo.size.height / 5)
                         .opacity(0.4)
-                } else if settings.settingComponents.gameModeOnSpeech {
-//                    Divider()
+                } else {
                     speechGround
                         .frame(width: geo.size.width, height: geo.size.height / 6)
                         .background(Color(white: 0.9))
@@ -81,6 +80,7 @@ struct CGameView: View {
         Button {
             if listeningIsActive { stopListening() }
             self.presentationMode.wrappedValue.dismiss()
+            settings.settingComponents.gameIsSnellen = false
         } label: {
             Image(systemName: "square.grid.2x2.fill")
                 .resizable()
@@ -162,17 +162,18 @@ struct CGameView: View {
         }
     }
     
-    func stopListening() {
+    private func stopListening() {
         speechRecognizer.stopTranscribing()
         listeningIsActive = false
         speechRecognizer.listeningIsStopped = true
     }
     
-    func startListening() {
+    private func startListening() {
         speechRecognizer.transcribe()
         listeningIsActive = true
         speechRecognizer.listeningIsStopped = false
     }
+    
     @State private var listeningIsActive: Bool = false
     var speechGround: some View {
         VStack {
@@ -202,7 +203,7 @@ struct CGameView: View {
                             .font(.headline)
                             .foregroundColor(.gray)
                             .frame(width: 150, alignment: .trailing)
-                        Text(" \(speechRecognizer.transcript) ")
+                        Text(settings.settingComponents.gameIsSnellen ? " \(speechRecognizer.letterTranscript) " : " \(speechRecognizer.transcript) ")
                             .fontWeight(.heavy)
                             .font(.title)
                             .foregroundColor(.black)
@@ -212,35 +213,53 @@ struct CGameView: View {
                     .padding(.top)
                 }
             }
-            .onReceive(speechRecognizer.$transcript) { transcript in
+            .onReceive(settings.settingComponents.gameIsSnellen ? speechRecognizer.$letterTranscript : speechRecognizer.$transcript) { transcript in
                 calculateSpeechAnswer(transcript: transcript)
             }
             
             Spacer()
-            
-            Text("(Speak: Right, Left, Up or Down)")
-                .foregroundColor(.secondary)
-                .fontWeight(.heavy)
-                .padding(.bottom)
+            if !settings.settingComponents.gameIsSnellen {
+                Text("(Say: Right, Left, Up or Down)")
+                    .foregroundColor(.secondary)
+                    .fontWeight(.heavy)
+                    .padding(.bottom)
+            } else {
+                Text("(Say a word that starts with the letter you see.)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fontWeight(.heavy)
+                    .padding(.bottom)
+            }
         }
        
     }
         
     
-    func calculateSpeechAnswer(transcript: String) {
-        if transcript == "UP" {
-            game.chooseDirection(direction: .up)
-            showResponse()
-        } else if transcript == "DOWN" {
-            game.chooseDirection(direction: .down)
-            showResponse()
-        } else if transcript == "LEFT" {
-            game.chooseDirection(direction: .left)
-            showResponse()
-        } else if transcript == "RIGHT" {
-            game.chooseDirection(direction: .right)
-            showResponse()
-        } 
+    private func calculateSpeechAnswer(transcript: String) {
+        if !settings.settingComponents.gameIsSnellen {
+            if transcript == "UP" {
+                game.chooseDirection(direction: .up)
+                showResponse()
+            } else if transcript == "DOWN" {
+                game.chooseDirection(direction: .down)
+                showResponse()
+            } else if transcript == "LEFT" {
+                game.chooseDirection(direction: .left)
+                showResponse()
+            } else if transcript == "RIGHT" {
+                game.chooseDirection(direction: .right)
+                showResponse()
+            }
+        } else {
+            if !transcript.isEmpty {
+                game.chooseSnellenLetter(letterText: transcript)
+                showResponse()
+            }
+        }
+    }
+    
+    private func calculateSpeechAnswerForSnellen(letterTranscript: String) {
+        
     }
 
     var checkMark: some View {
@@ -263,7 +282,7 @@ struct CGameView: View {
             .opacity(xMarkOpacity)
     }
     
-    func showResponse() {
+    private func showResponse() {
         if game.correctResponseTrigger  {
             if settings.settingComponents.soundOn {
                 playSound(sound: "bling3", type: "mp3")
@@ -275,15 +294,9 @@ struct CGameView: View {
                     checkMarkOpacity = 0
                 }
             }
-            
             if game.letter.isMoving {
                 game.offsetCRandomly()
             }
-            
-//            if settings.settingComponents.gameModeOnSpeech && game.roundUpTrigger {
-//                speechRecognizer.resetResult()
-//            }
-            
         } else if game.wrongResponseTrigger {
             if settings.settingComponents.soundOn {
                 playSound(sound: "wrong3", type: "m4a")

@@ -15,15 +15,20 @@ struct InfoSheet: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     Group {
-                        Text("Press the direction of C for correct answer.")
+                        Group {
+                            Text("Manuel C Workout: Press the direction of C for correct answer.")
+                            Divider()
+                            Text("Speech C Workout: Say Right, Left, Up or Down.")
+                            Divider()
+                            Text("Snellen Workout: Say a random word that starts with the letter you see.")
+                            Divider() }
+                        Text("You can see your current workout round and total wrong answer count for the selected side on top of the workout screen.")
                         Divider()
                         Text("You can work on and keep track of your left, right and both sides in one workout session.")
                         Divider()
-                        Text("You can see your current workout round and total wrong answer count for selected side on top of the screen.")
+                        Text("To save the workout, press Save|Redo button when you finish the session.")
                         Divider()
-                        Text("To save the workout to keep track of your progress, press Save|Redo button when you finish the session.")
-                        Divider()
-                        Text("To activate the letter movement or freeze the letter size, press gear shape in workout screen.")
+                        Text("You can also activate the letter movement or freeze the letter size. To do this, press gear shape in workout screen and adjust the settings.")
                     }
                     
                     Spacer()
@@ -34,9 +39,10 @@ struct InfoSheet: View {
                                 RoundedRectangle(cornerRadius: 20)
                                     .strokeBorder()
                                     .frame(height: 80)
+                                    .foregroundColor(.black)
                                 Text("Privacy Policy")
                                     .fontWeight(.heavy)
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.black)
                             }
                         }
                     } .padding()
@@ -47,7 +53,7 @@ struct InfoSheet: View {
                 .navigationTitle("How to play")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(trailing: Button("Done") { dismiss() } )
-                .background(Color(white: 0.9))
+                .background(Color(hue: 0.4, saturation: 0.3, brightness: 0.7))
             }
         }
     }

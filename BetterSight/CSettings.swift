@@ -70,7 +70,7 @@ struct CSettingComponents: Codable {
         didSet { oldTabIndex = oldValue}
     }
     var gameModeOnSpeech = false
-    
+    var gameIsSnellen = false
 }
 
 

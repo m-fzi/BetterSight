@@ -21,11 +21,14 @@ struct CGameBody: View {
                 Color.clear
                 gearButton
                 
-                LandoltC(landoltC: game.letter)
-                    .onAppear { game.fetchedGeometry = geo }
+                SnellenLetter(letter: game.letter)
+                    .onAppear {
+                        game.fetchedGeometry = geo
+                        UIApplication.shared.isIdleTimerDisabled = true
+                    }
                     .confirmationDialog("InGame Settings", isPresented: $showingInGameSettings) {
-                        Button(game.letter.isMoving ? "Stop movement" : "Activate movement") { game.activateLetterMovement() }
-                        Button(game.letter.isFrozen ? "Unfreeze letter size" : "Freeze letter size") { game.freezeLetter() }
+                        Button(game.letter.isMoving ? "Stop Movement" : "Activate Movement") { game.activateLetterMovement() }
+                        Button(game.letter.isFrozen ? "Unfreeze Letter Size" : "Freeze Letter Size") { game.freezeLetter() }
                     } message: {
                         Text("InGame Settings")
                     }
@@ -67,17 +70,16 @@ struct CGameBody: View {
                 )
     }
 }
-    
 
-
-struct LandoltC: View {
-    var landoltC: CLetter
+struct SnellenLetter: View {
+    @EnvironmentObject var settings: CSettings
+    var letter: CLetter
     
     var body: some View {
-        Text("C")
-            .font(.custom("OpticianSans-Regular", size: landoltC.size))
-            .rotationEffect(Angle(degrees: landoltC.rotation))
-            .offset(x: landoltC.offsetX, y: landoltC.offsetY)
+        Text(settings.settingComponents.gameIsSnellen ? letter.text : "C")
+            .font(.custom("OpticianSans-Regular", size: letter.size))
+            .rotationEffect(Angle(degrees: settings.settingComponents.gameIsSnellen ? 0 : letter.rotation))
+            .offset(x: letter.offsetX, y: letter.offsetY)
             
     }
 }

@@ -50,6 +50,8 @@ class CGame: ObservableObject {
     var fetchedGeometry: GeometryProxy?
 //    var roundUpTrigger = false
     
+    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
     //MARK: - Indent(s)
     
     func chooseDirection(direction: CLetter.Direction) {
@@ -59,6 +61,16 @@ class CGame: ObservableObject {
         } else {
             wrongAnswer()
         }
+    }
+    
+    func chooseSnellenLetter(letterText: String) {
+        resetTriggers()
+        if letterText == letter.text {
+            correctAnswerForSnellen()
+        } else {
+            wrongAnswer()
+        }
+        
     }
     
     private var rotationDegrees: [Double] = [0, 90, 180, 270]
@@ -77,6 +89,18 @@ class CGame: ObservableObject {
     private func wrongAnswer() {
         letter.wrongAnswerCount += 1
         wrongResponseTrigger = true
+    }
+    
+    private func correctAnswerForSnellen() {
+        letter.text = String(letters.randomElement() ?? "A")
+        
+        if !letter.isFrozen && letter.size >= 8 {
+            letter.size = letter.size * letter.shrinkageRate
+        } else if letter.size < 8 {
+            roundUp()
+        }
+  
+        correctResponseTrigger = true
     }
     
     private func roundUp() {
