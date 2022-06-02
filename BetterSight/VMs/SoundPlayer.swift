@@ -8,9 +8,12 @@
 import AVFoundation
 import Foundation
 
+// TODO: - Fix this.
+
 var audioPlayer: AVAudioPlayer?
-func playSound(sound: String, type: String) {
-    if let path = Bundle.main.path(forResource: sound, ofType: type) {
+
+func playSound(name: String, ext: String) {
+    if let path = Bundle.main.path(forResource: name, ofType: ext) {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
             audioPlayer?.play()

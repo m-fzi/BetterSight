@@ -5,6 +5,7 @@
 //  Created by f on 13.03.2022.
 //
 
+import AVFoundation
 import SwiftUI
 
 struct CGameView: View {
@@ -22,6 +23,10 @@ struct CGameView: View {
     @State private var xMarkOpacity = 0.0
     
     @StateObject var speechRecognizer = SpeechRecognizer()
+    
+//    var successPlayer = SoundPlayer(of: "success", ext: "mp3")
+//    var failurePlayer: SoundPlayer = { SoundPlayer(of: "failure", ext: "m4a") }()
+//    var dingPlayer = SoundPlayer(of: "ding", ext: "mp3")
     
     private var tabIndex: Int { settings.settingComponents.activeGameTabIndex }
     private var game: CGame {
@@ -92,7 +97,7 @@ struct CGameView: View {
     var restartButton: some View {
         Button {
             if settings.settingComponents.soundOn {
-                playSound(sound: "bling2", type: "mp3")
+                playSound(name: "ding", ext: "mp3")
             }
             progress.addSession(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth)
             gameLeft.restart()
@@ -285,7 +290,7 @@ struct CGameView: View {
     private func showResponse() {
         if game.correctResponseTrigger  {
             if settings.settingComponents.soundOn {
-                playSound(sound: "bling3", type: "mp3")
+                playSound(name: "success", ext: "mp3")
             }
             
             if settings.settingComponents.showingCheckmark {
@@ -299,7 +304,7 @@ struct CGameView: View {
             }
         } else if game.wrongResponseTrigger {
             if settings.settingComponents.soundOn {
-                playSound(sound: "wrong3", type: "m4a")
+                playSound(name: "failure", ext: "m4a")
             }
             if settings.settingComponents.showingXmark {
                 xMarkOpacity = 1
@@ -355,7 +360,11 @@ struct ArrowKey: View {
             .resizable()
             .frame(width: 30, height: 30)
     }
+    
+
 }
+
+
 
 
 
