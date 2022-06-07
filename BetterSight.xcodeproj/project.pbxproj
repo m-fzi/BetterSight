@@ -18,7 +18,7 @@
 		0532C43627A7EAE100F081E2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0532C43527A7EAE100F081E2 /* Preview Assets.xcassets */; };
 		0532C43F27A7EB2800F081E2 /* CGameBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532C43E27A7EB2800F081E2 /* CGameBody.swift */; };
 		054A36EF27FAA40600422AFF /* CGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054A36EE27FAA40600422AFF /* CGameView.swift */; };
-		055DC9E128463994008C8190 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055DC9E028463994008C8190 /* Settings.swift */; };
+		055DC9E128463994008C8190 /* SettingComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055DC9E028463994008C8190 /* SettingComponents.swift */; };
 		0578165327E61E5300A3F7D5 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578165227E61E5200A3F7D5 /* FileManager-DocumentsDirectory.swift */; };
 		0578165527E6402800A3F7D5 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578165427E6402800A3F7D5 /* Test.swift */; };
 		057ED24827DB428C005EDBD4 /* CSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057ED24727DB428C005EDBD4 /* CSettings.swift */; };
@@ -33,6 +33,7 @@
 		05D1EE3127E21AA2001D67E9 /* WorkoutProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */; };
 		05D1EE3527E21FB8001D67E9 /* ProgressTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */; };
 		05D1EE3727E22519001D67E9 /* TapBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3627E22519001D67E9 /* TapBars.swift */; };
+		05E45C15284A0CD9004C929A /* TODOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E45C14284A0CD9004C929A /* TODOs.swift */; };
 		05F10BFD27E7BF7500BA502D /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F10BFC27E7BF7500BA502D /* SoundPlayer.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,7 +51,7 @@
 		0532C43E27A7EB2800F081E2 /* CGameBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGameBody.swift; sourceTree = "<group>"; };
 		0532C44327A7EC7B00F081E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		054A36EE27FAA40600422AFF /* CGameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGameView.swift; sourceTree = "<group>"; };
-		055DC9E028463994008C8190 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		055DC9E028463994008C8190 /* SettingComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingComponents.swift; sourceTree = "<group>"; };
 		0578165227E61E5200A3F7D5 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
 		0578165427E6402800A3F7D5 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		057ED24727DB428C005EDBD4 /* CSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSettings.swift; sourceTree = "<group>"; };
@@ -65,6 +66,7 @@
 		05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgress.swift; sourceTree = "<group>"; };
 		05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTracker.swift; sourceTree = "<group>"; };
 		05D1EE3627E22519001D67E9 /* TapBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBars.swift; sourceTree = "<group>"; };
+		05E45C14284A0CD9004C929A /* TODOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOs.swift; sourceTree = "<group>"; };
 		05F10BFC27E7BF7500BA502D /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,7 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				05B6D68627D77D23002C3258 /* CLetter.swift */,
-				055DC9E028463994008C8190 /* Settings.swift */,
+				055DC9E028463994008C8190 /* SettingComponents.swift */,
 				05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */,
 			);
 			path = Models;
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				0578165227E61E5200A3F7D5 /* FileManager-DocumentsDirectory.swift */,
+				05E45C14284A0CD9004C929A /* TODOs.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -271,13 +274,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05E45C15284A0CD9004C929A /* TODOs.swift in Sources */,
 				0578165327E61E5300A3F7D5 /* FileManager-DocumentsDirectory.swift in Sources */,
 				05D1EE3127E21AA2001D67E9 /* WorkoutProgress.swift in Sources */,
 				0578165527E6402800A3F7D5 /* Test.swift in Sources */,
 				059B274527F1777500658179 /* SpeechRecognizer.swift in Sources */,
 				05B6D68527D7234A002C3258 /* CSettingsView.swift in Sources */,
 				0532C43127A7EAE000F081E2 /* MainView.swift in Sources */,
-				055DC9E128463994008C8190 /* Settings.swift in Sources */,
+				055DC9E128463994008C8190 /* SettingComponents.swift in Sources */,
 				054A36EF27FAA40600422AFF /* CGameView.swift in Sources */,
 				057ED24827DB428C005EDBD4 /* CSettings.swift in Sources */,
 				05D1EE3727E22519001D67E9 /* TapBars.swift in Sources */,

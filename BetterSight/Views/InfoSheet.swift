@@ -46,7 +46,6 @@ struct InfoSheet: View {
                             }
                         }
                     } .padding()
-                    
                     Spacer()
                 }
                 .padding()

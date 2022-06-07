@@ -147,10 +147,11 @@ class SpeechRecognizer: ObservableObject {
     var resetResultTrigger = false
     let speechKeyWords = ["RIGHT", "LEFT", "UP", "DOWN"]
     
+    // TODO: Fix here
     private func speak(_ message: String) {
         print(message)
         
-        lastWord = String(message.split(separator: " ").reversed()[0]).uppercased()
+        lastWord = String(message.split(separator: " ").reversed()[0]).uppercased() //.last?.uppercased() ?? "HELLO")
         if speechKeyWords.contains(lastWord) {
             if !listeningIsStopped {
                 transcript = lastWord
@@ -170,7 +171,6 @@ class SpeechRecognizer: ObservableObject {
         } else {
             errorMessage += error.localizedDescription
         }
-        // Fix This
         print("<< \(errorMessage) >>")
     }
 }
