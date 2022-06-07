@@ -9,7 +9,7 @@ import Foundation
 
 class CSettings: ObservableObject {
     
-    @Published var settingComponents = CSettingComponents() {
+    @Published var settingComponents = SettingComponents() {
         didSet {
             if let encoded = try? JSONEncoder().encode(settingComponents) {
                 UserDefaults.standard.set(encoded, forKey: "settings")
@@ -19,19 +19,20 @@ class CSettings: ObservableObject {
     
     init() {
         if let savedSettings = UserDefaults.standard.data(forKey: "settings") {
-            if let decodedSettings = try? JSONDecoder().decode(CSettingComponents.self, from: savedSettings) {
+            if let decodedSettings = try? JSONDecoder().decode(SettingComponents.self, from: savedSettings) {
                 settingComponents = decodedSettings
                 return
             }
         }
-        settingComponents = CSettingComponents()
+        settingComponents = SettingComponents()
     }
     
     func reset() {
-        settingComponents = CSettingComponents()
+        settingComponents = SettingComponents()
     }
-    
 }
+
+
 
 
 

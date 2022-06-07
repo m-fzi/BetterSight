@@ -10,7 +10,7 @@ import SwiftUI
 struct CSettingsView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var settings: CSettings
-    
+
     let cSizes: [Double] = [1, 2, 3, 4, 5]
     let shrinkageRates: [String] = ["Low", "Medium", "High"]
     
@@ -21,23 +21,15 @@ struct CSettingsView: View {
                 
                 VStack {
                     Text("C Size On Start:")
-                        .bolderWithPadding()
+                        .greyAndBolderWithPadding()
                         .putOnLeading()
-                    startPicker
+                    startingSizePicker
                         .padding(.bottom)
                    
                     Divider()
                     
-//                    Text("C Size After Each Round:")
-//                        .bolderWithPadding()
-//                        .putOnLeading()
-//                    afterRoundPicker
-//                        .padding(.bottom)
-//                  
-//                    Divider()
-                    
                     Text("Shrinkage Rate:")
-                        .bolderWithPadding()
+                        .greyAndBolderWithPadding()
                         .putOnLeading()
                     shrinkagePicker
                         .padding(.bottom)
@@ -45,9 +37,9 @@ struct CSettingsView: View {
                   
                     Divider()
                     Group {
-                        checkToggle
+                        checkMarkToggle
                         Divider()
-                        xToggle
+                        xMarkToggle
                     }
                 }
                 .padding()
@@ -61,8 +53,8 @@ struct CSettingsView: View {
     
     
     
-    var startPicker: some View {
-        Picker("CSizeOnStart", selection: $settings.settingComponents.cSizeAtStart) {
+    var startingSizePicker: some View {
+        Picker("CSizeOnStart", selection: $settings.settingComponents.rawCSizeAtStart) {
             ForEach(cSizes, id: \.self) {
                 Text($0, format: .number)
             }
@@ -71,18 +63,8 @@ struct CSettingsView: View {
         .colorMultiply(Color(white: 0.9))
     }
     
-//    var afterRoundPicker: some View {
-//        Picker("CSizeAfterRound", selection: $settings.settingComponents.cSizeAfterEachRound) {
-//            ForEach(cSizes, id: \.self) {
-//                Text($0, format: .number)
-//            }
-//        }
-//        .pickerStyle(.segmented)
-//        .colorMultiply(Color(white: 0.9))
-//    }
-    
     var shrinkagePicker: some View {
-        Picker("Shrinkage Rate", selection: $settings.settingComponents.shrinkageRate) {
+        Picker("Shrinkage Rate", selection: $settings.settingComponents.rawShrinkageRate) {
             ForEach(shrinkageRates, id: \.self) {
                 Text($0)
             }
@@ -91,7 +73,7 @@ struct CSettingsView: View {
         .colorMultiply(Color(white: 0.9))
     }
     
-    var checkToggle: some View {
+    var checkMarkToggle: some View {
         Toggle(isOn: $settings.settingComponents.showingCheckmark) {
             Text("Show Checkmark")
                 .fontWeight(.heavy)
@@ -99,7 +81,7 @@ struct CSettingsView: View {
         .tint(Color(white: 0.3))
     }
     
-    var xToggle: some View {
+    var xMarkToggle: some View {
         Toggle(isOn: $settings.settingComponents.showingXmark) {
             Text("Show Xmark")
                 .fontWeight(.heavy)
@@ -130,7 +112,7 @@ struct CSettingsView: View {
 }
 
 extension Text {
-    func bolderWithPadding() -> some View {
+    func greyAndBolderWithPadding() -> some View {
         self
             .foregroundColor(Color(white: 0.4))
             .fontWeight(.heavy)

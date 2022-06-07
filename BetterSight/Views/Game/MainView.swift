@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var settings: CSettings
     @State private var showingCSettings = false
     @State private var showingInfoSheet = false
     
-    @ObservedObject var gameLeft: CGame
-    @ObservedObject var gameRight: CGame
-    @ObservedObject var gameBoth: CGame
+    @EnvironmentObject var game: CGame
+    @EnvironmentObject var settings: CSettings
     
     var body: some View {
         NavigationView {
@@ -44,7 +42,7 @@ struct MainView: View {
                         .position(x: geo.size.width / 2, y: geo.size.height / 1.2)
                 }
                 .navigationBarHidden(true)
-                .sheet(isPresented: $showingCSettings) {
+                .sheet(isPresented: $showingCSettings, onDismiss: updateGameSettings) {
                     CSettingsView()
                 }
                 .sheet(isPresented: $showingInfoSheet) {
@@ -55,6 +53,13 @@ struct MainView: View {
         .navigationViewStyle(.stack)
         .statusBar(hidden: false)
     }
+    
+    // Bridge between settings and game.
+    func updateGameSettings() {
+        game.updateSettings(settings.settingComponents)
+    }
+    
+    // MARK: - Subviews
     
     var betterSightScript: some View {
         Text("BetterSight .")
@@ -71,13 +76,11 @@ struct MainView: View {
     var cGameButton: some View {
         GeometryReader { geometry in
             ZStack {
-                RoundedRectangle(cornerRadius: 25)
-                    .strokeBorder(.gray, lineWidth: 4)
-                    .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+                roundedRectangleBase
                 HStack {
                     ZStack {
                         Color.clear
-                        NavigationLink(destination: CGameView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth)) {
+                        NavigationLink(destination: CGameView()) {
                             HStack {
                                 Text("C Workout")
                                     .font(.custom("OpticianSans-Regular", size: 30))
@@ -87,11 +90,9 @@ struct MainView: View {
                     }
                     Divider()
                         .background(.gray)
-                    ZStack {
-                        Color.clear
-                        gameModeButton
-                            .padding(.trailing)
-                    } .frame(width: geometry.size.width/3)
+                    gameModeButton
+                        .padding(.trailing)
+                        .frame(width: geometry.size.width/3)
                         .clipped()
                 }
             }
@@ -99,14 +100,13 @@ struct MainView: View {
         }
     }
     
-    
     var gameModeButton: some View {
         Button {
             withAnimation {
-                settings.settingComponents.gameModeOnSpeech.toggle()
+                settings.settingComponents.cGameOnSpeech.toggle()
             }
         } label: {
-            if settings.settingComponents.gameModeOnSpeech {
+            if settings.settingComponents.cGameOnSpeech {
                 VStack {
                     Text("SPEECH")
                         .font(.headline)
@@ -132,7 +132,6 @@ struct MainView: View {
                 .transition(rollTransition)
             }
         }
-        .clipped()
     }
     
     private var rollTransition: AnyTransition {
@@ -146,35 +145,18 @@ struct MainView: View {
     private var snellenGameButton: some View {
         Button {
             settings.settingComponents.gameIsSnellen = true
-            settings.settingComponents.gameModeOnSpeech = true
             moveViewTo = "MoveItToGame"
         } label: {
             ZStack {
-                NavigationLink(destination: CGameView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth), tag: "MoveItToGame", selection: $moveViewTo){ EmptyView() }
-                RoundedRectangle(cornerRadius: 25)
-                    .strokeBorder(.gray, lineWidth: 4)
-                    .background(RoundedRectangle(cornerRadius: 25).fill(.white))
-                HStack {
-                    Text("Snellen Workout")
-                        .font(.custom("OpticianSans-Regular", size: 30))
-                        .fontWeight(.bold)
-                }
+                roundedRectangleBase
+                NavigationLink(destination: CGameView(), tag: "MoveItToGame", selection: $moveViewTo){ EmptyView() }
+                Text("Snellen Workout")
+                    .font(.custom("OpticianSans-Regular", size: 30))
+                    .fontWeight(.bold)
+            
             }
             .foregroundColor(.black)
             }
-    }
-    
-    var progressTrackerButton: some View {
-        NavigationLink(destination: ProgressTrackerView()) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 15)
-                    .strokeBorder(Color(white: 0.4), lineWidth: 2)
-                    .foregroundColor(Color.clear)
-                Text("PROGRESS TRACKER")
-                    .fontWeight(.heavy)
-                    .foregroundColor(Color(white: 0.4))
-            } .frame(width: 230, height: 50)
-        }
     }
 
     var cSettingsButton: some View {
@@ -182,9 +164,7 @@ struct MainView: View {
             showingCSettings = true
         } label: {
             ZStack {
-                RoundedRectangle(cornerRadius: 25)
-                    .strokeBorder(.gray, lineWidth: 4)
-                    .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+                roundedRectangleBase
                 Image(systemName: "gearshape")
                     .resizable()
                     .foregroundColor(.black)
@@ -200,9 +180,7 @@ struct MainView: View {
             }
         } label: {
             ZStack {
-                RoundedRectangle(cornerRadius: 25)
-                    .strokeBorder(.gray, lineWidth: 4)
-                    .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+                roundedRectangleBase
                 if settings.settingComponents.soundOn {
                     Image(systemName: "speaker.wave.2")
                         .resizable()
@@ -223,9 +201,7 @@ struct MainView: View {
             showingInfoSheet = true
         } label: {
             ZStack {
-                RoundedRectangle(cornerRadius: 25)
-                    .strokeBorder(.gray, lineWidth: 4)
-                    .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+                roundedRectangleBase
                 Image(systemName: "questionmark.app")
                     .resizable()
                     .foregroundColor(.black)
@@ -233,7 +209,29 @@ struct MainView: View {
             }
         }.frame(width: 100, height: 100)
     }
-       
+    
+    var progressTrackerButton: some View {
+        NavigationLink(destination: ProgressTrackerView()) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 15)
+                    .strokeBorder(Color(white: 0.4), lineWidth: 2)
+                    .foregroundColor(Color.clear)
+                Text("PROGRESS TRACKER")
+                    .fontWeight(.heavy)
+                    .foregroundColor(Color(white: 0.4))
+            } .frame(width: 230, height: 50)
+        }
+    }
+    
+    // MARK: - Refactoring common views
+    
+    var roundedRectangleBase: some View {
+        RoundedRectangle(cornerRadius: 25)
+            .strokeBorder(.gray, lineWidth: 4)
+            .background(RoundedRectangle(cornerRadius: 25).fill(.white))
+    }
+    
+    
 }
 
 
