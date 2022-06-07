@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - CGame View Tap Bar:
+
 struct CGameViewTapBar: View {
     @Binding var tabIndex: Int
     var body: some View {
@@ -21,7 +23,9 @@ struct CGameViewTapBar: View {
     }
     
     private func onButtonTapped(index: Int) {
-        withAnimation { tabIndex = index }
+        withAnimation {
+            tabIndex = index
+        }
     }
 }
 
@@ -40,6 +44,8 @@ struct CGameViewTapBarButton: View {
         }
     }
 }
+
+// MARK: - Progress View Tap Bar:
 
 struct ProgressTrackerViewTabBar: View {
     @Binding var tabIndex: Int

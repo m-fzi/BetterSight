@@ -9,16 +9,16 @@ import SwiftUI
 
 @main
 struct BetterSightApp: App {
-    @StateObject var gameLeft = CGame(gameID: "left")
-    @StateObject var gameRight = CGame(gameID: "right")
-    @StateObject var gameBoth = CGame(gameID: "both")
+    @StateObject var game = CGame()
     @StateObject var settings = CSettings()
     @StateObject var progress = ProgressTracker()
+    
 
     
     var body: some Scene {
         WindowGroup {
-            MainView(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth)
+            MainView()
+                .environmentObject(game)
                 .environmentObject(settings)
                 .environmentObject(progress)
         }

@@ -12,9 +12,9 @@ struct CLetter: Codable {
         case right, up, left, down
     }
     
-    var size: Double = CSettings().settingComponents.rawCSizeAtStart
-    var roundUpSize: Double = CSettings().settingComponents.rawCSizeAtStart
-    var shrinkageRate: Double = CSettings().settingComponents.rawShrinkageRate
+    var size: Double = LetterConstants.size
+    var roundUpSize: Double = LetterConstants.size
+    var shrinkageRate: Double = LetterConstants.shrinkageRate
     var rotation: Double = 0
     var direction: Direction {
         if rotation == 0 { return .right }
@@ -29,5 +29,13 @@ struct CLetter: Codable {
     var isMoving = false
     var wrongAnswerCount = 0
     var round = 0
-    var text = "K"
+    var text = "A"
+}
+
+// When app launches for first time-Settings view is not dissmissed yet-, we will be able to keep sync between settings and default letter constants.
+struct LetterConstants {
+    static let size: Double = 300
+    static let shrinkageRate: Double = 0.8
+    static let rawSize: Double = 4
+    static let rawShrinkageRate = "Medium"
 }

@@ -11,32 +11,17 @@ import SwiftUI
 struct CGameView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @ObservedObject var gameLeft: CGame
-    @ObservedObject var gameRight: CGame
-    @ObservedObject var gameBoth: CGame
-    @EnvironmentObject var progress: ProgressTracker
+    @EnvironmentObject var game: CGame
     @EnvironmentObject var settings: CSettings
+    @EnvironmentObject var progress: ProgressTracker
+    
+    @StateObject var speechRecognizer = SpeechRecognizer()
     
     @State private var checkMarkSize = 300.0
     @State private var xMarkSize = 300.0
     @State private var checkMarkOpacity = 0.0
     @State private var xMarkOpacity = 0.0
-    
-    @StateObject var speechRecognizer = SpeechRecognizer()
-    
-//    var successPlayer = SoundPlayer(of: "success", ext: "mp3")
-//    var failurePlayer: SoundPlayer = { SoundPlayer(of: "failure", ext: "m4a") }()
-//    var dingPlayer = SoundPlayer(of: "ding", ext: "mp3")
-    
-    private var tabIndex: Int { settings.settingComponents.activeGameTabIndex }
-    private var game: CGame {
-        switch tabIndex {
-        case 0: return gameLeft
-        case 1: return gameRight
-        default: return gameBoth
-        }
-    }
-    
+   
     var body: some View {
         GeometryReader { geo in
             VStack {
@@ -44,27 +29,28 @@ struct CGameView: View {
                     .padding()
                     .frame(height: geo.size.height/10)
                     .background(Color(white: 0.8))
-                    
-
+                
                 ZStack {
-                    CGameBody(game: game)
+                    CGameBody()
                     xMark
                     checkMark
                 }
-                if !settings.settingComponents.gameModeOnSpeech {
+                if settings.settingComponents.cGameOnSpeech || settings.settingComponents.gameIsSnellen{
+                    speechGround
+                        .frame(width: geo.size.width, height: geo.size.height / 6)
+                        .background(Color(white: 0.9))
+                } else {
                     controlGround
                         .foregroundColor(.gray)
                         .frame(width: geo.size.width, height: geo.size.height / 5)
                         .opacity(0.4)
-                } else {
-                    speechGround
-                        .frame(width: geo.size.width, height: geo.size.height / 6)
-                        .background(Color(white: 0.9))
                 }
             }
         }
         .navigationBarHidden(true)
     }
+    
+    // MARK: - Subviews
     
     var gameHeader: some View {
         VStack {
@@ -76,8 +62,7 @@ struct CGameView: View {
                 }
                 scoreView
             }
-            
-            CGameViewTapBar(tabIndex: $settings.settingComponents.activeGameTabIndex)
+            CGameViewTapBar(tabIndex: $game.activeTabIDX)
         }
     }
     
@@ -99,10 +84,8 @@ struct CGameView: View {
             if settings.settingComponents.soundOn {
                 playSound(name: "ding", ext: "mp3")
             }
-            progress.addSession(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth)
-            gameLeft.restart()
-            gameRight.restart()
-            gameBoth.restart()
+//            progress.addSession(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth)
+            game.restart()
             if listeningIsActive { stopListening() }
             
         } label: {
@@ -130,6 +113,8 @@ struct CGameView: View {
         .padding(.leading)
         .foregroundColor(Color(white: 0.4))
     }
+    
+    // MARK: - Manuel
     
     var controlGround: some View {
         GeometryReader { geo in
@@ -166,6 +151,8 @@ struct CGameView: View {
             }
         }
     }
+    
+    // MARK: - Speech (for Snellen and C)
     
     private func stopListening() {
         speechRecognizer.stopTranscribing()
@@ -241,7 +228,7 @@ struct CGameView: View {
         
     
     private func calculateSpeechAnswer(transcript: String) {
-        if !settings.settingComponents.gameIsSnellen {
+        if settings.settingComponents.cGameOnSpeech && !settings.settingComponents.gameIsSnellen {
             if transcript == "UP" {
                 game.chooseDirection(direction: .up)
                 showResponse()
@@ -262,11 +249,9 @@ struct CGameView: View {
             }
         }
     }
-    
-    private func calculateSpeechAnswerForSnellen(letterTranscript: String) {
-        
-    }
 
+    // MARK: - Show response:
+    
     var checkMark: some View {
         Image(systemName: "checkmark.square.fill")
             .resizable()
@@ -276,7 +261,7 @@ struct CGameView: View {
             .frame(width: checkMarkSize, height: checkMarkSize)
             .opacity(checkMarkOpacity)
     }
-    
+ 
     var xMark: some View {
         Image(systemName: "xmark.square.fill")
             .resizable()

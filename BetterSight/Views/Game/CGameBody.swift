@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CGameBody: View {
     
-    @ObservedObject var game: CGame
+    @EnvironmentObject var game: CGame
     @EnvironmentObject var settings: CSettings
     
     @State private var showingInGameSettings = false
@@ -32,7 +32,7 @@ struct CGameBody: View {
                     } message: {
                         Text("InGame Settings")
                     }
-                    .id(game.gameID)
+                    .id(game.activeTabIDX) // For transition.
                     .transition(rollTransition(geometry: geo))
             }
         }
@@ -57,12 +57,8 @@ struct CGameBody: View {
     
     func rollTransition(geometry: GeometryProxy) -> AnyTransition {
         var offsetAmount = geometry.size.width
-        if game.gameID == "left" {
+        if (game.activeTabIDX == 0) || (game.activeTabIDX == 1 && game.formerTabIDX == 2) {
             offsetAmount = -offsetAmount
-        } else if game.gameID == "right" {
-            if settings.settingComponents.oldTabIndex == 2 {
-                offsetAmount = -offsetAmount
-            }
         }
         return AnyTransition.asymmetric(
                 insertion: .offset(x: offsetAmount, y: 0),
@@ -73,6 +69,7 @@ struct CGameBody: View {
 
 struct SnellenLetter: View {
     @EnvironmentObject var settings: CSettings
+    
     var letter: CLetter
     
     var body: some View {
@@ -83,6 +80,9 @@ struct SnellenLetter: View {
             
     }
 }
+
+
+
 
 //struct NewCView_Previews: PreviewProvider {
 //    static var previews: some View {

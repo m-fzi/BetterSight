@@ -9,31 +9,44 @@ import Foundation
 import SwiftUI
 
 class CGame: ObservableObject {
-    
-    @Published var letter = CLetter() {
+    @Published var letters: [CLetter] {
         didSet { scheduleAutosave() }
     }
+   
+    @Published var activeTabIDX: Int = 0 {
+        didSet {
+            formerTabIDX = oldValue
+            saveActiveTabState()
+        }
+    }
+    var formerTabIDX = 0
     
-    init(gameID: String) {
-        self.gameID = gameID
+    var letter: CLetter {
+        get {
+            switch activeTabIDX {
+            case 0: return letters[0]
+            case 1: return letters[1]
+            case 2: return letters[2]
+            default: return letters[0]
+            }
+        } set {
+            switch activeTabIDX {
+            case 0: letters[0] = newValue
+            case 1: letters[1] = newValue
+            case 2: letters[2] = newValue
+            default: letters[0] = newValue
+            }
+        }
+    }
+    
+    init() {
+        letters = [CLetter(), CLetter(), CLetter()]
         restoreCurrentState()
     }
     
-    var gameID: String
+    // MARK: - AutoSave
     private var userDefaultsKey: String {
-        "currentGame" + gameID
-    }
-    
-    private func saveCurrentState() {
-        UserDefaults.standard.set(try? JSONEncoder().encode(letter), forKey: userDefaultsKey)
-    }
-    
-    private func restoreCurrentState() {
-        if let data = UserDefaults.standard.data(forKey: userDefaultsKey) {
-           if let decodedData = try? JSONDecoder().decode(CLetter.self, from: data) {
-               letter = decodedData
-           }
-        }
+        "currentGame"
     }
     
     private var autosaveTimer: Timer?
@@ -44,15 +57,51 @@ class CGame: ObservableObject {
         }
     }
     
+    private func saveCurrentState() {
+        UserDefaults.standard.set(try? JSONEncoder().encode(letters), forKey: userDefaultsKey)
+    }
+    
+    private func restoreCurrentState() {
+        getActiveTabState()
+        if let data = UserDefaults.standard.data(forKey: userDefaultsKey) {
+            if let decodedData = try? JSONDecoder().decode([CLetter].self, from: data) {
+                letters = decodedData
+            }
+        } else {
+            // Initiate from start
+            letters = [CLetter(), CLetter(), CLetter()]
+        }
+    }
+    
+    func saveActiveTabState() {
+        UserDefaults.standard.set(activeTabIDX, forKey: userDefaultsKey+"activeTabState")
+    }
+    // Returns 0 if can't find a state.
+    func getActiveTabState() {
+        let data = UserDefaults.standard.integer(forKey: userDefaultsKey+"activeTabState")
+        activeTabIDX = data
+    }
+
+    
+    // MARK: - Settings:
+
+    var settings: SettingComponents?
+    
+    func updateSettings(_ newSettings: SettingComponents) {
+        for i in 0..<letters.count {
+            letters[i].roundUpSize = newSettings.cSizeAtStart
+            letters[i].shrinkageRate = newSettings.shrinkageRate
+        }
+    }
+    
+    
+    
+    //MARK: - Intent(s)
     
     var correctResponseTrigger = false
     var wrongResponseTrigger = false
     var fetchedGeometry: GeometryProxy?
-//    var roundUpTrigger = false
-    
-    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    
-    //MARK: - Indent(s)
+    let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     
     func chooseDirection(direction: CLetter.Direction) {
         resetTriggers()
@@ -82,7 +131,6 @@ class CGame: ObservableObject {
         } else if letter.size < 8 {
             roundUp()
         }
-  
         correctResponseTrigger = true
     }
     
@@ -92,7 +140,7 @@ class CGame: ObservableObject {
     }
     
     private func correctAnswerForSnellen() {
-        letter.text = String(letters.randomElement() ?? "A")
+        letter.text = String(alphabet.randomElement() ?? "A")
         
         if !letter.isFrozen && letter.size >= 8 {
             letter.size = letter.size * letter.shrinkageRate
@@ -106,10 +154,10 @@ class CGame: ObservableObject {
     private func roundUp() {
         letter.round += 1
         letter.size = letter.roundUpSize
-//        roundUpTrigger = true
     }
     
     func activateLetterMovement() {
+        // When deactivated, takes the letter to center.
         if letter.isMoving {
             letter.offsetX = 0
             letter.offsetY = 0
@@ -118,7 +166,9 @@ class CGame: ObservableObject {
     }
     
     func restart() {
-        letter = CLetter()
+        letter = CLetter(size: letter.roundUpSize,
+                         roundUpSize: letter.roundUpSize,
+                         shrinkageRate: letter.shrinkageRate)
     }
 
     func offsetCRandomly() {
@@ -131,6 +181,7 @@ class CGame: ObservableObject {
         letter.offsetY = y
     }
     
+    // Stops the shrinking after correct aswers.
     func freezeLetter() {
         letter.isFrozen.toggle()
     }
@@ -138,7 +189,8 @@ class CGame: ObservableObject {
     private func resetTriggers() {
         correctResponseTrigger = false
         wrongResponseTrigger = false
-//        roundUpTrigger = false
     }
     
 }
+
+
