@@ -19,39 +19,37 @@ class ProgressTracker: ObservableObject {
             sessions = try JSONDecoder().decode([WorkoutSession].self, from: data)
         } catch {
             sessions = Array<WorkoutSession>()
-            uniqueSessionID = 0
+            uniqueSessionIdOverAll = 0
         }
     }
     
     // MARK: - Intents:
-    private var uniqueSessionID = 0
-    private var uniqueSessionCounterForKind = 0
+    private var uniqueSessionIdOverAll = 0
+    private var uniqueSessionIdForKind = 0
     
     // kind: cames from activeTabIDX on game. 0-left, 1-right, 2-both, 3-basicGame
     func addSession(game: CGame) {
         calculateUniqueSessionIDs(game: game)
         
-        sessions.insert(WorkoutSession(roundAmount: game.letter.round, wrongAnswerCount: game.letter.wrongAnswerCount, kind: game.activeTabIDX, sessionCounter: uniqueSessionCounterForKind, id: uniqueSessionID), at: 0)
+        sessions.insert(WorkoutSession(roundAmount: game.letter.round, wrongAnswerCount: game.letter.wrongAnswerCount, kind: game.activeTabIDX, sessionCounter: uniqueSessionIdForKind, id: uniqueSessionIdOverAll), at: 0)
         
         save()
     }
     
     func calculateUniqueSessionIDs(game: CGame) {
-        uniqueSessionID = 0
-        uniqueSessionCounterForKind = 0
+        uniqueSessionIdOverAll = 0
+        uniqueSessionIdForKind = 0
         if sessions.count > 0 {
-            uniqueSessionID = sessions[0].id
+            uniqueSessionIdOverAll = sessions[0].id
             
             let filteredSessionsForKind = sessions.filter { $0.kind == game.activeTabIDX }
             if !filteredSessionsForKind.isEmpty {
-                print(filteredSessionsForKind[0].kind)
-                uniqueSessionCounterForKind = filteredSessionsForKind[0].sessionCounter
+                uniqueSessionIdForKind = filteredSessionsForKind[0].sessionCounter
             }
         }
-        uniqueSessionID += 1
-        uniqueSessionCounterForKind += 1
-        print(game.activeTabIDX)
-        
+        uniqueSessionIdOverAll += 1
+        uniqueSessionIdForKind += 1
+        print(uniqueSessionIdForKind)
     }
     
     func save() {
@@ -65,12 +63,12 @@ class ProgressTracker: ObservableObject {
     
     func clear() {
         sessions = [WorkoutSession]()
-        uniqueSessionID = 0
-        uniqueSessionCounterForKind = 0
+        uniqueSessionIdOverAll = 0
+        uniqueSessionIdForKind = 0
         save()
     }
     
-    // Identifying the 'to be removed' session because 'offsets' parameter the view passes in is index of selected kind. Not index of that session in the whole list of sessions.
+    // Identifying the 'to be removed' session because 'offsets' parameter the view passes in is index inside that selected kind. Not index of that session in the whole list of sessions.
     func remove(at offsets: IndexSet, sessionKind: Int) {
         let idOfToBeRemovedSession = sessions.filter { $0.kind == sessionKind }[offsets.last!].id
         sessions.removeAll(where: { $0.id == idOfToBeRemovedSession })

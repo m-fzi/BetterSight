@@ -62,7 +62,9 @@ struct CGameView: View {
                 }
                 scoreView
             }
-            CGameViewTapBar(tabIndex: $game.activeTabIDX)
+            if settings.settingComponents.gameModeIsStructured {
+                CGameViewTapBar(tabIndex: $game.activeTabIDX)
+            }
         }
     }
     

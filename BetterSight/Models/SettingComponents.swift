@@ -15,6 +15,7 @@ struct SettingComponents: Codable {
     var showingXmark = true
     var cGameOnSpeech = false
     var gameIsSnellen = false
+    var gameMode = "Basic" // false-Basic | true-Structured
     
     var cSizeAtStart: Double {
         get {
@@ -35,6 +36,15 @@ struct SettingComponents: Codable {
             case "Medium": return 0.8
             case "High": return 0.7
             default: return 0.8
+            }
+        }
+    }
+    var gameModeIsStructured: Bool {
+        get {
+            switch gameMode {
+            case "Basic": return false
+            case "Structured": return true
+            default: return true
             }
         }
     }

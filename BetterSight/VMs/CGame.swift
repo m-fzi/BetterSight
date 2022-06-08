@@ -13,7 +13,8 @@ class CGame: ObservableObject {
         didSet { scheduleAutosave() }
     }
    
-    @Published var activeTabIDX: Int = 0 {
+    // Setting to 3 by default. 3 means 'basic game' -> 4th letter. If game is structured this variable will be set by tabs. If not, it will be set to 3 when the settings sheet is dissmissed.
+    @Published var activeTabIDX: Int = 3 {
         didSet {
             formerTabIDX = oldValue
             saveActiveTabState()
@@ -27,6 +28,7 @@ class CGame: ObservableObject {
             case 0: return letters[0]
             case 1: return letters[1]
             case 2: return letters[2]
+            case 3: return letters[3]
             default: return letters[0]
             }
         } set {
@@ -34,13 +36,14 @@ class CGame: ObservableObject {
             case 0: letters[0] = newValue
             case 1: letters[1] = newValue
             case 2: letters[2] = newValue
-            default: letters[0] = newValue
+            case 3: letters[3] = newValue
+            default: letters[3] = newValue
             }
         }
     }
     
     init() {
-        letters = [CLetter(), CLetter(), CLetter()]
+        letters = [CLetter(), CLetter(), CLetter(), CLetter()]
         restoreCurrentState()
     }
     
@@ -65,11 +68,13 @@ class CGame: ObservableObject {
         getActiveTabState()
         if let data = UserDefaults.standard.data(forKey: userDefaultsKey) {
             if let decodedData = try? JSONDecoder().decode([CLetter].self, from: data) {
-                letters = decodedData
+                if decodedData.count == 4 {
+                    letters = decodedData
+                }
             }
         } else {
             // Initiate from start
-            letters = [CLetter(), CLetter(), CLetter()]
+            letters = [CLetter(), CLetter(), CLetter(), CLetter()]
         }
     }
     
@@ -91,6 +96,11 @@ class CGame: ObservableObject {
         for i in 0..<letters.count {
             letters[i].roundUpSize = newSettings.cSizeAtStart
             letters[i].shrinkageRate = newSettings.shrinkageRate
+        }
+        
+        if !newSettings.gameModeIsStructured { activeTabIDX = 3 }
+        else if newSettings.gameModeIsStructured, activeTabIDX == 3 {
+            activeTabIDX = 0
         }
     }
     

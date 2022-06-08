@@ -33,6 +33,13 @@ struct CSettingsView: View {
                         .putOnLeading()
                     shrinkagePicker
                         .padding(.bottom)
+                    
+                    Divider()
+                    Text("Game Mode:")
+                        .greyAndBolderWithPadding()
+                        .putOnLeading()
+                    gameModePicker
+                        .padding(.bottom)
                         .padding(.bottom)
                   
                     Divider()
@@ -66,6 +73,17 @@ struct CSettingsView: View {
     var shrinkagePicker: some View {
         Picker("Shrinkage Rate", selection: $settings.settingComponents.rawShrinkageRate) {
             ForEach(shrinkageRates, id: \.self) {
+                Text($0)
+            }
+        }
+        .pickerStyle(.segmented)
+        .colorMultiply(Color(white: 0.9))
+    }
+    
+    var gameModes = ["Basic", "Structured"]
+    var gameModePicker: some View {
+        Picker("Game Mode", selection: $settings.settingComponents.gameMode) {
+            ForEach(gameModes, id: \.self) {
                 Text($0)
             }
         }
