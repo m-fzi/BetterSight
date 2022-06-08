@@ -84,7 +84,7 @@ struct CGameView: View {
             if settings.settingComponents.soundOn {
                 playSound(name: "ding", ext: "mp3")
             }
-//            progress.addSession(gameLeft: gameLeft, gameRight: gameRight, gameBoth: gameBoth)
+            progress.addSession(game: game)
             game.restart()
             if listeningIsActive { stopListening() }
             

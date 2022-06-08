@@ -30,7 +30,7 @@
 		05BB131327E8E46D00159FB2 /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 05BB131127E8E46D00159FB2 /* success.mp3 */; };
 		05BB131427E8E46D00159FB2 /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 05BB131227E8E46D00159FB2 /* ding.mp3 */; };
 		05D1EE2D27E1AD02001D67E9 /* ProgressTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE2C27E1AD02001D67E9 /* ProgressTrackerView.swift */; };
-		05D1EE3127E21AA2001D67E9 /* WorkoutProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */; };
+		05D1EE3127E21AA2001D67E9 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3027E21AA2001D67E9 /* WorkoutSession.swift */; };
 		05D1EE3527E21FB8001D67E9 /* ProgressTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */; };
 		05D1EE3727E22519001D67E9 /* TapBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D1EE3627E22519001D67E9 /* TapBars.swift */; };
 		05E45C15284A0CD9004C929A /* TODOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E45C14284A0CD9004C929A /* TODOs.swift */; };
@@ -63,7 +63,7 @@
 		05BB131127E8E46D00159FB2 /* success.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = success.mp3; sourceTree = "<group>"; };
 		05BB131227E8E46D00159FB2 /* ding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ding.mp3; sourceTree = "<group>"; };
 		05D1EE2C27E1AD02001D67E9 /* ProgressTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTrackerView.swift; sourceTree = "<group>"; };
-		05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgress.swift; sourceTree = "<group>"; };
+		05D1EE3027E21AA2001D67E9 /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
 		05D1EE3427E21FB8001D67E9 /* ProgressTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTracker.swift; sourceTree = "<group>"; };
 		05D1EE3627E22519001D67E9 /* TapBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBars.swift; sourceTree = "<group>"; };
 		05E45C14284A0CD9004C929A /* TODOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOs.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 			children = (
 				05B6D68627D77D23002C3258 /* CLetter.swift */,
 				055DC9E028463994008C8190 /* SettingComponents.swift */,
-				05D1EE3027E21AA2001D67E9 /* WorkoutProgress.swift */,
+				05D1EE3027E21AA2001D67E9 /* WorkoutSession.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 			files = (
 				05E45C15284A0CD9004C929A /* TODOs.swift in Sources */,
 				0578165327E61E5300A3F7D5 /* FileManager-DocumentsDirectory.swift in Sources */,
-				05D1EE3127E21AA2001D67E9 /* WorkoutProgress.swift in Sources */,
+				05D1EE3127E21AA2001D67E9 /* WorkoutSession.swift in Sources */,
 				0578165527E6402800A3F7D5 /* Test.swift in Sources */,
 				059B274527F1777500658179 /* SpeechRecognizer.swift in Sources */,
 				05B6D68527D7234A002C3258 /* CSettingsView.swift in Sources */,

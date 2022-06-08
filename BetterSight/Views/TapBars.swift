@@ -51,14 +51,12 @@ struct ProgressTrackerViewTabBar: View {
     @Binding var tabIndex: Int
     var body: some View {
         HStack(spacing: 0) {
-            ProgressViewTabBarButton(text: "All", isSelected: .constant(tabIndex == 0))
+            ProgressViewTabBarButton(text: "Left", isSelected: .constant(tabIndex == 0))
                 .onTapGesture { onButtonTapped(index: 0) }
-            ProgressViewTabBarButton(text: "Left", isSelected: .constant(tabIndex == 1))
+            ProgressViewTabBarButton(text: "Right", isSelected: .constant(tabIndex == 1))
                 .onTapGesture { onButtonTapped(index: 1) }
-            ProgressViewTabBarButton(text: "Right", isSelected: .constant(tabIndex == 2))
+            ProgressViewTabBarButton(text: "Both", isSelected: .constant(tabIndex == 2))
                 .onTapGesture { onButtonTapped(index: 2) }
-            ProgressViewTabBarButton(text: "Both", isSelected: .constant(tabIndex == 3))
-                .onTapGesture { onButtonTapped(index: 3) }
         }
     }
     

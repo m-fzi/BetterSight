@@ -7,8 +7,7 @@
 
 // MARK: - TODOs:
 
-// Fix progress.
-// Why am I initializing sessions on WorkoutProgress model.
+// Fix progress .ondelete.
 // Add general game mode.
 
 // TabView alternative for CGameView and ProgressView.

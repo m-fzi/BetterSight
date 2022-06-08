@@ -19,10 +19,10 @@ struct ProgressTrackerView: View {
             ProgressTrackerViewTabBar(tabIndex: $tabIndex)
             
             switch tabIndex {
-            case 1: leftProgressView
-            case 2: rightProgressView
-            case 3: bothProgressView
-            default: allProgressView
+            case 0: leftProgressView
+            case 1: rightProgressView
+            case 2: bothProgressView
+            default: leftProgressView
             }
         }
         .navigationTitle("Workout History")
@@ -58,44 +58,16 @@ struct ProgressTrackerView: View {
     }
     
     func deleteSession(at offsets: IndexSet) {
-        progress.remove(at: offsets)
-    }
-    
-    var allProgressView: some View {
-        Form {
-            ForEach(progress.sessions) { session in
-                Section(header: Text("Workout Session \(session.id)")) {
-                    List {
-                        HStack {
-                            Text("Both:")
-                                .fontWeight(.heavy)
-                            Text("\(session.bothWrongAnswerCount) wrong anwers in \(session.bothRoundAmount) rounds")
-                        }
-                        HStack {
-                            Text("Left:")
-                                .fontWeight(.heavy)
-                            Text("\(session.leftWrongAnswerCount) wrong anwers in \(session.leftRoundAmount) rounds")
-                        }
-                        HStack {
-                            Text("Right:")
-                                .fontWeight(.heavy)
-                            Text("\(session.rightWrongAnswerCount) wrong anwers in \(session.rightRoundAmount) rounds")
-                        }
-                    }
-                }
-            }
-            .onDelete(perform: deleteSession)
-        }
-        
+        progress.remove(at: offsets, sessionKind: tabIndex)
     }
     
     var leftProgressView: some View {
         Form {
-            ForEach(progress.sessions) { session in
+            ForEach(progress.sessions.filter { $0.kind == 0 }) { session in
                 HStack {
-                    Text("\(session.leftWrongAnswerCount) wrong answers in \(session.leftRoundAmount) rounds")
+                    Text("\(session.wrongAnswerCount) wrong answers in \(session.roundAmount) rounds")
                     Spacer()
-                    Text("Session \(session.id)")
+                    Text("Session \(session.sessionCounter)")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -106,11 +78,11 @@ struct ProgressTrackerView: View {
     
     var rightProgressView: some View {
         Form {
-            ForEach(progress.sessions) { session in
+            ForEach(progress.sessions.filter { $0.kind == 1 }) { session in
                 HStack {
-                    Text("\(session.rightWrongAnswerCount) wrong answers in \(session.rightRoundAmount) rounds")
+                    Text("\(session.wrongAnswerCount) wrong answers in \(session.roundAmount) rounds")
                     Spacer()
-                    Text("Session \(session.id)")
+                    Text("Session \(session.sessionCounter)")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -121,11 +93,11 @@ struct ProgressTrackerView: View {
     
     var bothProgressView: some View {
         Form {
-            ForEach(progress.sessions) { session in
+            ForEach(progress.sessions.filter { $0.kind == 2 }) { session in
                 HStack {
-                    Text("\(session.bothWrongAnswerCount) wrong answers in \(session.bothRoundAmount) rounds")
+                    Text("\(session.wrongAnswerCount) wrong answers in \(session.roundAmount) rounds")
                     Spacer()
-                    Text("Session \(session.id)")
+                    Text("Session \(session.sessionCounter)")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }

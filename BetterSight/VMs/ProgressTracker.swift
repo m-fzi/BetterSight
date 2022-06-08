@@ -10,34 +10,48 @@ import SwiftUI
 
 class ProgressTracker: ObservableObject {
     
-    @Published private(set) var progressModel = WorkoutProgress()
+    @Published private(set) var sessions = [WorkoutSession]()
     
     let pathOfSavedProgress = FileManager.documentsDirectory.appendingPathComponent("SavedProgress")
     init() {
         do {
             let data = try Data(contentsOf: pathOfSavedProgress)
-            progressModel.sessions = try JSONDecoder().decode([WorkoutProgress.WorkoutSession].self, from: data)
+            sessions = try JSONDecoder().decode([WorkoutSession].self, from: data)
         } catch {
-            progressModel.sessions = Array<WorkoutProgress.WorkoutSession>()
+            sessions = Array<WorkoutSession>()
             uniqueSessionID = 0
         }
     }
     
-    var sessions: Array<WorkoutProgress.WorkoutSession> {
-        progressModel.sessions
-    }
-
-    
     // MARK: - Intents:
     private var uniqueSessionID = 0
-    func addSession(gameLeft: CGame, gameRight: CGame, gameBoth: CGame) {
-        if progressModel.sessions.count > 0 {
-            uniqueSessionID = sessions[0].id
-        }
-        uniqueSessionID += 1
-        progressModel.addSession(bothRoundAmount: gameBoth.letter.round, bothWrongAnswerCount: gameBoth.letter.wrongAnswerCount, leftRoundAmount: gameLeft.letter.round, leftWrongAnswerCount: gameLeft.letter.wrongAnswerCount, rightRoundAmount: gameRight.letter.round, rightWrongAnswerCount: gameRight.letter.wrongAnswerCount, id: uniqueSessionID)
+    private var uniqueSessionCounterForKind = 0
+    
+    // kind: cames from activeTabIDX on game. 0-left, 1-right, 2-both, 3-basicGame
+    func addSession(game: CGame) {
+        calculateUniqueSessionIDs(game: game)
+        
+        sessions.insert(WorkoutSession(roundAmount: game.letter.round, wrongAnswerCount: game.letter.wrongAnswerCount, kind: game.activeTabIDX, sessionCounter: uniqueSessionCounterForKind, id: uniqueSessionID), at: 0)
         
         save()
+    }
+    
+    func calculateUniqueSessionIDs(game: CGame) {
+        uniqueSessionID = 0
+        uniqueSessionCounterForKind = 0
+        if sessions.count > 0 {
+            uniqueSessionID = sessions[0].id
+            
+            let filteredSessionsForKind = sessions.filter { $0.kind == game.activeTabIDX }
+            if !filteredSessionsForKind.isEmpty {
+                print(filteredSessionsForKind[0].kind)
+                uniqueSessionCounterForKind = filteredSessionsForKind[0].sessionCounter
+            }
+        }
+        uniqueSessionID += 1
+        uniqueSessionCounterForKind += 1
+        print(game.activeTabIDX)
+        
     }
     
     func save() {
@@ -45,18 +59,21 @@ class ProgressTracker: ObservableObject {
             let data = try JSONEncoder().encode(sessions)
             try data.write(to: pathOfSavedProgress, options: [.atomic, .completeFileProtection])
         } catch {
-            print("unable to save data")
+            print("Unable to save data.")
         }
     }
     
     func clear() {
-        progressModel.sessions = [WorkoutProgress.WorkoutSession]()
+        sessions = [WorkoutSession]()
         uniqueSessionID = 0
+        uniqueSessionCounterForKind = 0
         save()
     }
     
-    func remove(at offsets: IndexSet) {
-        progressModel.sessions.remove(atOffsets: offsets)
+    // Identifying the 'to be removed' session because 'offsets' parameter the view passes in is index of selected kind. Not index of that session in the whole list of sessions.
+    func remove(at offsets: IndexSet, sessionKind: Int) {
+        let idOfToBeRemovedSession = sessions.filter { $0.kind == sessionKind }[offsets.last!].id
+        sessions.removeAll(where: { $0.id == idOfToBeRemovedSession })
         save()
     }
     
