@@ -82,7 +82,7 @@ struct CSettingsView: View {
     
     var gameModes = ["Basic", "Structured"]
     var gameModePicker: some View {
-        Picker("Game Mode", selection: $settings.settingComponents.gameMode) {
+        Picker("Workout Mode", selection: $settings.settingComponents.gameMode) {
             ForEach(gameModes, id: \.self) {
                 Text($0)
             }

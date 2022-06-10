@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     @State private var showingCSettings = false
     @State private var showingInfoSheet = false
+    @State private var moveViewTo: String?
     
     @EnvironmentObject var game: CGame
     @EnvironmentObject var settings: CSettings
@@ -68,11 +69,11 @@ struct MainView: View {
     }
     
     var versionScript: some View {
-        Text("Version 3.0")
+        Text("Version 3.1")
             .font(.custom("Chalkboard SE Bold", size: 15))
             .foregroundColor(Color(white: 0.5))
     }
-
+        
     var cGameButton: some View {
         GeometryReader { geometry in
             ZStack {
@@ -80,11 +81,16 @@ struct MainView: View {
                 HStack {
                     ZStack {
                         Color.clear
-                        NavigationLink(destination: CGameView()) {
-                            HStack {
+                        Button {
+                            settings.settingComponents.gameIsSnellen = false
+                            moveViewTo = "MoveItToCGame"
+                        } label: {
+                            ZStack {
+                                NavigationLink(destination: CGameView(), tag: "MoveItToCGame", selection: $moveViewTo){ EmptyView() }
                                 Text("C Workout")
                                     .font(.custom("OpticianSans-Regular", size: 30))
                                     .fontWeight(.bold)
+                                    .foregroundColor(.black)
                             }
                         }
                     }
@@ -96,7 +102,6 @@ struct MainView: View {
                         .clipped()
                 }
             }
-            .foregroundColor(.black)
         }
     }
     
@@ -141,15 +146,14 @@ struct MainView: View {
         )
     }
     
-    @State private var moveViewTo: String?
     private var snellenGameButton: some View {
         Button {
             settings.settingComponents.gameIsSnellen = true
-            moveViewTo = "MoveItToGame"
+            moveViewTo = "MoveItToSnellenGame"
         } label: {
             ZStack {
                 roundedRectangleBase
-                NavigationLink(destination: CGameView(), tag: "MoveItToGame", selection: $moveViewTo){ EmptyView() }
+                NavigationLink(destination: CGameView(), tag: "MoveItToSnellenGame", selection: $moveViewTo){ EmptyView() }
                 Text("Snellen Workout")
                     .font(.custom("OpticianSans-Regular", size: 30))
                     .fontWeight(.bold)
@@ -233,6 +237,7 @@ struct MainView: View {
     
     
 }
+
 
 
 

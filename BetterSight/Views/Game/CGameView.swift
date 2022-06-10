@@ -72,7 +72,6 @@ struct CGameView: View {
         Button {
             if listeningIsActive { stopListening() }
             self.presentationMode.wrappedValue.dismiss()
-            settings.settingComponents.gameIsSnellen = false
         } label: {
             Image(systemName: "square.grid.2x2.fill")
                 .resizable()
