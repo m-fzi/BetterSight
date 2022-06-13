@@ -79,12 +79,19 @@ class CGame: ObservableObject {
     }
     
     func saveActiveTabState() {
-        UserDefaults.standard.set(activeTabIDX, forKey: userDefaultsKey+"activeTabState")
+        UserDefaults.standard.set(try? JSONEncoder().encode(activeTabIDX), forKey: userDefaultsKey+"activeTabState")
     }
     // Returns 0 if can't find a state.
     func getActiveTabState() {
-        let data = UserDefaults.standard.integer(forKey: userDefaultsKey+"activeTabState")
-        activeTabIDX = data
+        
+        if let data = UserDefaults.standard.data(forKey: userDefaultsKey+"activeTabState") {
+            if let decodedData = try? JSONDecoder().decode(Int.self, from: data) {
+                activeTabIDX = decodedData
+            }
+        } else {
+            print("cant find the data")
+            activeTabIDX = 3
+        }
     }
 
     

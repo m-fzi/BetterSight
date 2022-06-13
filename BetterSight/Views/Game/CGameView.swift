@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CGameView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.isPresented) var isPresented: Bool
     
     @EnvironmentObject var game: CGame
     @EnvironmentObject var settings: CSettings
@@ -48,6 +49,7 @@ struct CGameView: View {
             }
         }
         .navigationBarHidden(true)
+        .onDisappear { if listeningIsActive { stopListening() } }
     }
     
     // MARK: - Subviews

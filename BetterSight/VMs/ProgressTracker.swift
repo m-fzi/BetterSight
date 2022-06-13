@@ -49,7 +49,6 @@ class ProgressTracker: ObservableObject {
         }
         uniqueSessionIdOverAll += 1
         uniqueSessionIdForKind += 1
-        print(uniqueSessionIdForKind)
     }
     
     func save() {
