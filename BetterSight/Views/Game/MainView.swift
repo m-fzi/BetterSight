@@ -234,8 +234,6 @@ struct MainView: View {
             .strokeBorder(.gray, lineWidth: 4)
             .background(RoundedRectangle(cornerRadius: 25).fill(.white))
     }
-    
-    
 }
 
 

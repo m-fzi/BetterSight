@@ -35,7 +35,7 @@ struct CSettingsView: View {
                         .padding(.bottom)
                     
                     Divider()
-                    Text("Game Mode:")
+                    Text("Workout Mode:")
                         .greyAndBolderWithPadding()
                         .putOnLeading()
                     gameModePicker

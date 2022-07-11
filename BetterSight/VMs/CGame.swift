@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 class CGame: ObservableObject {
+    
+    // Because CLetter is a struct, changing a property of it changes the whole letter which triggers didSet for this array.
     @Published var letters: [CLetter] {
         didSet { scheduleAutosave() }
     }
@@ -20,6 +22,7 @@ class CGame: ObservableObject {
             saveActiveTabState()
         }
     }
+    // Tracking this for proper view transition when tabs are switched.
     var formerTabIDX = 0
     
     var letter: CLetter {
@@ -81,9 +84,8 @@ class CGame: ObservableObject {
     func saveActiveTabState() {
         UserDefaults.standard.set(try? JSONEncoder().encode(activeTabIDX), forKey: userDefaultsKey+"activeTabState")
     }
-    // Returns 0 if can't find a state.
+   
     func getActiveTabState() {
-        
         if let data = UserDefaults.standard.data(forKey: userDefaultsKey+"activeTabState") {
             if let decodedData = try? JSONDecoder().decode(Int.self, from: data) {
                 activeTabIDX = decodedData
@@ -110,9 +112,7 @@ class CGame: ObservableObject {
             activeTabIDX = 0
         }
     }
-    
-    
-    
+
     //MARK: - Intent(s)
     
     var correctResponseTrigger = false

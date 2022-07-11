@@ -7,14 +7,12 @@
 
 // MARK: - TODOs:
 
-// Fix progress .ondelete.
-// Add general game mode.
+// Fix speech permission alert
+// Implement speech error handling.
 
-// TabView alternative for CGameView and ProgressView.
-// Navigation with swipe gestures (from game and progress views to main view && on tab views).
+// Swipe to change game in structured mode.
+// Make expandable tabs.
 
-// SpeechRecognizer optimization. (e.g: Handling errors)
-// Half page CSettingsView and InfoSheet.
-// Fetch privacyPolicy.md from internet.
+// Maybe restructure infoSheet
 
 // Fix audio player.

@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 struct WorkoutSession: Codable, Identifiable {
     var roundAmount: Int
     var wrongAnswerCount: Int

@@ -32,7 +32,7 @@ struct CLetter: Codable {
     var text = "A"
 }
 
-// When app launches for first time-Settings view is not dissmissed yet-, we will be able to keep sync between settings and default letter constants.
+// When the app launches for the first time-Settings view is not dissmissed yet-, we will be able to keep sync between settings and default letter constants.
 struct LetterConstants {
     static let size: Double = 300
     static let shrinkageRate: Double = 0.8
