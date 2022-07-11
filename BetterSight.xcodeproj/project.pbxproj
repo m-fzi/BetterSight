@@ -11,6 +11,7 @@
 		05114F4927E9F50A00837F10 /* Bradley Hand Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05114F4827E9F50A00837F10 /* Bradley Hand Bold.ttf */; };
 		05114F4D27E9F6B400837F10 /* Chalkboard.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 05114F4C27E9F6B400837F10 /* Chalkboard.ttc */; };
 		05114F4F27E9F72F00837F10 /* ChalkboardSE.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 05114F4E27E9F72F00837F10 /* ChalkboardSE.ttc */; };
+		051D4578287C638B00412695 /* HelloTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051D4577287C638B00412695 /* HelloTest.swift */; };
 		052367F727A947B100765B66 /* OpticianSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 052367F627A947B100765B66 /* OpticianSans-Regular.otf */; };
 		052CA70028534607009BF6B5 /* SwipeBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052CA6FF28534607009BF6B5 /* SwipeBack.swift */; };
 		0532C42F27A7EAE000F081E2 /* BetterSightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532C42E27A7EAE000F081E2 /* BetterSightApp.swift */; };
@@ -43,6 +44,7 @@
 		05114F4827E9F50A00837F10 /* Bradley Hand Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bradley Hand Bold.ttf"; sourceTree = "<group>"; };
 		05114F4C27E9F6B400837F10 /* Chalkboard.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chalkboard.ttc; sourceTree = "<group>"; };
 		05114F4E27E9F72F00837F10 /* ChalkboardSE.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChalkboardSE.ttc; sourceTree = "<group>"; };
+		051D4577287C638B00412695 /* HelloTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloTest.swift; sourceTree = "<group>"; };
 		052367F627A947B100765B66 /* OpticianSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpticianSans-Regular.otf"; sourceTree = "<group>"; };
 		052CA6FF28534607009BF6B5 /* SwipeBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBack.swift; sourceTree = "<group>"; };
 		0532C42B27A7EAE000F081E2 /* BetterSight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterSight.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 			children = (
 				0532C44327A7EC7B00F081E2 /* Info.plist */,
 				0532C42E27A7EAE000F081E2 /* BetterSightApp.swift */,
+				051D4577287C638B00412695 /* HelloTest.swift */,
 				055DC9DC2846332B008C8190 /* Views */,
 				055DC9DE28463337008C8190 /* VMs */,
 				055DC9DD28463332008C8190 /* Models */,
@@ -290,6 +293,7 @@
 				057ED24827DB428C005EDBD4 /* CSettings.swift in Sources */,
 				05D1EE3727E22519001D67E9 /* TapBars.swift in Sources */,
 				05D1EE3527E21FB8001D67E9 /* ProgressTracker.swift in Sources */,
+				051D4578287C638B00412695 /* HelloTest.swift in Sources */,
 				05B6D68727D77D23002C3258 /* CLetter.swift in Sources */,
 				0532C43F27A7EB2800F081E2 /* CGameBody.swift in Sources */,
 				05BAF4BB27C3ACCE00CA1416 /* InfoSheet.swift in Sources */,
