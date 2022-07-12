@@ -6,5 +6,5 @@
 //
 
 import Foundation
-hi
-hi theSecond
+// hi
+// hi theSecond
